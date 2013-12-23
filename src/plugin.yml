@@ -1,0 +1,19 @@
+name: EdgeCraft
+version: 2.3
+author: Panjab
+website: http://edgecraft.de
+
+main: net.edgecraft.edgecraft.EdgeCraft
+
+commands:
+    db:
+      description: Database Command
+    language:
+      description: Language Command
+    system:
+      description: System Command
+    user:
+      description: User Command
+    who:
+      description: Who Command
+      aliases: ['list']
