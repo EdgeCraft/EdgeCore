@@ -22,6 +22,7 @@ public class ListCommand implements CommandExecutor {
 		}
 		
 		Player player = (Player) sender;
+		
 		User user = this.userManager.getUser(player.getName());
 		
 		player.sendMessage(this.userManager.getUserList(user.getLanguage()));

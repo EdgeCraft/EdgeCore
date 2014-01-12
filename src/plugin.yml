@@ -8,8 +8,10 @@ main: net.edgecraft.edgecraft.EdgeCraft
 commands:
     db:
       description: Database Command
+      aliases: ['database', 'sql']
     language:
       description: Language Command
+      aliases: ['lang']
     system:
       description: System Command
     user:

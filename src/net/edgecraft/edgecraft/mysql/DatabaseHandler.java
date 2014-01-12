@@ -181,7 +181,7 @@ public class DatabaseHandler {
 	 */
 	public synchronized List<Map<String, Object>> getResults(String sql) throws Exception {
 		
-		if (this.connection == null) throw new Exception("There's no active database connection!\n");
+		if (this.connection == null) throw new Exception("No active database connection found!\n");
 		
 		List<Map<String, Object>> columns = new ArrayList<>();
 		

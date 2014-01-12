@@ -2,6 +2,8 @@ package net.edgecraft.edgecraft;
 
 import java.util.logging.Logger;
 
+import net.edgecraft.edgecraft.chat.ChatHandler;
+import net.edgecraft.edgecraft.chat.ManageChatEvent;
 import net.edgecraft.edgecraft.classes.UserManager;
 import net.edgecraft.edgecraft.commands.DatabaseCommand;
 import net.edgecraft.edgecraft.commands.LanguageCommand;
@@ -26,8 +28,11 @@ public class EdgeCraft extends JavaPlugin {
 	public static final EdgeCraftSystem system = new EdgeCraftSystem();
 	public static final UserManager manager = new UserManager();
 	public static final LanguageHandler lang = new LanguageHandler();
+	public static final ChatHandler chat = new ChatHandler();
 	private final ConfigHandler configHandler = new ConfigHandler(this);
-	  
+	
+	public static String currency;
+	
 	@Override
 	public void onDisable() {
 	    log.info("[EdgeCraft] Das Plugin wird gestoppt..");
@@ -51,12 +56,14 @@ public class EdgeCraft extends JavaPlugin {
 	    db.loadConnection();
 
 	    manager.synchronizeUsers();
-	    system.startTimer();		
+	    system.startTimer();
+	    chat.enableChat(true);
 	}
 	
 	private void registerData() {
 	    getServer().getPluginManager().registerEvents(new RegisterUserEvent(), this);
 	    getServer().getPluginManager().registerEvents(new PlayerConnectionHandler(), this);
+	    getServer().getPluginManager().registerEvents(new ManageChatEvent(), this);
 
 	    getCommand("system").setExecutor(new SystemCommand());
 	    getCommand("db").setExecutor(new DatabaseCommand());

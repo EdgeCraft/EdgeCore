@@ -1,6 +1,8 @@
 package net.edgecraft.edgecraft.classes;
 
 import net.edgecraft.edgecraft.EdgeCraft;
+import net.edgecraft.edgecraft.chat.Channel;
+import net.edgecraft.edgecraft.chat.ChatHandler;
 import net.edgecraft.edgecraft.mysql.DatabaseHandler;
 
 import org.bukkit.Bukkit;
@@ -48,7 +50,6 @@ public class User {
 	 * Gibt das User-Level zurück
 	 * @return Integer
 	 */
-	@Deprecated
 	public int getLevel() {
 		return level;
 	}
@@ -86,11 +87,27 @@ public class User {
 	}
 	
 	/**
+	 * Gibt den Channel zurück, in welchem der Spieler schreibt
+	 * @return Channel
+	 */
+	public Channel getChannel() {
+		Channel c = null;
+		
+		for (Channel channel : ChatHandler.channels.values()) {
+			if (channel.isMember(this)) {
+				c = channel;
+				break;
+			}
+		}
+		
+		return  c;
+	}
+	
+	/**
 	 * Erneuert das User-Level in der Datenbank
 	 * @param level
 	 * @throws Exception
 	 */
-	@Deprecated
 	public void updateLevel(int level) throws Exception {
 		this.level = level;
 		this.db.executeUpdate("UPDATE edgecraft_users SET level = '" + level + "' WHERE id = '" + this.id + "';");

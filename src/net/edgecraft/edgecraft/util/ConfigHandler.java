@@ -24,10 +24,12 @@ public class ConfigHandler {
 	    this.config.addDefault("Database.User", "default");
 	    this.config.addDefault("Database.Password", "default");
 	    this.config.addDefault("Database.Database", "default");
-
+	    
 	    this.config.addDefault("Language.Default", "de");
 
 	    this.config.addDefault("User.DefaultLevel", Integer.valueOf(0));
+	    
+		this.config.addDefault("Economy.Currency", "$");	
 
 	    this.config.options().copyDefaults(true);
 	    this.plugin.saveConfig();
@@ -45,5 +47,7 @@ public class ConfigHandler {
 		LanguageHandler.defaultLanguage = this.config.getString("Language.Default");
 		
 		UserManager.defaultLevel = this.config.getInt("User.DefaultLevel");
+		
+		EdgeCraft.currency = this.config.getString("Economy.Currency");
 	}
 }

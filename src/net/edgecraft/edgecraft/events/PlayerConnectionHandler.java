@@ -18,7 +18,7 @@ public class PlayerConnectionHandler implements Listener {
 	private final UserManager userManager = EdgeCraft.manager;
 	private final LanguageHandler lang = EdgeCraft.lang;
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerLogin(PlayerJoinEvent event) {
 		
 		event.setJoinMessage("");
@@ -29,11 +29,12 @@ public class PlayerConnectionHandler implements Listener {
 				
 				User user = this.userManager.getUser(p.getName());
 				p.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "login").replace("[0]", player.getName()));
+				
 			}
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerLogout(PlayerQuitEvent event) {
 		
 		event.setQuitMessage("");
@@ -48,7 +49,7 @@ public class PlayerConnectionHandler implements Listener {
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.LOW)
+	@EventHandler
 	public void onBanCheck(PlayerJoinEvent e) {
 		
 		String joinIP = "";

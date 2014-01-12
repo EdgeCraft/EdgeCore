@@ -1,6 +1,8 @@
 package net.edgecraft.edgecraft.util;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,6 +15,7 @@ import org.w3c.dom.NodeList;
 public class LanguageHandler {
 	
 	public static String defaultLanguage;
+	public static List<String> messageList = new ArrayList<String>();
 	
 	public String getColoredMessage(String lang, String messageKey) {
 		return ChatColor.translateAlternateColorCodes('@', getRawMessage(lang, "message", messageKey));
@@ -36,7 +39,9 @@ public class LanguageHandler {
 	        if ((key != null) && (messageKey.equals(key.getNodeValue()))) {
 	        	
 	          Node valueNode = current.getAttributes().getNamedItem("value");
-	          return valueNode.getNodeValue().replace("[nl]", "\n");
+	          messageList.add(valueNode.getNodeValue());
+	          
+	          return valueNode.getNodeValue().replace("[nl]", "\n");	     
 	          
 	        }
 	      }
