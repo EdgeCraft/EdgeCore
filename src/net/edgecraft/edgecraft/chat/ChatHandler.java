@@ -9,11 +9,25 @@ import net.edgecraft.edgecraft.EdgeCraft;
 
 public class ChatHandler {
 	
-	public static int defaultMaxChannelMembers;
+	private static int defaultMaxChannelMembers;
 	public boolean chat;
 	
-	public static Map<Integer, Channel> channels = new HashMap<>();
+	private final static Map<Integer, Channel> channels = new HashMap<>();
 	
+	public int getDefaultMaxChannelMembers() {
+		return ChatHandler.defaultMaxChannelMembers;
+	}
+
+	public Map<Integer, Channel> getChannels() {
+		return ChatHandler.channels;
+	}
+
+
+	public void setDefaultMaxChannelMembers( int maxChannelMembers ) {
+		if( maxChannelMembers > 0 )
+			ChatHandler.defaultMaxChannelMembers = maxChannelMembers;
+	}
+
 	/**
 	 * Generiert temporär verwendbare Channel-ID
 	 * @return Integer

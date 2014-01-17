@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 public class ListCommand implements CommandExecutor {
 	
-	private final UserManager userManager = EdgeCraft.manager;
+	private final UserManager userManager = EdgeCraft.getUsers();
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		 

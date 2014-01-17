@@ -16,39 +16,88 @@ import net.edgecraft.edgecraft.EdgeCraft;
 
 public class DatabaseHandler {
 	
-	public static String host;
-	public static String user;
-	public static String pw;
-	public static String db;
+	public static final String DatabaseHost = "Database.Host";
+	public static final String DatabaseUser = "Database.User";
+	public static final String DatabasePW = "Database.Password";
+	public static final String DatabaseDB = "Database.Database";
+
+
+	private static String host;
+	private static String user;
+	private static String pw;
+	private static String db;
 	
-	private String unset = "default";
+	public static final String unset = "default";
 	
-	public Connection connection;
+	private Connection connection;
 	
+
+
+	public String getHost() {
+		return host;
+	}
+
+	public static getUser() {
+		return user;
+	}
+
+	public static getPW() {
+		return pw;
+	}
+
+	public static getDB() {
+		return db;
+	}
+
+	public static Connection getConnection() {
+		return connection;
+	}
+	
+
+
+	public static void setHost( String host ) {
+		if( host != null )
+			this.host = host;
+	}
+
+	public static void setUser( String user ) {
+		if( user != null )
+			this.user = user;
+	}
+
+	public static void setPW( String pw ) {
+		if( pw != null )
+			this.pw = pw;
+	}
+
+	public static void setDB ( String db ) {
+		if( db != null ) 
+			this.db = db;
+	}
+
+
+	public static void setConnection( Connection connection ) {
+		if( connection != null )
+			this.connection = connection;
+	}
+
+	public DatabaseHandler() {} // default
+
+
+	public DatabaseHandler( String host, String user, String pw, String db ) {
+
+		setHost( host );
+		setUser( user );
+		setPW( pw );
+		setDB( db );
+	}
+
+
 	/**
 	 * Erstellt eine Datenbank-Verbindung mit den in der Konfiguration angegebenen Werten
 	 */
 	public synchronized void loadConnection() {
-		try {
-			
-			EdgeCraft.log.info("[EdgeCraft] Baue Datenbankverbindung auf..");
-			
-			if ((host.equals(this.unset)) || (user.equals(this.unset)) || (pw.equals(this.unset)) || (db.equals(this.unset))) {
-				EdgeCraft.log.severe("[EdgeCraft] Fehlerhafte Werte! Kein Datenbankverbindung!");
-				return;
-			}
-			
-			if (!isAvailable()) closeConnection();
-			
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + db + "?user=" + user + "&password=" + pw);
-			
-			EdgeCraft.log.info("[EdgeCraft] Erfolgreich mit Datenbank '" + db + "' verbunden!");
-			
-		} catch(Exception e) {
-			EdgeCraft.log.severe("[EdgeCraft] Schwerer Fehler beim Vebrinden mit Datenbank '" + db + "'!");
-			e.printStackTrace();
-		}
+		loadConnection( getHost(), getUser(), getPW(), getDB() );
 	}
 	
 	/**
@@ -66,7 +115,7 @@ public class DatabaseHandler {
 			if (!isAvailable()) closeConnection();
 			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + db + "?user=" + user + "&password=" + pw);
+			setConnection( DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + db + "?user=" + user + "&password=" + pw) );
 			
 			EdgeCraft.log.info("[EdgeCraft] Erfolgreich mit Datenbank '" + db + "' verbunden!");
 			
@@ -81,8 +130,8 @@ public class DatabaseHandler {
 	 * @throws SQLException
 	 */
 	public void closeConnection() throws SQLException {
-		if (this.connection != null) {
-			this.connection.close();
+		if ( ifAvailable() ) {
+			getConnection().close();
 		}
 	}
 	
@@ -91,8 +140,8 @@ public class DatabaseHandler {
 	 * @return true/false
 	 * @throws Exception
 	 */
-	public boolean isAvailable() throws Exception {
-		return this.connection == null;
+	public boolean isAvailable() {
+		return getConnection() != null;
 	}
 	
 	/**
@@ -100,9 +149,8 @@ public class DatabaseHandler {
 	 * @param sql
 	 * @throws Exception
 	 */
-	public synchronized void executeQuery(String sql) throws Exception {
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-		statement.executeQuery();
+	public synchronized void executeQuery( String sql ) throws Exception {
+		getConnection().prepareStatement(sql).executeQuery();
 	}
 	
 	/**
@@ -110,11 +158,11 @@ public class DatabaseHandler {
 	 * @param sql
 	 * @throws Exception
 	 */
-	public synchronized void executeUpdate(String sql) throws Exception {
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-		statement.executeUpdate();
+	public synchronized void executeUpdate( String sql ) throws Exception {
+		getConnection().prepareStatement(sql).executeUpdate();
 	}
 	
+
 	/**
 	 * Gibt alle Datenbanken vom verwendeten Host aus
 	 * @return String
@@ -123,9 +171,8 @@ public class DatabaseHandler {
 	public synchronized String getDatabases() throws Exception {
 		
 		StringBuilder sb =  new StringBuilder();
-		
-		DatabaseMetaData metaData = this.connection.getMetaData();
-		ResultSet rs = metaData.getCatalogs();
+
+		ResultSet rs = getConnection().getMetaData().getCatalogs();
 		
 		while (rs.next()) {
 			if (sb.length() > 0) sb.append(", ");
@@ -141,11 +188,11 @@ public class DatabaseHandler {
 	 * @return true/false
 	 * @throws Exception
 	 */
-	public synchronized boolean existsDatabase(String db) throws Exception {
+	public synchronized boolean existsDatabase( String db ) throws Exception {
 		
-		DatabaseMetaData metaData = this.connection.getMetaData();
-		ResultSet rs = metaData.getCatalogs();
+		ResultSet rs = getConnection().getMetaData().getCatalogs();
 		
+
 		while (rs.next()) {
 			if (rs.getString(1).equalsIgnoreCase(db)) {
 				return true;
@@ -154,17 +201,16 @@ public class DatabaseHandler {
 		
 		return false;
 	}
-	
+
 	/**
 	 * Prüft, ob angegebene Tabelle existiert
 	 * @param table
 	 * @return true/false
 	 * @throws Exception
 	 */
-	public synchronized boolean existsTable(String table) throws Exception {
+	public synchronized boolean existsTable( String table ) throws Exception {
 		
-		DatabaseMetaData metaData = this.connection.getMetaData();
-		ResultSet tables = metaData.getTables(null, null, table, null);
+		ResultSet tables = getConnection().getMetaData().getTables( null, null, table, null );
 		
 		if (!tables.next()) {
 			return false;
@@ -179,14 +225,13 @@ public class DatabaseHandler {
 	 * @return List<Map<String, Object>>
 	 * @throws Exception
 	 */
-	public synchronized List<Map<String, Object>> getResults(String sql) throws Exception {
+	public synchronized List<Map<String, Object>> getResults( String sql ) throws Exception {
 		
-		if (this.connection == null) throw new Exception("No active database connection found!\n");
+		if ( !isAvailable() ) throw new Exception("No active database connection found!\n");
 		
 		List<Map<String, Object>> columns = new ArrayList<>();
 		
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-		ResultSet resultSet = statement.executeQuery();
+		ResultSet resultSet = getConnection().prepareStatement(sql).executeQuery();
 		ResultSetMetaData metaData = resultSet.getMetaData();
 		
 		int columnCount = metaData.getColumnCount();
@@ -204,4 +249,6 @@ public class DatabaseHandler {
 		
 		return columns;
 	}
+
+	
 }

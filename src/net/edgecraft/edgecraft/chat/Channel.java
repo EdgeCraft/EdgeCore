@@ -18,86 +18,68 @@ public class Channel {
 	private String admin;
 	private List<User> members = new ArrayList<User>();
 	
-	private final ChatHandler chatHandler = EdgeCraft.chat;
-	private final LanguageHandler lang = EdgeCraft.lang;
+	private final ChatHandler chatHandler = EdgeCraft.getChat();
+	private final LanguageHandler lang = EdgeCraft.getLang();
+
+	public static final String defaultAdmin = "Admin";
 	
 	public Channel(String name, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.maxMembers = ChatHandler.defaultMaxChannelMembers;
-		this.listed = listed;
-		this.admin = "Admin";
 		
-		ChatHandler.channels.put(getTempID(), this);
+		Channel( name, "", ChatHandler.getDefaultMaxChanellMembers(), Channel.defaultAdmin, null, listed );
 	}
 	
 	public Channel (String name, String password, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = ChatHandler.defaultMaxChannelMembers;
-		this.listed = listed;
-		this.admin = "Admin";
-		
-		ChatHandler.channels.put(getTempID(), this);
+
+		Channel( name, password, ChatHandler.defaultMaxChannelMembers, Channel.defaultAdmin, null, listed );
 	}
 	
 	public Channel(String name, String password, String admin, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = ChatHandler.defaultMaxChannelMembers;
-		this.admin = admin;
-		this.listed = listed;
-		
-		ChatHandler.channels.put(getTempID(), this);
+
+		Channel( name, password, ChatHandler.defaultMaxChannelMembers, admin, null, listed );
 	}
 	
 	public Channel(String name, String password, int maxMembers, String admin, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = maxMembers;
-		this.admin = admin;
-		this.listed = listed;
-		
-		ChatHandler.channels.put(getTempID(), this);
+
+		Channel( name, password, maxMembers, admin, null, listed );
 	}
 	
 	public Channel(String name, String password, int maxMembers, String admin, List<User> members, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = maxMembers;
-		this.admin = admin;
-		this.members = members;
-		this.listed = listed;
+
+		setTempID( chatHandler.generateChannelTempID() );
+		setName( name );
+		setPassword( password );
+		setMaxMembers( maxMembers );
+		setAdmin( admin );
+		setMembers( members );
+		setListed( listed );		
 		
-		ChatHandler.channels.put(getTempID(), this);
+		ChatHandler.getChannels().put(getTempID(), this);
 	}
 	
 	public Channel(String name, String password, String admin, List<User> members, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = members.size();
-		this.admin = admin;
-		this.members = members;
-		this.listed = listed;
-		
-		ChatHandler.channels.put(getTempID(), this);
+
+		Channel( name, password, members.size(), admin, members, listed );
 	}
 	
 	public Channel(String name, List<User> members, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.members = members;
-		this.listed = listed;
-		this.admin = "Admin";
-		
-		ChatHandler.channels.put(getTempID(), this);
+
+		Channel( name, null, -1, Channel.defaultAdmin, members, listed );
 	}
 	
+
+	public void setTempID( int tempID ) {
+		if( tempID >= 0 )
+			this.tempID = tempID;
+	}
+
+	public void setMembers( List<User> members ) {
+		if( members != null )
+			this.members = members;
+	}
+
+	
+
+
 	/**
 	 * Gibt Channel-ID zurück
 	 * @return Integer
@@ -268,34 +250,38 @@ public class Channel {
 	
 	/**
 	 * Ändert den Channel-Namen
-	 * @param newName
+	 * @param name
 	 */
-	public void changeName(String newName) {
-		this.name = newName;
+	public void setName(String name) {
+		if( name != null )
+			this.name = name;
 	}
 	
 	/**
 	 * Ändert das Channel-Passwort
-	 * @param newPassword
+	 * @param password
 	 */
-	public void changePassword(String newPassword) {
-		this.password = newPassword;
+	public void setPassword(String password) {
+		if( password != null )
+			this.password = password;
 	}
 	
 	/**
 	 * Ändert den Channel-Admin
-	 * @param newAdmin
+	 * @param admin
 	 */
-	public void switchAdmin(String newAdmin) {
-		this.admin = newAdmin;
+	public void setAdmin(String admin) {
+		if( admin != null )
+			this.admin = admin;
 	}
 	
 	/**
 	 * Ändert die Anzahl der maximaler Mitglieder im Channel
-	 * @param newAmount
+	 * @param maxMembers
 	 */
-	public void changeMaxMembers(int newAmount) {
-		this.maxMembers = newAmount;
+	public void setMaxMembers(int maxMembers) {
+		if( maxMembers > 0 )
+			this.maxMembers = maxMembers;
 	}
 	
 	/**

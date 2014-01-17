@@ -15,8 +15,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerConnectionHandler implements Listener {
 	
-	private final UserManager userManager = EdgeCraft.manager;
-	private final LanguageHandler lang = EdgeCraft.lang;
+	private final UserManager userManager = EdgeCraft.getUsers();
+	private final LanguageHandler lang = EdgeCraft.getLang();
 	
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerLogin(PlayerJoinEvent event) {

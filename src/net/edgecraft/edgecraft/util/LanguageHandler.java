@@ -14,9 +14,24 @@ import org.w3c.dom.NodeList;
 
 public class LanguageHandler {
 	
-	public static String defaultLanguage;
-	public static List<String> messageList = new ArrayList<String>();
+	private static String defaultLanguage;
+	private static List<String> messageList = new ArrayList<String>();
 	
+
+	public String getDefaultLanguage() {
+		return LanguageHandler.defaultLanguage;
+	}
+
+	public List<String> getMessageList() {
+		return LanguageHandler.messageList;
+	}
+
+
+	public void setDefaultLanguage( String defaultLanguage ) {
+		if( defaultLanguage != null )	
+			LanguageHandler.defaultLanguage = defaultLanguage;
+	}
+
 	public String getColoredMessage(String lang, String messageKey) {
 		return ChatColor.translateAlternateColorCodes('@', getRawMessage(lang, "message", messageKey));
 	}
@@ -56,9 +71,5 @@ public class LanguageHandler {
 	
 	public boolean exists(String language) {
 	    return new File("plugins/EdgeCraft/languages/lang_" + language + ".xml").exists();		
-	}
-	
-	public String getDefaultLanguage() {
-		return defaultLanguage;
 	}
 }

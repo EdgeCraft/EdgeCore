@@ -13,13 +13,34 @@ import org.bukkit.ChatColor;
 
 public class UserManager {
 	
-	public static Map<Integer, User> users = new HashMap<>();
-	public static List<String> bannedIPs = new ArrayList<>();
+	private static Map<Integer, User> users = new HashMap<>();
+	private static List<String> bannedIPs = new ArrayList<>();
 	
-	public static int defaultLevel;
+	private static int defaultLevel;
 	
-	private final DatabaseHandler db = EdgeCraft.db;
+	private final DatabaseHandler db = EdgeCraft.getDB();
 	
+
+
+	public Map<Integer, User> getUsers() {
+		return users;
+	}
+
+	public List<String> getBannedIPs() {
+		return bannedIPs;
+	}
+
+	public int getDefaultLevel() {
+		return defaultLevel();
+	}
+
+	
+	
+	public void setDefaultLevel( int defaultLevel ) {
+		if( defaultLevel >= 0 )
+			this.defaultLevel = defaultLevel;
+	}
+
 	public void registerUser(String name, String ip) {
 		try {
 			
@@ -35,6 +56,7 @@ public class UserManager {
 		}
 	}
 	
+
 	public void deleteUser(int id) {
 		try {
 			
@@ -53,9 +75,10 @@ public class UserManager {
 	}
 	
 	public int greatestID() throws Exception {
-		if (this.db.getResults("SELECT * FROM edgecraft_users ORDER BY id DESC LIMIT 1;").isEmpty()) return 1;
-		
-		Map<String, Object> greatestID = this.db.getResults("SELECT * FROM edgecraft_users ORDER BY id DESC LIMIT 1;").get(0);
+
+		Map<String, Object> greatestID = this.db.getResults("SELECT * FROM edgecraft_users ORDER BY id DESC LIMIT 1;");
+
+		if( greatestID.isEmpty() ) return true;
 		
 		return (int) greatestID.get("id");
 	}

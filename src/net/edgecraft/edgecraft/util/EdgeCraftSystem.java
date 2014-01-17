@@ -12,8 +12,8 @@ import org.bukkit.ChatColor;
 
 public class EdgeCraftSystem {
 
-	public String uptime;
-	public int overloadedMemoryAmount = 80;
+	private String uptime;
+	public static final int overloadedMemoryAmount = 80;
 	private final Runtime runtime = Runtime.getRuntime();
 
 	public void startTimer() {
@@ -47,10 +47,7 @@ public class EdgeCraftSystem {
 					this.days += 1;
 				}
 
-				uptime = (decimalFormat.format(days) + " Tage "
-						+ decimalFormat.format(hours) + " Std. "
-						+ decimalFormat.format(minutes) + " Min. "
-						+ decimalFormat.format(seconds) + " Sek.");
+				setUptime( decimalFormat.format(days) + " [d] " + decimalFormat.format(hours) + " [h] " + decimalFormat.format(minutes) + " [min] " + decimalFormat.format(seconds) + " [sec]." );
 
 			}
 		};
@@ -58,43 +55,44 @@ public class EdgeCraftSystem {
 		timer.schedule(task, new Date(), 1000L);
 	}
 
+	public String getUptime() {
+		return this.uptime;
+	}
+
+	public void setUptime( String uptime ) {
+		if( uptime != null )
+			this.uptime = uptime;
+	}
+
 	public void resetUptime() {
-		uptime = "";
+		setUptime( "" );
 	}
 
 	public void getConsoleOverview() {
 		EdgeCraft.log.info("[EdgeCraft] Uptime: " + getUptime());
-		EdgeCraft.log.info("[EdgeCraft] Maximaler RAM: " + getMaxMemory() + " MB");
-		EdgeCraft.log.info("[EdgeCraft] Totaler RAM: " + getTotalMemory() + " MB");
-		EdgeCraft.log.info("[EdgeCraft] Freier RAM: " + getFreeMemory() + " MB");
-		EdgeCraft.log.info("[EdgeCraft] Genutzter RAM: " + getUsedMemory() + " MB");
+		EdgeCraft.log.info("[EdgeCraft] Maximaler RAM: " + getMaxMemory() + " [MB]");
+		EdgeCraft.log.info("[EdgeCraft] Totaler RAM: " + getTotalMemory() + " [MB]");
+		EdgeCraft.log.info("[EdgeCraft] Freier RAM: " + getFreeMemory() + " [MB]");
+		EdgeCraft.log.info("[EdgeCraft] Genutzter RAM: " + getUsedMemory() + " [MB]");
 		Bukkit.getServer().getConsoleSender().sendMessage("[EdgeCraft] Memory Status: "	+ (overloadedMemory() 
 																						? ChatColor.RED + "Ausgelastet!" 
 																						: new StringBuilder().append(ChatColor.GREEN).append("Gut.").toString()));
 	}
 
-	public String getUptime() {
-		return uptime;
-	}
-
 	public int getMaxMemory() {
-		int maxMemory = (int) this.runtime.maxMemory() / 1024 / 1024;
-		return maxMemory;
+		return ( (int) this.runtime.maxMemory() / 1024 / 1024 );
 	}
 
 	public int getTotalMemory() {
-		int totalMemory = (int) this.runtime.totalMemory() / 1024 / 1024;
-		return totalMemory;
+		return ( (int) this.runtime.totalMemory() / 1024 / 1024 );
 	}
 
 	public int getFreeMemory() {
-		int freeMemory = (int) this.runtime.freeMemory() / 1024 / 1024;
-		return freeMemory;
+		return ( (int) this.runtime.freeMemory() / 1024 / 1024 );
 	}
 
 	public int getUsedMemory() {
-		int usedMemory = getTotalMemory() - getFreeMemory();
-		return usedMemory;
+		return ( getTotalMemory() - getFreeMemory() );
 	}
 	
 	public boolean overloadedMemory() {

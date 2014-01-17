@@ -12,8 +12,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class LanguageCommand implements CommandExecutor {
-	private final LanguageHandler lang = EdgeCraft.lang;
-	private final UserManager userManager = EdgeCraft.manager;
+
+	private final LanguageHandler lang = EdgeCraft.getLang();
+	private final UserManager userManager = EdgeCraft.getUsers();
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		

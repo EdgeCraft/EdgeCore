@@ -11,43 +11,59 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class ConfigHandler {
 	
 	private EdgeCraft plugin;
-	public FileConfiguration config;
+	private FileConfiguration config;
 	
 	public ConfigHandler(EdgeCraft instance) {
-		this.plugin = instance;
+		setPlugin( instance );
 	}
 	
 	public void loadConfig() {
-	    this.config = this.plugin.getConfig();
+		setConfig( getPlugin().getConfig() );
+		
+	    	getConfig().addDefault( DatabaseHandler.DatabaseHost, DatabaseHandler.unset);
+	    	getConfig().addDefault( DatabaseHander.DatabaseUser, DatabaseHandler.unset);
+	    	getConfig().addDefault( DatabaseHandler.DatabasePW, DatabaseHandler.unset);
+	    	getConfig().addDefault( DatabaseHandler.DatabaseDB, DatabaseHandler.unset);
+	   
+	   	getConfig().addDefault("Language.Default", "de");
 
-	    this.config.addDefault("Database.Host", "default");
-	    this.config.addDefault("Database.User", "default");
-	    this.config.addDefault("Database.Password", "default");
-	    this.config.addDefault("Database.Database", "default");
+	    	getConfig().addDefault("User.DefaultLevel", Integer.valueOf(0));
 	    
-	    this.config.addDefault("Language.Default", "de");
+		getConfig().addDefault("Economy.Currency", "$");	
 
-	    this.config.addDefault("User.DefaultLevel", Integer.valueOf(0));
-	    
-		this.config.addDefault("Economy.Currency", "$");	
+	    	getConfig().options().copyDefaults(true);
+	    	getPlugin().saveConfig();
 
-	    this.config.options().copyDefaults(true);
-	    this.plugin.saveConfig();
-
-	    if (!new File(this.plugin.getDataFolder() + "src/config.yml").exists());
-	    this.plugin.saveDefaultConfig();		
+	    if (!new File(getPlugin().getDataFolder() + "src/config.yml").exists());
+	    	getPlugin().saveDefaultConfig();		
 	}
 	
 	public final void update(EdgeCraft instance) {
-		DatabaseHandler.host = this.config.getString("Database.Host");
-		DatabaseHandler.user = this.config.getString("Database.User");
-		DatabaseHandler.pw = this.config.getString("Database.Password");
-		DatabaseHandler.db = this.config.getString("Database.Database");
+
+		DatabaseHandler.setHost( getConfig().getString(DatabaseHandler.DatabaseHost));
+		DatabaseHandler.setUser( getConfig().getString( DatabaseHandler.DatabaseUser ));
+		DatabaseHandler.setPW( getConfig().getString( DatabaseHandler.DatabasePW ));
+		DatabaseHandler.setDB( getConfig().getString( DatabaseHandler.DatabaseDB ));
+
 		
 		LanguageHandler.defaultLanguage = this.config.getString("Language.Default");
 		
 		UserManager.defaultLevel = this.config.getInt("User.DefaultLevel");
 		
 		EdgeCraft.currency = this.config.getString("Economy.Currency");
+	}
+
+	public FileConfiguration getConfig() {
+		return config;
+	}
+
+	protected void setConfig( FileConfiguration config ) {
+		if( config != null )
+			this.config = config;
+	}
+
+	protected void setPlugin( EdgeCraft instance ) {
+		if( instance != null )
+			plugin = instance;
 	}
 }

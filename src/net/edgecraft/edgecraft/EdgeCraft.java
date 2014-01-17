@@ -24,14 +24,14 @@ public class EdgeCraft extends JavaPlugin {
 	public static final Logger log = Logger.getLogger("Minecraft");
 	private static EdgeCraft instance;
 	
-	public static final DatabaseHandler db = new DatabaseHandler();
-	public static final EdgeCraftSystem system = new EdgeCraftSystem();
-	public static final UserManager manager = new UserManager();
-	public static final LanguageHandler lang = new LanguageHandler();
-	public static final ChatHandler chat = new ChatHandler();
+	protected static final DatabaseHandler db = new DatabaseHandler();
+	protected static final EdgeCraftSystem system = new EdgeCraftSystem();
+	protected static final UserManager users = new UserManager();
+	protected static final LanguageHandler lang = new LanguageHandler();
+	protected static final ChatHandler chat = new ChatHandler();
 	private final ConfigHandler configHandler = new ConfigHandler(this);
 	
-	public static String currency;
+	private static String currency;
 	
 	@Override
 	public void onDisable() {
@@ -74,5 +74,35 @@ public class EdgeCraft extends JavaPlugin {
 	
 	public static EdgeCraft getInstance() {
 		return (EdgeCraft) instance;
+	}
+
+	public static DatabaseHandler getDB() {
+		return EdgeCraft.db;
+	}
+
+	public static EdgeCraftSystem getSystem() {
+		return EdgeCraft.system;
+	}
+
+	public static UserManager getUserManager() {
+		return EdgeCraft.users;
+	}
+
+	public static LanguageHandler getLang() {
+		return EdgeCraft.lang;
+	}
+
+	public static ChatHandler getChat() {
+		return EdgeCraft.chat;
+	}
+
+	public static String getCurrency() {
+		return EdgeCraft.currency;
+	}
+
+	public void setCurrency( string currency ) {
+		if( currency != null ) {
+			EdgeCraft.currency = currency;
+		} else return;
 	}
 }

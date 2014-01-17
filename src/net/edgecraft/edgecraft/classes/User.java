@@ -18,7 +18,7 @@ public class User {
 	private boolean banned;
 	private String banreason;
 	
-	private final DatabaseHandler db = EdgeCraft.db;
+	private final DatabaseHandler db = EdgeCraft.getDB();
 	
 	protected User() { }
 	
@@ -109,8 +109,10 @@ public class User {
 	 * @throws Exception
 	 */
 	public void updateLevel(int level) throws Exception {
-		this.level = level;
-		this.db.executeUpdate("UPDATE edgecraft_users SET level = '" + level + "' WHERE id = '" + this.id + "';");
+		if( level >= 0 ) {
+			setLevel( level );
+			db.executeUpdate("UPDATE edgecraft_users SET level = '" + level + "' WHERE id = '" + this.id + "';");
+		}
 	}
 	
 	/**
@@ -119,7 +121,7 @@ public class User {
 	 * @throws Exception
 	 */
 	public void updateLanguage(String language) throws Exception {
-		this.language = language;
+		setLanguage(language);
 		this.db.executeUpdate("UPDATE edgecraft_users SET language = '" + language + "' WHERE id = '" + this.id + "';");	
 	}
 	
@@ -141,28 +143,35 @@ public class User {
 	 * @throws Exception
 	 */
 	public void updateBanReason(String reason) throws Exception {
-		this.banreason = reason;
-		this.db.executeUpdate("UPDATE edgecraft_users SET banreason = '" + reason + "' WHERE id = '" + this.id + "';");
+		if( reason != null ) {
+			setBanReason( reason );
+			this.db.executeUpdate("UPDATE edgecraft_users SET banreason = '" + reason + "' WHERE id = '" + this.id + "';");
+		}
 	}
 	
 	protected void setID(int id) {
-		this.id = id;
+		if( id >= 0 )
+			this.id = id;
 	}
 
 	protected void setName(String name) {
-		this.name = name;
+		if( name != null )
+			this.name = name;
 	}
 
 	protected void setIP(String ip) {
-		this.ip = ip;
+		if( ip != null ) 
+			this.ip = ip;
 	}
 
 	protected void setLevel(int level) {
-		this.level = level;
+		if( level >= 0 )
+			this.level = level;
 	}
 
 	protected void setLanguage(String language) {
-		this.language = language;
+		if( language != null )
+			this.language = language;
 	}
 	
 	protected void setBanStatus(boolean status) {
@@ -170,6 +179,7 @@ public class User {
 	}
 	
 	protected void setBanReason(String reason) {
-		this.banreason = reason;
+		if( reason != null )
+			this.banreason = reason;
 	}
 }
