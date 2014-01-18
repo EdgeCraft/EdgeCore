@@ -19,7 +19,7 @@ public class LanguageCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.GREEN + "Standardsprache: " + ChatColor.WHITE + LanguageHandler.defaultLanguage);
+			sender.sendMessage(ChatColor.GREEN + "Standardsprache: " + ChatColor.WHITE + LanguageHandler.getDefaultLanguage());
 			return true;
 		}
 
@@ -54,7 +54,7 @@ public class LanguageCommand implements CommandExecutor {
 				try {
 					if (args[1].equalsIgnoreCase("default")) {
 						
-						user.updateLanguage(LanguageHandler.defaultLanguage);
+						user.updateLanguage(LanguageHandler.getDefaultLanguage());
 						player.sendMessage(this.lang.getColoredMessage(userLang, "lang_set_default"));
 
 						return true;

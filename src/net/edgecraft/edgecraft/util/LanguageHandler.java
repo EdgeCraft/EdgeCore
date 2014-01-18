@@ -18,16 +18,16 @@ public class LanguageHandler {
 	private static List<String> messageList = new ArrayList<String>();
 	
 
-	public String getDefaultLanguage() {
+	public static String getDefaultLanguage() {
 		return LanguageHandler.defaultLanguage;
 	}
 
-	public List<String> getMessageList() {
+	public static List<String> getMessageList() {
 		return LanguageHandler.messageList;
 	}
 
 
-	public void setDefaultLanguage( String defaultLanguage ) {
+	public static void setDefaultLanguage( String defaultLanguage ) {
 		if( defaultLanguage != null )	
 			LanguageHandler.defaultLanguage = defaultLanguage;
 	}

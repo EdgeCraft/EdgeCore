@@ -26,19 +26,19 @@ public class UserManager {
 		return users;
 	}
 
-	public List<String> getBannedIPs() {
+	public static List<String> getBannedIPs() {
 		return bannedIPs;
 	}
 
 	public int getDefaultLevel() {
-		return defaultLevel();
+		return defaultLevel;
 	}
 
 	
 	
-	public void setDefaultLevel( int defaultLevel ) {
+	public static void setDefaultLevel( int defaultLevel ) {
 		if( defaultLevel >= 0 )
-			this.defaultLevel = defaultLevel;
+			UserManager.defaultLevel = defaultLevel;
 	}
 
 	public void registerUser(String name, String ip) {
@@ -76,9 +76,9 @@ public class UserManager {
 	
 	public int greatestID() throws Exception {
 
-		Map<String, Object> greatestID = this.db.getResults("SELECT * FROM edgecraft_users ORDER BY id DESC LIMIT 1;");
+		Map<String, Object> greatestID = this.db.getResults("SELECT * FROM edgecraft_users ORDER BY id DESC LIMIT 1;").get(0);
 
-		if( greatestID.isEmpty() ) return true;
+		if( greatestID.isEmpty() ) return 1;
 		
 		return (int) greatestID.get("id");
 	}
@@ -90,7 +90,7 @@ public class UserManager {
 	public String getUserList(String language) {
 		
 	    if (Bukkit.getOnlinePlayers().length <= 0) {
-	    	return EdgeCraft.lang.getColoredMessage(language, "userlist").replace("[0]", "0").replace("[1]", Bukkit.getMaxPlayers() + "").replace("[2]", "");
+	    	return EdgeCraft.getLang().getColoredMessage(language, "userlist").replace("[0]", "0").replace("[1]", Bukkit.getMaxPlayers() + "").replace("[2]", "");
 	    }
 	    
 	    StringBuilder sb = new StringBuilder();
@@ -107,7 +107,7 @@ public class UserManager {
 	    	}
 	    }
 	    
-	    return EdgeCraft.lang.getColoredMessage(language, "userlist").replace("[0]", Bukkit.getOnlinePlayers().length + "").replace("[1]", Bukkit.getMaxPlayers() + "").replace("[2]", sb.toString());
+	    return EdgeCraft.getLang().getColoredMessage(language, "userlist").replace("[0]", Bukkit.getOnlinePlayers().length + "").replace("[1]", Bukkit.getMaxPlayers() + "").replace("[2]", sb.toString());
 	}
 	
 	public boolean exists(int id) {

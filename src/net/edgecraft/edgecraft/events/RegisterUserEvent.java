@@ -31,7 +31,7 @@ public class RegisterUserEvent implements Listener {
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				player.sendMessage(this.lang.getColoredMessage(LanguageHandler.defaultLanguage, "globalerror"));
+				player.sendMessage(this.lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
 			}
 		}
 	}

@@ -28,7 +28,7 @@ public class DatabaseCommand implements CommandExecutor {
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				sender.sendMessage(lang.getColoredMessage(LanguageHandler.defaultLanguage, "globalerror"));
+				sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
 			}
 		}
 		
@@ -126,7 +126,7 @@ public class DatabaseCommand implements CommandExecutor {
 						player.sendMessage(lang.getColoredMessage(userLang, "db_connect_failed").replace("[0]", args[4]));
 						
 					} finally {
-						db.connection = null;
+						db.setConnection( null );
 					}
 				}
 			}

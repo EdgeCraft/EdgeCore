@@ -55,7 +55,7 @@ public class EdgeCraft extends JavaPlugin {
 
 	    db.loadConnection();
 
-	    manager.synchronizeUsers();
+	    users.synchronizeUsers();
 	    system.startTimer();
 	    chat.enableChat(true);
 	}
@@ -84,7 +84,7 @@ public class EdgeCraft extends JavaPlugin {
 		return EdgeCraft.system;
 	}
 
-	public static UserManager getUserManager() {
+	public static UserManager getUsers() {
 		return EdgeCraft.users;
 	}
 
@@ -100,7 +100,7 @@ public class EdgeCraft extends JavaPlugin {
 		return EdgeCraft.currency;
 	}
 
-	public void setCurrency( string currency ) {
+	public static void setCurrency( String currency ) {
 		if( currency != null ) {
 			EdgeCraft.currency = currency;
 		} else return;

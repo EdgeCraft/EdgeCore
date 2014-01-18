@@ -21,7 +21,7 @@ public class ConfigHandler {
 		setConfig( getPlugin().getConfig() );
 		
 	    	getConfig().addDefault( DatabaseHandler.DatabaseHost, DatabaseHandler.unset);
-	    	getConfig().addDefault( DatabaseHander.DatabaseUser, DatabaseHandler.unset);
+	    	getConfig().addDefault( DatabaseHandler.DatabaseUser, DatabaseHandler.unset);
 	    	getConfig().addDefault( DatabaseHandler.DatabasePW, DatabaseHandler.unset);
 	    	getConfig().addDefault( DatabaseHandler.DatabaseDB, DatabaseHandler.unset);
 	   
@@ -46,13 +46,18 @@ public class ConfigHandler {
 		DatabaseHandler.setDB( getConfig().getString( DatabaseHandler.DatabaseDB ));
 
 		
-		LanguageHandler.defaultLanguage = this.config.getString("Language.Default");
+		LanguageHandler.setDefaultLanguage( this.config.getString("Language.Default") );
 		
-		UserManager.defaultLevel = this.config.getInt("User.DefaultLevel");
+		UserManager.setDefaultLevel( this.config.getInt("User.DefaultLevel") );
 		
-		EdgeCraft.currency = this.config.getString("Economy.Currency");
+		EdgeCraft.setCurrency( this.config.getString("Economy.Currency") );
 	}
-
+	
+	private EdgeCraft getPlugin() {
+		
+		return plugin;
+	}
+	
 	public FileConfiguration getConfig() {
 		return config;
 	}

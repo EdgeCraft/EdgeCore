@@ -18,7 +18,7 @@ public class ManageChatEvent implements Listener {
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
 		
-		if (!EdgeCraft.chat.isChatEnabled()) {
+		if (!EdgeCraft.getChat().isChatEnabled()) {
 			e.setCancelled(true);
 		}
 		
@@ -34,7 +34,7 @@ public class ManageChatEvent implements Listener {
 				if (msg.startsWith(">")) {
 					
 					if (msg.length() <= 1) e.setCancelled(true);
-					e.setFormat(lang.getRawMessage(LanguageHandler.defaultLanguage, "message", "chatformat").replace("[0]", "[P]")
+					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[P]")
 																											.replace("[1]", "[S]").replace("[2]", p.getName())
 																											.replace("[3]", msg.substring(1, msg.length())));
 					
@@ -46,7 +46,7 @@ public class ManageChatEvent implements Listener {
 				}
 				
 			} else {
-				e.setFormat(lang.getRawMessage(LanguageHandler.defaultLanguage, "message", "chatformat").replace("[0]", "[P]")
+				e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[P]")
 						.replace("[1]", "[S]").replace("[2]", p.getName())
 						.replace("[3]", msg.substring(1, msg.length())));
 			}

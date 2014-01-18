@@ -25,22 +25,22 @@ public class Channel {
 	
 	public Channel(String name, boolean listed) {
 		
-		Channel( name, "", ChatHandler.getDefaultMaxChanellMembers(), Channel.defaultAdmin, null, listed );
+		this( name, "", ChatHandler.getDefaultMaxChannelMembers(), Channel.defaultAdmin, null, listed );
 	}
 	
 	public Channel (String name, String password, boolean listed) {
 
-		Channel( name, password, ChatHandler.defaultMaxChannelMembers, Channel.defaultAdmin, null, listed );
+		this( name, password, ChatHandler.getDefaultMaxChannelMembers(), Channel.defaultAdmin, null, listed );
 	}
 	
 	public Channel(String name, String password, String admin, boolean listed) {
 
-		Channel( name, password, ChatHandler.defaultMaxChannelMembers, admin, null, listed );
+		this( name, password, ChatHandler.getDefaultMaxChannelMembers(), admin, null, listed );
 	}
 	
 	public Channel(String name, String password, int maxMembers, String admin, boolean listed) {
 
-		Channel( name, password, maxMembers, admin, null, listed );
+		this( name, password, maxMembers, admin, null, listed );
 	}
 	
 	public Channel(String name, String password, int maxMembers, String admin, List<User> members, boolean listed) {
@@ -58,12 +58,12 @@ public class Channel {
 	
 	public Channel(String name, String password, String admin, List<User> members, boolean listed) {
 
-		Channel( name, password, members.size(), admin, members, listed );
+		this( name, password, members.size(), admin, members, listed );
 	}
-	
+
 	public Channel(String name, List<User> members, boolean listed) {
 
-		Channel( name, null, -1, Channel.defaultAdmin, members, listed );
+		this( name, null, -1, Channel.defaultAdmin, members, listed );
 	}
 	
 
@@ -81,7 +81,7 @@ public class Channel {
 
 
 	/**
-	 * Gibt Channel-ID zurück
+	 * Gibt Channel-ID zurï¿½ck
 	 * @return Integer
 	 */
 	public int getTempID() {
@@ -89,7 +89,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Gibt Channel-Namen zurück
+	 * Gibt Channel-Namen zurï¿½ck
 	 * @return String
 	 */
 	public String getChannelName() {
@@ -97,7 +97,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Gibt Channel-Passwort zurück
+	 * Gibt Channel-Passwort zurï¿½ck
 	 * @return String
 	 */
 	public String getChannelPassword() {
@@ -105,7 +105,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Prüft ob angegebener String mit dem Passwort übereinstimmt 
+	 * Prï¿½ft ob angegebener String mit dem Passwort ï¿½bereinstimmt 
 	 * @param pw
 	 * @return true/false
 	 */
@@ -114,7 +114,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Gibt maximale Anzahl von Mitgliedern zurück
+	 * Gibt maximale Anzahl von Mitgliedern zurï¿½ck
 	 * @return Integer
 	 */
 	public int getMaxMembers() {
@@ -122,7 +122,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Prüft, ob Channel sichtbar ist
+	 * Prï¿½ft, ob Channel sichtbar ist
 	 * @return true/false
 	 */
 	public boolean isListed() {
@@ -130,7 +130,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Gibt Channel-Admin zurück
+	 * Gibt Channel-Admin zurï¿½ck
 	 * Default: "Admin"
 	 * @return String
 	 */
@@ -139,7 +139,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Prüft, ob angegebener Spieler der Admin ist
+	 * Prï¿½ft, ob angegebener Spieler der Admin ist
 	 * @param user
 	 * @return true/false
 	 */
@@ -148,7 +148,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Gibt alle Channel-Mitglieder zurück
+	 * Gibt alle Channel-Mitglieder zurï¿½ck
 	 * @return List<User>
 	 */
 	public List<User> getChannelMembers() {
@@ -156,7 +156,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Gibt eine Liste (String) von allen Channel-Mitgliedern zurück
+	 * Gibt eine Liste (String) von allen Channel-Mitgliedern zurï¿½ck
 	 * @return String
 	 */
 	public String getMemberList() {
@@ -172,7 +172,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Prüft, ob der angegebene Spieler im Channel vertreten ist
+	 * Prï¿½ft, ob der angegebene Spieler im Channel vertreten ist
 	 * @param member
 	 * @return true/false
 	 */
@@ -181,7 +181,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Fügt einen Spieler hinzu
+	 * Fï¿½gt einen Spieler hinzu
 	 * @param member
 	 */
 	public void addMember(User member) {
@@ -242,14 +242,14 @@ public class Channel {
 	}
 	
 	/**
-	 * Löscht den Channel
+	 * Lï¿½scht den Channel
 	 */
 	public void delete() {
 		this.chatHandler.deleteChannel(this);
 	}
 	
 	/**
-	 * Ändert den Channel-Namen
+	 * ï¿½ndert den Channel-Namen
 	 * @param name
 	 */
 	public void setName(String name) {
@@ -258,7 +258,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Ändert das Channel-Passwort
+	 * ï¿½ndert das Channel-Passwort
 	 * @param password
 	 */
 	public void setPassword(String password) {
@@ -267,7 +267,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Ändert den Channel-Admin
+	 * ï¿½ndert den Channel-Admin
 	 * @param admin
 	 */
 	public void setAdmin(String admin) {
@@ -276,7 +276,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Ändert die Anzahl der maximaler Mitglieder im Channel
+	 * ï¿½ndert die Anzahl der maximaler Mitglieder im Channel
 	 * @param maxMembers
 	 */
 	public void setMaxMembers(int maxMembers) {

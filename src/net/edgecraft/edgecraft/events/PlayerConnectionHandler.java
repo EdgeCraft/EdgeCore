@@ -64,7 +64,7 @@ public class PlayerConnectionHandler implements Listener {
 			
 		}
 		
-		if (UserManager.bannedIPs.contains(joinIP)) {
+		if (UserManager.getBannedIPs().contains(joinIP)) {
 			for (Player p : Bukkit.getOnlinePlayers()) {				
 				if (p.hasPermission("edgecraft.ipwarning")) {
 					

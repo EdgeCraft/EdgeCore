@@ -14,22 +14,22 @@ public class ChatHandler {
 	
 	private final static Map<Integer, Channel> channels = new HashMap<>();
 	
-	public int getDefaultMaxChannelMembers() {
+	public static int getDefaultMaxChannelMembers() {
 		return ChatHandler.defaultMaxChannelMembers;
 	}
 
-	public Map<Integer, Channel> getChannels() {
+	public static Map<Integer, Channel> getChannels() {
 		return ChatHandler.channels;
 	}
 
 
-	public void setDefaultMaxChannelMembers( int maxChannelMembers ) {
+	public static void setDefaultMaxChannelMembers( int maxChannelMembers ) {
 		if( maxChannelMembers > 0 )
 			ChatHandler.defaultMaxChannelMembers = maxChannelMembers;
 	}
 
 	/**
-	 * Generiert temporär verwendbare Channel-ID
+	 * Generiert temporï¿½r verwendbare Channel-ID
 	 * @return Integer
 	 */
 	protected int generateChannelTempID() {		
@@ -37,7 +37,7 @@ public class ChatHandler {
 	}
 	
 	/**
-	 * Löscht den angegebenen Channel
+	 * Lï¿½scht den angegebenen Channel
 	 * @param c
 	 */
 	public void deleteChannel(Channel c) {
@@ -58,7 +58,7 @@ public class ChatHandler {
 	}
 	
 	/**
-	 * Prüft, ob angegebener Channel existiert
+	 * Prï¿½ft, ob angegebener Channel existiert
 	 * @param c
 	 * @return true/false
 	 */
@@ -67,7 +67,7 @@ public class ChatHandler {
 	}
 	
 	/**
-	 * Prüft, ob angegebener Channel existiert
+	 * Prï¿½ft, ob angegebener Channel existiert
 	 * @param channel
 	 * @return true/false
 	 */
@@ -82,7 +82,7 @@ public class ChatHandler {
 	}
 	
 	/**
-	 * Gibt den zur angegebenen TempID gehörenden Channel zurück
+	 * Gibt den zur angegebenen TempID gehï¿½renden Channel zurï¿½ck
 	 * @param tempID
 	 * @return Channel
 	 */
@@ -91,7 +91,7 @@ public class ChatHandler {
 	}
 	
 	/**
-	 * Gibt den angegebenen Channel zurück
+	 * Gibt den angegebenen Channel zurï¿½ck
 	 * @param name
 	 * @return Channel
 	 */
@@ -106,7 +106,7 @@ public class ChatHandler {
 	}
 	
 	/**
-	 * Prüft, ob der Chat nutzbar ist
+	 * Prï¿½ft, ob der Chat nutzbar ist
 	 * @return true/false
 	 */
 	public boolean isChatEnabled() {
@@ -114,11 +114,11 @@ public class ChatHandler {
 	}
 	
 	/**
-	 * Gib das festgelegte Chatformat zurück
+	 * Gib das festgelegte Chatformat zurï¿½ck
 	 * @param lang
 	 * @return
 	 */
 	public String getChatFormat(String lang) {
-		return EdgeCraft.lang.getRawMessage(lang, "message", "chatformat");
+		return EdgeCraft.getLang().getRawMessage(lang, "message", "chatformat");
 	}
 }

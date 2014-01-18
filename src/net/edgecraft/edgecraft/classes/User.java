@@ -23,7 +23,7 @@ public class User {
 	protected User() { }
 	
 	/**
-	 * Gibt die User-ID zurück
+	 * Gibt die User-ID zurï¿½ck
 	 * @return Integer
 	 */
 	public int getID() {
@@ -31,7 +31,7 @@ public class User {
 	}
 	
 	/**
-	 * Gibt den User-Name zurück
+	 * Gibt den User-Name zurï¿½ck
 	 * @return String
 	 */
 	public String getName() {
@@ -39,7 +39,7 @@ public class User {
 	}
 
 	/**
-	 * Gibt die User-IP zurück
+	 * Gibt die User-IP zurï¿½ck
 	 * @return String
 	 */
 	public String getIP() {
@@ -47,7 +47,7 @@ public class User {
 	}
 	
 	/**
-	 * Gibt das User-Level zurück
+	 * Gibt das User-Level zurï¿½ck
 	 * @return Integer
 	 */
 	public int getLevel() {
@@ -55,7 +55,7 @@ public class User {
 	}
 
 	/**
-	 * Gibt die eingestellte User-Sprache zurück
+	 * Gibt die eingestellte User-Sprache zurï¿½ck
 	 * @return String
 	 */
 	public String getLanguage() {
@@ -63,7 +63,7 @@ public class User {
 	}
 
 	/**
-	 * Gibt zurück, ob Spieler gebannt ist
+	 * Gibt zurï¿½ck, ob Spieler gebannt ist
 	 * @return true/false
 	 */
 	public boolean isBanned() {
@@ -71,7 +71,7 @@ public class User {
 	}
 	
 	/**
-	 * Gibt den Grund der evtl. vorhandenen Bannung zurück
+	 * Gibt den Grund der evtl. vorhandenen Bannung zurï¿½ck
 	 * @return String
 	 */
 	public String getBanReason() {
@@ -79,7 +79,7 @@ public class User {
 	}
 	
 	/**
-	 * Gibt den zugehörigen Bukkit-Player zurück
+	 * Gibt den zugehï¿½rigen Bukkit-Player zurï¿½ck
 	 * @return Player
 	 */
 	public Player getPlayer() {
@@ -87,13 +87,13 @@ public class User {
 	}
 	
 	/**
-	 * Gibt den Channel zurück, in welchem der Spieler schreibt
+	 * Gibt den Channel zurï¿½ck, in welchem der Spieler schreibt
 	 * @return Channel
 	 */
 	public Channel getChannel() {
 		Channel c = null;
 		
-		for (Channel channel : ChatHandler.channels.values()) {
+		for (Channel channel : ChatHandler.getChannels().values()) {
 			if (channel.isMember(this)) {
 				c = channel;
 				break;

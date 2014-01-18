@@ -1,9 +1,7 @@
 package net.edgecraft.edgecraft.mysql;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -37,19 +35,19 @@ public class DatabaseHandler {
 		return host;
 	}
 
-	public static getUser() {
+	public static String getUser() {
 		return user;
 	}
 
-	public static getPW() {
+	public static String getPW() {
 		return pw;
 	}
 
-	public static getDB() {
+	public static String getDB() {
 		return db;
 	}
 
-	public static Connection getConnection() {
+	public Connection getConnection() {
 		return connection;
 	}
 	
@@ -57,26 +55,26 @@ public class DatabaseHandler {
 
 	public static void setHost( String host ) {
 		if( host != null )
-			this.host = host;
+			DatabaseHandler.host = host;
 	}
 
 	public static void setUser( String user ) {
 		if( user != null )
-			this.user = user;
+			DatabaseHandler.user = user;
 	}
 
 	public static void setPW( String pw ) {
 		if( pw != null )
-			this.pw = pw;
+			DatabaseHandler.pw = pw;
 	}
 
 	public static void setDB ( String db ) {
 		if( db != null ) 
-			this.db = db;
+			DatabaseHandler.db = db;
 	}
 
 
-	public static void setConnection( Connection connection ) {
+	public void setConnection( Connection connection ) {
 		if( connection != null )
 			this.connection = connection;
 	}
@@ -126,17 +124,17 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Schließt die Datenbank-Verbindung
+	 * Schlieï¿½t die Datenbank-Verbindung
 	 * @throws SQLException
 	 */
 	public void closeConnection() throws SQLException {
-		if ( ifAvailable() ) {
+		if ( isAvailable() ) {
 			getConnection().close();
 		}
 	}
 	
 	/**
-	 * Prüft, ob die Datenbank-Verbindung aufrecht steht
+	 * Prï¿½ft, ob die Datenbank-Verbindung aufrecht steht
 	 * @return true/false
 	 * @throws Exception
 	 */
@@ -145,7 +143,7 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Führt einen Query-Befehl in der Datenbank aus
+	 * Fï¿½hrt einen Query-Befehl in der Datenbank aus
 	 * @param sql
 	 * @throws Exception
 	 */
@@ -154,7 +152,7 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Führt einen Update-Befehl in der Datenbank aus
+	 * Fï¿½hrt einen Update-Befehl in der Datenbank aus
 	 * @param sql
 	 * @throws Exception
 	 */
@@ -183,7 +181,7 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Prüft, ob angegebene Datenbank existiert
+	 * Prï¿½ft, ob angegebene Datenbank existiert
 	 * @param db
 	 * @return true/false
 	 * @throws Exception
@@ -203,7 +201,7 @@ public class DatabaseHandler {
 	}
 
 	/**
-	 * Prüft, ob angegebene Tabelle existiert
+	 * Prï¿½ft, ob angegebene Tabelle existiert
 	 * @param table
 	 * @return true/false
 	 * @throws Exception
@@ -220,7 +218,7 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Gibt alle Objekte in einer 'List<Map<String, Object>>' zurück, welche vom SQL-Befehl gefunden wurden
+	 * Gibt alle Objekte in einer 'List<Map<String, Object>>' zurï¿½ck, welche vom SQL-Befehl gefunden wurden
 	 * @param sql
 	 * @return List<Map<String, Object>>
 	 * @throws Exception

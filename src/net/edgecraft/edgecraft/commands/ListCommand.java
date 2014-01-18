@@ -17,7 +17,7 @@ public class ListCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		 
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(this.userManager.getUserList(LanguageHandler.defaultLanguage));
+			sender.sendMessage(this.userManager.getUserList(LanguageHandler.getDefaultLanguage()));
 			return true;
 		}
 		
