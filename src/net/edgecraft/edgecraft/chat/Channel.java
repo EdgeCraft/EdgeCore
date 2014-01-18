@@ -18,188 +18,58 @@ public class Channel {
 	private String admin;
 	private List<User> members = new ArrayList<User>();
 	
-	private final ChatHandler chatHandler = EdgeCraft.chat;
-	private final LanguageHandler lang = EdgeCraft.lang;
+	private final ChatHandler chatHandler = EdgeCraft.getChat();
+	private final LanguageHandler lang = EdgeCraft.getLang();
+
+	public static final String defaultAdmin = "Admin";
+	
+	// Constructors:
+	public Channel(String name, String password, int maxMembers, String admin, List<User> members, boolean listed) {
+
+		setTempID( chatHandler.generateChannelTempID() );
+		setName( name );
+		setPassword( password );
+		setMaxMembers( maxMembers );
+		setAdmin( admin );
+		setMembers( members );
+		setListed( listed );		
+		
+		ChatHandler.getChannels().put(getTempID(), this);
+	}
 	
 	public Channel(String name, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.maxMembers = ChatHandler.defaultMaxChannelMembers;
-		this.listed = listed;
-		this.admin = "Admin";
 		
-		ChatHandler.channels.put(getTempID(), this);
+		this( name, "", ChatHandler.getDefaultMaxChannelMembers(), Channel.defaultAdmin, null, listed );
 	}
 	
 	public Channel (String name, String password, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = ChatHandler.defaultMaxChannelMembers;
-		this.listed = listed;
-		this.admin = "Admin";
-		
-		ChatHandler.channels.put(getTempID(), this);
+
+		this( name, password, ChatHandler.getDefaultMaxChannelMembers(), Channel.defaultAdmin, null, listed );
 	}
 	
 	public Channel(String name, String password, String admin, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = ChatHandler.defaultMaxChannelMembers;
-		this.admin = admin;
-		this.listed = listed;
-		
-		ChatHandler.channels.put(getTempID(), this);
+
+		this( name, password, ChatHandler.getDefaultMaxChannelMembers(), admin, null, listed );
 	}
 	
 	public Channel(String name, String password, int maxMembers, String admin, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = maxMembers;
-		this.admin = admin;
-		this.listed = listed;
-		
-		ChatHandler.channels.put(getTempID(), this);
-	}
-	
-	public Channel(String name, String password, int maxMembers, String admin, List<User> members, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = maxMembers;
-		this.admin = admin;
-		this.members = members;
-		this.listed = listed;
-		
-		ChatHandler.channels.put(getTempID(), this);
+
+		this( name, password, maxMembers, admin, null, listed );
 	}
 	
 	public Channel(String name, String password, String admin, List<User> members, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.password = password;
-		this.maxMembers = members.size();
-		this.admin = admin;
-		this.members = members;
-		this.listed = listed;
-		
-		ChatHandler.channels.put(getTempID(), this);
+
+		this( name, password, members.size(), admin, members, listed );
 	}
-	
+
 	public Channel(String name, List<User> members, boolean listed) {
-		this.tempID = chatHandler.generateChannelTempID();
-		this.name = name;
-		this.members = members;
-		this.listed = listed;
-		this.admin = "Admin";
+
+		this( name, null, -1, Channel.defaultAdmin, members, listed );
+	}
 		
-		ChatHandler.channels.put(getTempID(), this);
-	}
-	
+
 	/**
-	 * Gibt Channel-ID zurück
-	 * @return Integer
-	 */
-	public int getTempID() {
-		return this.tempID;
-	}
-	
-	/**
-	 * Gibt Channel-Namen zurück
-	 * @return String
-	 */
-	public String getChannelName() {
-		return this.name;
-	}
-	
-	/**
-	 * Gibt Channel-Passwort zurück
-	 * @return String
-	 */
-	public String getChannelPassword() {
-		return this.password;
-	}
-	
-	/**
-	 * Prüft ob angegebener String mit dem Passwort übereinstimmt 
-	 * @param pw
-	 * @return true/false
-	 */
-	public boolean isPassword(String pw) {
-		return getChannelPassword().equals(pw);
-	}
-	
-	/**
-	 * Gibt maximale Anzahl von Mitgliedern zurück
-	 * @return Integer
-	 */
-	public int getMaxMembers() {
-		return this.maxMembers;
-	}
-	
-	/**
-	 * Prüft, ob Channel sichtbar ist
-	 * @return true/false
-	 */
-	public boolean isListed() {
-		return this.listed;
-	}
-	
-	/**
-	 * Gibt Channel-Admin zurück
-	 * Default: "Admin"
-	 * @return String
-	 */
-	public String getChannelAdmin() {
-		return this.admin;
-	}
-	
-	/**
-	 * Prüft, ob angegebener Spieler der Admin ist
-	 * @param user
-	 * @return true/false
-	 */
-	public boolean isChannelAdmin(String user) {
-		return getChannelAdmin().equalsIgnoreCase(user);
-	}
-	
-	/**
-	 * Gibt alle Channel-Mitglieder zurück
-	 * @return List<User>
-	 */
-	public List<User> getChannelMembers() {
-		return this.members;
-	}
-	
-	/**
-	 * Gibt eine Liste (String) von allen Channel-Mitgliedern zurück
-	 * @return String
-	 */
-	public String getMemberList() {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		for (User user : members) {
-			if (sb.length() > 0) sb.append(", ");
-			if (members.contains(user)) sb.append(user.getName());
-		}
-		
-		return sb.toString();
-	}
-	
-	/**
-	 * Prüft, ob der angegebene Spieler im Channel vertreten ist
-	 * @param member
-	 * @return true/false
-	 */
-	public boolean isMember(User member) {
-		return getChannelMembers().contains(member);
-	}
-	
-	/**
-	 * Fügt einen Spieler hinzu
+	 * Adds a new member to the channel.
 	 * @param member
 	 */
 	public void addMember(User member) {
@@ -210,7 +80,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Entfernt einen Spieler
+	 * Removes an existing User from the channel.
 	 * @param member
 	 */
 	public void removeMember(User member) {
@@ -221,7 +91,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Sendet eine Nachricht an alle Mitglieder des Channels
+	 * Sends a message to all members of the channel.
 	 * @param message
 	 */
 	public void broadcast(String message) {
@@ -237,7 +107,7 @@ public class Channel {
 	}
 	
 	/**
-	 * Sendet vom angegebenen Spieler aus eine Nachricht in den Channel
+	 * Sends a message from the given User to the other channel-members.
 	 * @param player
 	 * @param message
 	 */
@@ -260,49 +130,176 @@ public class Channel {
 	}
 	
 	/**
-	 * Löscht den Channel
+	 * Deletes the channel.
 	 */
 	public void delete() {
 		this.chatHandler.deleteChannel(this);
 	}
 	
+	
+	
 	/**
-	 * Ändert den Channel-Namen
-	 * @param newName
+	 * Returns the id of the channel.
+	 * @return Integer
 	 */
-	public void changeName(String newName) {
-		this.name = newName;
+	public int getTempID() {
+		return this.tempID;
 	}
 	
 	/**
-	 * Ändert das Channel-Passwort
-	 * @param newPassword
+	 * Returns the name of the channel.
+	 * @return String
 	 */
-	public void changePassword(String newPassword) {
-		this.password = newPassword;
+	public String getChannelName() {
+		return this.name;
 	}
 	
 	/**
-	 * Ändert den Channel-Admin
-	 * @param newAdmin
+	 * Returns the password of the channel.
+	 * @return String
 	 */
-	public void switchAdmin(String newAdmin) {
-		this.admin = newAdmin;
+	public String getChannelPassword() {
+		return this.password;
 	}
 	
 	/**
-	 * Ändert die Anzahl der maximaler Mitglieder im Channel
-	 * @param newAmount
+	 * Checks whether the given String equals the password.
+	 * @param pw
+	 * @return true/false
 	 */
-	public void changeMaxMembers(int newAmount) {
-		this.maxMembers = newAmount;
+	public boolean isPassword(String pw) {
+		return getChannelPassword().equals(pw);
 	}
 	
 	/**
-	 * Macht den Channel un-/sichtbar
+	 * Returns the maximum amount of members.
+	 * @return Integer
+	 */
+	public int getMaxMembers() {
+		return this.maxMembers;
+	}
+	
+	/**
+	 * Checks whether the channel is visible or not.
+	 * @return true/false
+	 */
+	public boolean isListed() {
+		return this.listed;
+	}
+	
+	/**
+	 * Returns the admin of the channel.
+	 * Default: "Admin"
+	 * @return String
+	 */
+	public String getChannelAdmin() {
+		return this.admin;
+	}
+	
+	/**
+	 * Checks whether the given User is the admin.
+	 * @param user
+	 * @return true/false
+	 */
+	public boolean isChannelAdmin(String user) {
+		return getChannelAdmin().equalsIgnoreCase(user);
+	}
+	
+	/**
+	 * Returns all members of the channel.
+	 * @return List<User>
+	 */
+	public List<User> getChannelMembers() {
+		return this.members;
+	}
+	
+	/**
+	 * Returns a list with the user-names of all channel-members.
+	 * @return String
+	 */
+	public String getMemberList() {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for (User user : members) {
+			if (sb.length() > 0) sb.append(", ");
+			if (members.contains(user)) sb.append(user.getName());
+		}
+		
+		return sb.toString();
+	}
+	
+	/**
+	 * Checks whether the given Nick already exists in the channel.
+	 * @param member
+	 * @return true/false
+	 */
+	public boolean isMember(User member) {
+		return getChannelMembers().contains(member);
+	}
+
+	
+	
+	
+	/**
+	 * Changes the name of the channel.
+	 * @param name
+	 */
+	public void setName(String name) {
+		if( name != null )
+			this.name = name;
+	}
+	
+	/**
+	 * Changes the password of the channel.
+	 * @param password
+	 */
+	public void setPassword(String password) {
+		if( password != null )
+			this.password = password;
+	}
+	
+	/**
+	 * Changes the admin of the channel.
+	 * @param admin
+	 */
+	public void setAdmin(String admin) {
+		if( admin != null )
+			this.admin = admin;
+	}
+	
+	/**
+	 * Changes the amount of maximal User in the channel.
+	 * @param maxMembers
+	 */
+	public void setMaxMembers(int maxMembers) {
+		if( maxMembers > 0 )
+			this.maxMembers = maxMembers;
+	}
+	
+	/**
+	 * Changes the Visibility of the channel.
 	 * @param val
 	 */
 	public void setListed(boolean val) {
 		this.listed = val;
+	}
+	
+	/**
+	 * Changes the id of the channel.
+	 * @param tempID
+	 */
+	public void setTempID( int tempID ) {
+		if( tempID >= 0 )
+			this.tempID = tempID;
+	}
+
+	/**
+	 * Changes the members of the channel.
+	 * @param members
+	 */
+	public void setMembers( List<User> members ) {
+		if( members != null )
+			this.members = members;
 	}
 }

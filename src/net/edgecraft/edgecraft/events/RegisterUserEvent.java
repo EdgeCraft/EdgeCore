@@ -12,9 +12,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class RegisterUserEvent implements Listener {
 	
-	private final UserManager userManager = EdgeCraft.manager;
-	private final LanguageHandler lang = EdgeCraft.lang;
+	private final UserManager userManager = EdgeCraft.getUsers();
+	private final LanguageHandler lang = EdgeCraft.getLang();
 	
+	/**
+	 * TODO: Add senseful comment.
+	 * @param event
+	 */
 	@EventHandler
 	public void registerUser(PlayerJoinEvent event) {
 		
@@ -31,7 +35,7 @@ public class RegisterUserEvent implements Listener {
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				player.sendMessage(this.lang.getColoredMessage(LanguageHandler.defaultLanguage, "globalerror"));
+				player.sendMessage(this.lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
 			}
 		}
 	}

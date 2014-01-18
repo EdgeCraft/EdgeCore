@@ -14,10 +14,20 @@ import org.bukkit.entity.Player;
 
 public class SystemCommand implements CommandExecutor {
 	
-	private final LanguageHandler lang = EdgeCraft.lang;
-	private final EdgeCraftSystem system = EdgeCraft.system;
-	private final UserManager userManager = EdgeCraft.manager;
+	private final LanguageHandler lang = EdgeCraft.getLang();
+	private final EdgeCraftSystem system = EdgeCraft.getSystem();
+	private final UserManager userManager = EdgeCraft.getUsers();
 	
+	
+	/**
+	 * Gets executed whenever sb. uses the '/system'-command.
+	 * 
+	 * @param sender
+	 * @param cmd
+	 * @param label
+	 * @param args
+	 * @return true/false
+	 */
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if (!(sender instanceof Player)) {
@@ -49,16 +59,16 @@ public class SystemCommand implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("overview")) {
 								
 		        player.sendMessage(this.lang.getColoredMessage(userLang, "system_overview"));
-		        player.sendMessage(this.lang.getColoredMessage(userLang, "system_uptime").replace("[0]", this.system.uptime));
+		        player.sendMessage(this.lang.getColoredMessage(userLang, "system_uptime").replace("[0]", this.system.getUptime()));
 		        player.sendMessage(this.lang.getColoredMessage(userLang, "system_memory_max").replace("[0]", this.system.getMaxMemory() + ""));
 		        player.sendMessage(this.lang.getColoredMessage(userLang, "system_memory_total").replace("[0]", this.system.getTotalMemory() + ""));
 		        player.sendMessage(this.lang.getColoredMessage(userLang, "system_memory_free").replace("[0]", this.system.getFreeMemory() + ""));
 		        player.sendMessage(this.lang.getColoredMessage(userLang, "system_memory_used").replace("[0]", this.system.getUsedMemory() + ""));
 		        
 		        if (!this.system.overloadedMemory()) {
-		        	player.sendMessage(this.lang.getColoredMessage(userLang, "system_memory_health_good").replace("[0]", this.system.overloadedMemoryAmount + ""));
+		        	player.sendMessage(this.lang.getColoredMessage(userLang, "system_memory_health_good").replace("[0]", EdgeCraftSystem.overloadedMemoryAmount + ""));
 		        } else {
-		        	player.sendMessage(this.lang.getColoredMessage(userLang, "system_memory_health_bad").replace("[0]", this.system.overloadedMemoryAmount + ""));
+		        	player.sendMessage(this.lang.getColoredMessage(userLang, "system_memory_health_bad").replace("[0]", EdgeCraftSystem.overloadedMemoryAmount + ""));
 		        }
 
 		        return true;				

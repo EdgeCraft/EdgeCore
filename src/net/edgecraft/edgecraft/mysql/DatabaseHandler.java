@@ -1,9 +1,7 @@
 package net.edgecraft.edgecraft.mysql;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -16,43 +14,36 @@ import net.edgecraft.edgecraft.EdgeCraft;
 
 public class DatabaseHandler {
 	
-	public static String host;
-	public static String user;
-	public static String pw;
-	public static String db;
+	public static final String DatabaseHost = "Database.Host";
+	public static final String DatabaseUser = "Database.User";
+	public static final String DatabasePW = "Database.Password";
+	public static final String DatabaseDB = "Database.Database";
+
+
+	private static String host;
+	private static String user;
+	private static String pw;
+	private static String db;
 	
-	private String unset = "default";
+	public static final String unset = "default";
 	
-	public Connection connection;
+	private Connection connection;
 	
-	/**
-	 * Erstellt eine Datenbank-Verbindung mit den in der Konfiguration angegebenen Werten
-	 */
-	public synchronized void loadConnection() {
-		try {
-			
-			EdgeCraft.log.info("[EdgeCraft] Baue Datenbankverbindung auf..");
-			
-			if ((host.equals(this.unset)) || (user.equals(this.unset)) || (pw.equals(this.unset)) || (db.equals(this.unset))) {
-				EdgeCraft.log.severe("[EdgeCraft] Fehlerhafte Werte! Kein Datenbankverbindung!");
-				return;
-			}
-			
-			if (!isAvailable()) closeConnection();
-			
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + db + "?user=" + user + "&password=" + pw);
-			
-			EdgeCraft.log.info("[EdgeCraft] Erfolgreich mit Datenbank '" + db + "' verbunden!");
-			
-		} catch(Exception e) {
-			EdgeCraft.log.severe("[EdgeCraft] Schwerer Fehler beim Vebrinden mit Datenbank '" + db + "'!");
-			e.printStackTrace();
-		}
+	// Constructors:
+	public DatabaseHandler() {/* ... */}
+
+	public DatabaseHandler( String host, String user, String pw, String db ) {
+
+		setHost( host );
+		setUser( user );
+		setPW( pw );
+		setDB( db );
 	}
+
 	
 	/**
-	 * Erstellt eine Datenbank-Verbindung mit den angegebenen Werten
+	 * Establishes a database-connection with the given config.
+	 * 
 	 * @param host
 	 * @param user
 	 * @param pw
@@ -66,7 +57,7 @@ public class DatabaseHandler {
 			if (!isAvailable()) closeConnection();
 			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + db + "?user=" + user + "&password=" + pw);
+			setConnection( DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + db + "?user=" + user + "&password=" + pw) );
 			
 			EdgeCraft.log.info("[EdgeCraft] Erfolgreich mit Datenbank '" + db + "' verbunden!");
 			
@@ -76,56 +67,70 @@ public class DatabaseHandler {
 		}		
 	}
 	
+	
 	/**
-	 * Schließt die Datenbank-Verbindung
+	 * Establishes a database-connection with the local config.
+	 * 
+	 */
+	public synchronized void loadConnection() {
+		loadConnection( getHost(), getUser(), getPW(), getDB() );
+	}
+	
+
+	
+	/**
+	 * Closes the database-connection.
+	 * 
 	 * @throws SQLException
 	 */
 	public void closeConnection() throws SQLException {
-		if (this.connection != null) {
-			this.connection.close();
+		if ( isAvailable() ) {
+			getConnection().close();
 		}
 	}
 	
 	/**
-	 * Prüft, ob die Datenbank-Verbindung aufrecht steht
+	 * Checks whether the database-connection is already established.
+	 * 
 	 * @return true/false
 	 * @throws Exception
 	 */
-	public boolean isAvailable() throws Exception {
-		return this.connection == null;
+	public boolean isAvailable() {
+		return getConnection() != null;
 	}
 	
 	/**
-	 * Führt einen Query-Befehl in der Datenbank aus
+	 * Executes a query-command.
+	 * 
 	 * @param sql
 	 * @throws Exception
 	 */
-	public synchronized void executeQuery(String sql) throws Exception {
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-		statement.executeQuery();
+	public synchronized void executeQuery( String sql ) throws Exception {
+		getConnection().prepareStatement(sql).executeQuery();
 	}
 	
 	/**
-	 * Führt einen Update-Befehl in der Datenbank aus
+	 * Executes an update-command.
+	 * 
 	 * @param sql
 	 * @throws Exception
 	 */
-	public synchronized void executeUpdate(String sql) throws Exception {
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-		statement.executeUpdate();
+	public synchronized void executeUpdate( String sql ) throws Exception {
+		getConnection().prepareStatement(sql).executeUpdate();
 	}
 	
+
 	/**
-	 * Gibt alle Datenbanken vom verwendeten Host aus
+	 * Returns all databases of the host.
+	 * 
 	 * @return String
 	 * @throws Exception
 	 */
 	public synchronized String getDatabases() throws Exception {
 		
 		StringBuilder sb =  new StringBuilder();
-		
-		DatabaseMetaData metaData = this.connection.getMetaData();
-		ResultSet rs = metaData.getCatalogs();
+
+		ResultSet rs = getConnection().getMetaData().getCatalogs();
 		
 		while (rs.next()) {
 			if (sb.length() > 0) sb.append(", ");
@@ -136,16 +141,17 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Prüft, ob angegebene Datenbank existiert
+	 * Checks whether the given database already exists.
+	 * 
 	 * @param db
 	 * @return true/false
 	 * @throws Exception
 	 */
-	public synchronized boolean existsDatabase(String db) throws Exception {
+	public synchronized boolean existsDatabase( String db ) throws Exception {
 		
-		DatabaseMetaData metaData = this.connection.getMetaData();
-		ResultSet rs = metaData.getCatalogs();
+		ResultSet rs = getConnection().getMetaData().getCatalogs();
 		
+
 		while (rs.next()) {
 			if (rs.getString(1).equalsIgnoreCase(db)) {
 				return true;
@@ -154,17 +160,17 @@ public class DatabaseHandler {
 		
 		return false;
 	}
-	
+
 	/**
-	 * Prüft, ob angegebene Tabelle existiert
+	 * Checks whether the given table already exists.
+	 * 
 	 * @param table
 	 * @return true/false
 	 * @throws Exception
 	 */
-	public synchronized boolean existsTable(String table) throws Exception {
+	public synchronized boolean existsTable( String table ) throws Exception {
 		
-		DatabaseMetaData metaData = this.connection.getMetaData();
-		ResultSet tables = metaData.getTables(null, null, table, null);
+		ResultSet tables = getConnection().getMetaData().getTables( null, null, table, null );
 		
 		if (!tables.next()) {
 			return false;
@@ -174,19 +180,19 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Gibt alle Objekte in einer 'List<Map<String, Object>>' zurück, welche vom SQL-Befehl gefunden wurden
+	 * Returns all returned values of the given sql-command.
+	 * 
 	 * @param sql
 	 * @return List<Map<String, Object>>
 	 * @throws Exception
 	 */
-	public synchronized List<Map<String, Object>> getResults(String sql) throws Exception {
+	public synchronized List<Map<String, Object>> getResults( String sql ) throws Exception {
 		
-		if (this.connection == null) throw new Exception("No active database connection found!\n");
+		if ( !isAvailable() ) throw new Exception("No active database connection found!\n");
 		
 		List<Map<String, Object>> columns = new ArrayList<>();
 		
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-		ResultSet resultSet = statement.executeQuery();
+		ResultSet resultSet = getConnection().prepareStatement(sql).executeQuery();
 		ResultSetMetaData metaData = resultSet.getMetaData();
 		
 		int columnCount = metaData.getColumnCount();
@@ -204,4 +210,102 @@ public class DatabaseHandler {
 		
 		return columns;
 	}
+
+	/**
+	 * Returns the host.
+	 * 
+	 * @return
+	 */
+	public String getHost() {
+		return host;
+	}
+
+	/**
+	 * Returns the user.
+	 * 
+	 * @return
+	 */
+	public static String getUser() {
+		return user;
+	}
+
+	/**
+	 * Returns the password.
+	 * 
+	 * @return
+	 */
+	public static String getPW() {
+		return pw;
+	}
+
+	/**
+	 * Returns the database.
+	 * 
+	 * @return
+	 */
+	public static String getDB() {
+		return db;
+	}
+
+	/**
+	 * Returns the connection.
+	 * 
+	 * @return
+	 */
+	public Connection getConnection() {
+		return connection;
+	}
+	
+
+	/**
+	 * Sets the host.
+	 * 
+	 * @param host
+	 */
+
+	public static void setHost( String host ) {
+		if( host != null )
+			DatabaseHandler.host = host;
+	}
+
+	/**
+	 * Sets the user.
+	 * 
+	 * @param user
+	 */
+	public static void setUser( String user ) {
+		if( user != null )
+			DatabaseHandler.user = user;
+	}
+
+	/**
+	 * Sets the password.
+	 * 
+	 * @param pw
+	 */
+	public static void setPW( String pw ) {
+		if( pw != null )
+			DatabaseHandler.pw = pw;
+	}
+
+	/**
+	 * Sets the database.
+	 * 
+	 * @param db
+	 */
+	public static void setDB ( String db ) {
+		if( db != null ) 
+			DatabaseHandler.db = db;
+	}
+
+	/**
+	 * Sets the connection.
+	 * 
+	 * @param connection
+	 */
+	public void setConnection( Connection connection ) {
+		if( connection != null )
+			this.connection = connection;
+	}
+	
 }

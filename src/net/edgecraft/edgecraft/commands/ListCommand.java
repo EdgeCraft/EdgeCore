@@ -12,12 +12,21 @@ import org.bukkit.entity.Player;
 
 public class ListCommand implements CommandExecutor {
 	
-	private final UserManager userManager = EdgeCraft.manager;
+	private final UserManager userManager = EdgeCraft.getUsers();
 	
+	/**
+	 * Gets executed whenever sb. uses the ( '/list' || '/who' )-command.
+	 * 
+	 * @param sender
+	 * @param cmd
+	 * @param label
+	 * @param args
+	 * @returns true/false
+	 */
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		 
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(this.userManager.getUserList(LanguageHandler.defaultLanguage));
+			sender.sendMessage(this.userManager.getUserList(LanguageHandler.getDefaultLanguage()));
 			return true;
 		}
 		

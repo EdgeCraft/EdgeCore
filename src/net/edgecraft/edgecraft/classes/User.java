@@ -13,17 +13,67 @@ public class User {
 	private int id;
 	private String name;
 	private String ip;
-	private int level;
+	private int level; // deprecated soon.
 	private String language;
 	private boolean banned;
 	private String banreason;
 	
-	private final DatabaseHandler db = EdgeCraft.db;
+	private final DatabaseHandler db = EdgeCraft.getDB();
 	
-	protected User() { }
+	protected User() { /* ... */ } 
 	
 	/**
-	 * Gibt die User-ID zurück
+	 * Updates the users' level.
+	 * @param level
+	 * @throws Exception
+	 */
+	public void updateLevel(int level) throws Exception {
+		if( level >= 0 ) {
+			setLevel( level );
+			db.executeUpdate("UPDATE edgecraft_users SET level = '" + level + "' WHERE id = '" + this.id + "';");
+		}
+	}
+	
+	/**
+	 * Updates the users' language.
+	 * @param language
+	 * @throws Exception
+	 */
+	public void updateLanguage(String language) throws Exception {
+		setLanguage(language);
+		this.db.executeUpdate("UPDATE edgecraft_users SET language = '" + language + "' WHERE id = '" + this.id + "';");	
+	}
+	
+	/**
+	 * (Un)bans the user.
+	 * @param status
+	 * @throws Exception
+	 */
+	public void setBanned(boolean status) throws Exception {
+		this.banned = status;
+		
+		if( !status) {
+			this.banreason = "";
+		}
+		
+		int banned_ = status ? 1 : 0;
+		this.db.executeUpdate("UPDATE edgecraft_users SET banned = '" + banned_ + "' WHERE id = '" + this.id + "';");
+	}
+	
+	/**
+	 * Updates the ban-reason.
+	 * @param reason
+	 * @throws Exception
+	 */
+	public void updateBanReason(String reason) throws Exception {
+		if( reason != null ) {
+			setBanReason( reason );
+			this.db.executeUpdate("UPDATE edgecraft_users SET banreason = '" + reason + "' WHERE id = '" + this.id + "';");
+		}
+	}
+	
+	/**
+	 * Returns the users' id.
 	 * @return Integer
 	 */
 	public int getID() {
@@ -31,7 +81,7 @@ public class User {
 	}
 	
 	/**
-	 * Gibt den User-Name zurück
+	 * Returns the users' name.
 	 * @return String
 	 */
 	public String getName() {
@@ -39,7 +89,7 @@ public class User {
 	}
 
 	/**
-	 * Gibt die User-IP zurück
+	 * Returns the users' ip.
 	 * @return String
 	 */
 	public String getIP() {
@@ -47,7 +97,7 @@ public class User {
 	}
 	
 	/**
-	 * Gibt das User-Level zurück
+	 * Returns the users' level.
 	 * @return Integer
 	 */
 	public int getLevel() {
@@ -55,7 +105,7 @@ public class User {
 	}
 
 	/**
-	 * Gibt die eingestellte User-Sprache zurück
+	 * Returns the users' language-setting.
 	 * @return String
 	 */
 	public String getLanguage() {
@@ -63,7 +113,7 @@ public class User {
 	}
 
 	/**
-	 * Gibt zurück, ob Spieler gebannt ist
+	 * Checks whether the user is banned or not.
 	 * @return true/false
 	 */
 	public boolean isBanned() {
@@ -71,15 +121,19 @@ public class User {
 	}
 	
 	/**
-	 * Gibt den Grund der evtl. vorhandenen Bannung zurück
+	 * Returns the reason for the ban.
+	 * Returns null if the user isn't banned.
 	 * @return String
 	 */
 	public String getBanReason() {
-		return banreason;
+		if( isBanned() )
+			return banreason;
+		
+		return null;
 	}
 	
 	/**
-	 * Gibt den zugehörigen Bukkit-Player zurück
+	 * Returns the bukkit-player-instance of the user.
 	 * @return Player
 	 */
 	public Player getPlayer() {
@@ -87,13 +141,13 @@ public class User {
 	}
 	
 	/**
-	 * Gibt den Channel zurück, in welchem der Spieler schreibt
+	 * Returns the users' channel.
 	 * @return Channel
 	 */
 	public Channel getChannel() {
 		Channel c = null;
 		
-		for (Channel channel : ChatHandler.channels.values()) {
+		for (Channel channel : ChatHandler.getChannels().values()) {
 			if (channel.isMember(this)) {
 				c = channel;
 				break;
@@ -103,73 +157,66 @@ public class User {
 		return  c;
 	}
 	
-	/**
-	 * Erneuert das User-Level in der Datenbank
-	 * @param level
-	 * @throws Exception
-	 */
-	public void updateLevel(int level) throws Exception {
-		this.level = level;
-		this.db.executeUpdate("UPDATE edgecraft_users SET level = '" + level + "' WHERE id = '" + this.id + "';");
-	}
 	
 	/**
-	 * Erneuert die User-Sprache in der Datenbank
-	 * @param language
-	 * @throws Exception
+	 * Sets the users' id.
+	 * @param id
 	 */
-	public void updateLanguage(String language) throws Exception {
-		this.language = language;
-		this.db.executeUpdate("UPDATE edgecraft_users SET language = '" + language + "' WHERE id = '" + this.id + "';");	
-	}
-	
-	/**
-	 * Ent-/Bannt einen Spieler in der Datenbank
-	 * @param status
-	 * @throws Exception
-	 */
-	public void setBanned(boolean status) throws Exception {
-		this.banned = status;
-		
-		int banned_ = status ? 1 : 0;
-		this.db.executeUpdate("UPDATE edgecraft_users SET banned = '" + banned_ + "' WHERE id = '" + this.id + "';");
-	}
-	
-	/**
-	 * Erneuert den evtl. vorhandenen Banngrund
-	 * @param reason
-	 * @throws Exception
-	 */
-	public void updateBanReason(String reason) throws Exception {
-		this.banreason = reason;
-		this.db.executeUpdate("UPDATE edgecraft_users SET banreason = '" + reason + "' WHERE id = '" + this.id + "';");
-	}
-	
 	protected void setID(int id) {
-		this.id = id;
+		if( id >= 0 )
+			this.id = id;
 	}
 
+	/**
+	 * Sets the users' name.
+	 * @param name
+	 */
 	protected void setName(String name) {
-		this.name = name;
+		if( name != null )
+			this.name = name;
 	}
 
+	/**
+	 * Sets the users' ip.
+	 * @param ip
+	 */
 	protected void setIP(String ip) {
-		this.ip = ip;
+		if( ip != null ) 
+			this.ip = ip;
 	}
 
+	/**
+	 * Sets the users' level.
+	 * @param level
+	 */
 	protected void setLevel(int level) {
-		this.level = level;
+		if( level >= 0 )
+			this.level = level;
 	}
 
+	/**
+	 * Sets the users' language.
+	 * @param language
+	 */
 	protected void setLanguage(String language) {
-		this.language = language;
+		if( language != null )
+			this.language = language;
 	}
 	
+	/**
+	 * Sets whether the users' ban-status.
+	 * @param status
+	 */
 	protected void setBanStatus(boolean status) {
 		this.banned = status;
 	}
 	
+	/**
+	 * Sets the users' ban-reason.
+	 * @param reason
+	 */
 	protected void setBanReason(String reason) {
-		this.banreason = reason;
+		if( reason != null )
+			this.banreason = reason;
 	}
 }

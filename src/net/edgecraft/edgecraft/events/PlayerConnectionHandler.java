@@ -15,9 +15,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerConnectionHandler implements Listener {
 	
-	private final UserManager userManager = EdgeCraft.manager;
-	private final LanguageHandler lang = EdgeCraft.lang;
+	private final UserManager userManager = EdgeCraft.getUsers();
+	private final LanguageHandler lang = EdgeCraft.getLang();
 	
+	/**
+	 * Gets executed whenever a player joins.
+	 * 
+	 * @param event
+	 */
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerLogin(PlayerJoinEvent event) {
 		
@@ -34,6 +39,11 @@ public class PlayerConnectionHandler implements Listener {
 		}
 	}
 	
+	/**
+	 * Gets executed whenever a player logs out.
+	 * 
+	 * @param event
+	 */
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerLogout(PlayerQuitEvent event) {
 		
@@ -49,6 +59,10 @@ public class PlayerConnectionHandler implements Listener {
 		}
 	}
 	
+	/**
+	 * TODO: Add senseful comment.
+	 * @param e
+	 */
 	@EventHandler
 	public void onBanCheck(PlayerJoinEvent e) {
 		
@@ -64,7 +78,7 @@ public class PlayerConnectionHandler implements Listener {
 			
 		}
 		
-		if (UserManager.bannedIPs.contains(joinIP)) {
+		if (UserManager.getBannedIPs().contains(joinIP)) {
 			for (Player p : Bukkit.getOnlinePlayers()) {				
 				if (p.hasPermission("edgecraft.ipwarning")) {
 					

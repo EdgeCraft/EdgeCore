@@ -14,10 +14,20 @@ import org.bukkit.entity.Player;
 
 public class DatabaseCommand implements CommandExecutor {
 	
-	private final LanguageHandler lang = EdgeCraft.lang;
-	private final DatabaseHandler db = EdgeCraft.db;
-	private final UserManager userManager = EdgeCraft.manager;
+	private final LanguageHandler lang = EdgeCraft.getLang();
+	private final DatabaseHandler db = EdgeCraft.getDB();
+	private final UserManager userManager = EdgeCraft.getUsers();
 	
+	/**
+	 * 
+	 * Gets executed whenever sb. uses the ( '/db' || '/database' || '/sql' ) command.
+	 * 
+	 * @param sender
+	 * @param cmd
+	 * @param label
+	 * @param args
+	 * @return true/false
+	 */
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if (!(sender instanceof Player)) {
@@ -28,7 +38,7 @@ public class DatabaseCommand implements CommandExecutor {
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				sender.sendMessage(lang.getColoredMessage(LanguageHandler.defaultLanguage, "globalerror"));
+				sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
 			}
 		}
 		
@@ -126,7 +136,7 @@ public class DatabaseCommand implements CommandExecutor {
 						player.sendMessage(lang.getColoredMessage(userLang, "db_connect_failed").replace("[0]", args[4]));
 						
 					} finally {
-						db.connection = null;
+						db.setConnection( null );
 					}
 				}
 			}

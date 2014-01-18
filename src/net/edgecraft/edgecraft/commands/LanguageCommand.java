@@ -12,13 +12,24 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class LanguageCommand implements CommandExecutor {
-	private final LanguageHandler lang = EdgeCraft.lang;
-	private final UserManager userManager = EdgeCraft.manager;
 
+	private final LanguageHandler lang = EdgeCraft.getLang();
+	private final UserManager userManager = EdgeCraft.getUsers();
+
+	/**
+	 * 
+	 * Gets executed whenever sb. uses the ( '/language' || '/lang' )-command.
+	 * 
+	 * @param sender
+	 * @param cmd
+	 * @param label
+	 * @param args
+	 * @return true/false
+	 */
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.GREEN + "Standardsprache: " + ChatColor.WHITE + LanguageHandler.defaultLanguage);
+			sender.sendMessage(ChatColor.GREEN + "Standardsprache: " + ChatColor.WHITE + LanguageHandler.getDefaultLanguage());
 			return true;
 		}
 
@@ -53,7 +64,7 @@ public class LanguageCommand implements CommandExecutor {
 				try {
 					if (args[1].equalsIgnoreCase("default")) {
 						
-						user.updateLanguage(LanguageHandler.defaultLanguage);
+						user.updateLanguage(LanguageHandler.getDefaultLanguage());
 						player.sendMessage(this.lang.getColoredMessage(userLang, "lang_set_default"));
 
 						return true;

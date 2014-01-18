@@ -9,11 +9,11 @@ import net.edgecraft.edgecraft.util.LanguageHandler;
 
 public class EdgeCraftPlugin {
 	
-	private static final DatabaseHandler databaseAPI = EdgeCraft.db;
-	private static final UserManager userAPI = EdgeCraft.manager;
-	private static final EdgeCraftSystem systemAPI = EdgeCraft.system;
-	private static final LanguageHandler languageAPI = EdgeCraft.lang;
-	private static final ChatHandler chatAPI = EdgeCraft.chat;
+	private static final DatabaseHandler databaseAPI = EdgeCraft.getDB();
+	private static final UserManager userAPI = EdgeCraft.getUsers();
+	private static final EdgeCraftSystem systemAPI = EdgeCraft.getSystem();
+	private static final LanguageHandler languageAPI = EdgeCraft.getLang();
+	private static final ChatHandler chatAPI = EdgeCraft.getChat();
 	
 	public static final DatabaseHandler getDatabaseAPI() {
 		return databaseAPI;
