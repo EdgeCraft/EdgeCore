@@ -35,6 +35,8 @@ public class EdgeCraft extends JavaPlugin {
 	
 	private static String currency;
 	
+	private EdgeCraft() { }
+	
 	/**
 	 * Is used when the plugin is going to shut down
 	 */

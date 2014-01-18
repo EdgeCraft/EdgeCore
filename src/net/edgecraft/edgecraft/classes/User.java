@@ -23,7 +23,7 @@ public class User {
 	protected User() { /* ... */ } 
 	
 	/**
-	 * Updates the users' level.
+	 * Updates the users' level
 	 * @param level
 	 * @throws Exception
 	 */
@@ -36,7 +36,7 @@ public class User {
 	}
 	
 	/**
-	 * Updates the users' language.
+	 * Updates the users' language
 	 * @param language
 	 * @throws Exception
 	 */
@@ -46,7 +46,7 @@ public class User {
 	}
 	
 	/**
-	 * (Un)bans the user.
+	 * (Un)bans the user
 	 * @param status
 	 * @throws Exception
 	 */
@@ -54,7 +54,7 @@ public class User {
 		this.banned = status;
 		
 		if( !status) {
-			this.banreason = "";
+			setBanReason("");
 		}
 		
 		int banned_ = status ? 1 : 0;
@@ -62,7 +62,7 @@ public class User {
 	}
 	
 	/**
-	 * Updates the ban-reason.
+	 * Updates the ban-reason
 	 * @param reason
 	 * @throws Exception
 	 */
@@ -74,7 +74,8 @@ public class User {
 	}
 	
 	/**
-	 * Returns the users' id.
+	 * Returns the users' id
+	 * 
 	 * @return Integer
 	 */
 	public int getID() {
@@ -82,7 +83,8 @@ public class User {
 	}
 	
 	/**
-	 * Returns the users' name.
+	 * Returns the users' name
+	 * 
 	 * @return String
 	 */
 	public String getName() {
@@ -90,7 +92,8 @@ public class User {
 	}
 
 	/**
-	 * Returns the users' ip.
+	 * Returns the users' ip
+	 * 
 	 * @return String
 	 */
 	public String getIP() {
@@ -98,7 +101,8 @@ public class User {
 	}
 	
 	/**
-	 * Returns the users' level.
+	 * Returns the users' level
+	 * 
 	 * @return Integer
 	 */
 	@Deprecated
@@ -107,7 +111,8 @@ public class User {
 	}
 
 	/**
-	 * Returns the users' language-setting.
+	 * Returns the users' language-setting
+	 * 
 	 * @return String
 	 */
 	public String getLanguage() {
@@ -115,7 +120,8 @@ public class User {
 	}
 
 	/**
-	 * Checks whether the user is banned or not.
+	 * Checks whether the user is banned or not
+	 * 
 	 * @return true/false
 	 */
 	public boolean isBanned() {
@@ -123,8 +129,9 @@ public class User {
 	}
 	
 	/**
-	 * Returns the reason for the ban.
-	 * Returns null if the user isn't banned.
+	 * Returns the reason for the ban
+	 * Returns null if the user isn't banned
+	 * 
 	 * @return String
 	 */
 	public String getBanReason() {
@@ -135,7 +142,8 @@ public class User {
 	}
 	
 	/**
-	 * Returns the bukkit-player-instance of the user.
+	 * Returns the bukkit-player-instance of the user
+	 * 
 	 * @return Player
 	 */
 	public Player getPlayer() {
@@ -143,7 +151,8 @@ public class User {
 	}
 	
 	/**
-	 * Returns the users' channel.
+	 * Returns the users' channel
+	 * 
 	 * @return Channel
 	 */
 	public Channel getChannel() {
@@ -159,9 +168,9 @@ public class User {
 		return  c;
 	}
 	
-	
 	/**
-	 * Sets the users' id.
+	 * Sets the users' id
+	 * 
 	 * @param id
 	 */
 	protected void setID(int id) {
@@ -170,7 +179,7 @@ public class User {
 	}
 
 	/**
-	 * Sets the users' name.
+	 * Sets the users' name
 	 * @param name
 	 */
 	protected void setName(String name) {
@@ -179,7 +188,7 @@ public class User {
 	}
 
 	/**
-	 * Sets the users' ip.
+	 * Sets the users' ip
 	 * @param ip
 	 */
 	protected void setIP(String ip) {
@@ -188,7 +197,7 @@ public class User {
 	}
 
 	/**
-	 * Sets the users' level.
+	 * Sets the users' level
 	 * @param level
 	 */
 	protected void setLevel(int level) {
@@ -197,7 +206,7 @@ public class User {
 	}
 	
 	/**
-	 * Sets the users' language.
+	 * Sets the users' language
 	 * @param language
 	 */
 	protected void setLanguage(String language) {
@@ -206,7 +215,7 @@ public class User {
 	}
 	
 	/**
-	 * Sets whether the users' ban-status.
+	 * Sets whether the users' ban-status
 	 * @param status
 	 */
 	protected void setBanStatus(boolean status) {
@@ -214,11 +223,34 @@ public class User {
 	}
 	
 	/**
-	 * Sets the users' ban-reason.
+	 * Sets the users' ban-reason
 	 * @param reason
 	 */
 	protected void setBanReason(String reason) {
 		if( reason != null )
 			this.banreason = reason;
+	}
+	
+	@Override
+	public int hashCode() {
+		return (int) getName().hashCode() * getIP().hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		
+		final User another = (User) obj;
+		
+		if (getName().equals(another.getName())) {
+			if (getIP().equals(another.getIP())) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }
