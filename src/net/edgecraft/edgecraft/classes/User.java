@@ -13,7 +13,6 @@ public class User {
 	private int id;
 	private String name;
 	private String ip;
-	@Deprecated
 	private int level;
 	private String language;
 	private boolean banned;

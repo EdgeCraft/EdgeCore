@@ -21,11 +21,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class EdgeCraft extends JavaPlugin {
 	
-	
-	public static String lol = "lol";
-	
-	
-	
 	public static final String edgebanner = "[EdgeCraft] ";
 	
 	public static final Logger log = Logger.getLogger("Minecraft");
