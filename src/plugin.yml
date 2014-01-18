@@ -15,7 +15,7 @@ commands:
       aliases: ['lang']
     system:
       description: System Command
-	aliases: ['sys']
+      aliases: ['sys']
     user:
       description: User Command
     who:
