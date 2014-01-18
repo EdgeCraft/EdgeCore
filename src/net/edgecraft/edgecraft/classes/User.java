@@ -195,7 +195,7 @@ public class User {
 		if( level >= 0 )
 			this.level = level;
 	}
-
+	
 	/**
 	 * Sets the users' language.
 	 * @param language

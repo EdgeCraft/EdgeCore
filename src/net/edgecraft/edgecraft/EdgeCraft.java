@@ -35,13 +35,18 @@ public class EdgeCraft extends JavaPlugin {
 	
 	private static String currency;
 	
-	
+	/**
+	 * Is used when the plugin is going to shut down
+	 */
 	@Override
 	public void onDisable() {
 	    log.info( EdgeCraft.edgebanner + "Das Plugin wird gestoppt..");
 	    log.info( EdgeCraft.edgebanner + "Plugin wurde erfolgreich beendet!");		
 	}
 	
+	/**
+	 * Is used when the plugin is starting up
+	 */
 	@Override
 	public void onEnable() {
 	    registerData();
@@ -49,6 +54,9 @@ public class EdgeCraft extends JavaPlugin {
 	    log.info( EdgeCraft.edgebanner + "Plugin wurde erfolgreich gestartet!");		
 	}
 	
+	/**
+	 * Is used before onEnable(), e.g. to pre-load needed functions
+	 */
 	@Override
 	public void onLoad() {
 	    instance = this;
@@ -63,6 +71,9 @@ public class EdgeCraft extends JavaPlugin {
 	    chat.enableChat(true);
 	}
 	
+	/**
+	 * Registers data the plugin will use
+	 */
 	private void registerData() {
 	    getServer().getPluginManager().registerEvents(new RegisterUserEvent(), this);
 	    getServer().getPluginManager().registerEvents(new PlayerConnectionHandler(), this);
@@ -75,36 +86,75 @@ public class EdgeCraft extends JavaPlugin {
 	    getCommand("language").setExecutor(new LanguageCommand());
 	}
 	
+	/**
+	 * Returns an instance of this class
+	 * 
+	 * @return EdgeCraft
+	 */
 	public static EdgeCraft getInstance() {
 		return (EdgeCraft) instance;
 	}
 
+	/**
+	 * Returns the DatabaseAPI which is instantiated in this class
+	 * 
+	 * @return DatabaseHandler
+	 */
 	public static DatabaseHandler getDB() {
 		return EdgeCraft.db;
 	}
-
+	
+	/**
+	 * Returns the SystemAPI which is instantiated in this class
+	 *  
+	 * @return EdgeCraftSystem
+	 */
 	public static EdgeCraftSystem getSystem() {
 		return EdgeCraft.system;
 	}
-
+	
+	/**
+	 * Returns the UserAPI which is instantiated in this class
+	 * 
+	 * @return UserManager
+	 */
 	public static UserManager getUsers() {
 		return EdgeCraft.users;
 	}
-
+	
+	/**
+	 * Returns the LanguageAPI which is instantiated in this class
+	 * 
+	 * @return LanguageHandler
+	 */
 	public static LanguageHandler getLang() {
 		return EdgeCraft.lang;
 	}
-
+	
+	/**
+	 * Returns the ChatAPI which is instantiated in this class
+	 * 
+	 * @return ChatHandler
+	 */
 	public static ChatHandler getChat() {
 		return EdgeCraft.chat;
 	}
-
+	
+	/**
+	 * Returns the currency which is set in the configuration
+	 * 
+	 * @return String
+	 */
 	public static String getCurrency() {
 		return EdgeCraft.currency;
 	}
-
 	
-	
+	/**
+	 * Sets the currency temporarily for this plugin-session
+	 * This variable will be resetted after a restart/reload of this plugin
+	 * 
+	 * @param currency
+	 */
 	public static void setCurrency( String currency ) {
 		if( currency != null ) {
 			EdgeCraft.currency = currency;

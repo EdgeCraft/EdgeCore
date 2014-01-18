@@ -15,22 +15,47 @@ public class EdgeCraftPlugin {
 	private static final LanguageHandler languageAPI = EdgeCraft.getLang();
 	private static final ChatHandler chatAPI = EdgeCraft.getChat();
 	
+	/**
+	 * Returns the DatabaseAPI
+	 * 
+	 * @return DatabaseHandler
+	 */
 	public static final DatabaseHandler getDatabaseAPI() {
 		return databaseAPI;
 	}
 	
+	/**
+	 * Returns the UserAPI
+	 * 
+	 * @return UserManager
+	 */
 	public static final UserManager getUserAPI() {
 		return userAPI;
 	}
 	
+	/**
+	 * Returns the SystemAPI
+	 * 
+	 * @return EdgeCraftSystem
+	 */
 	public static final EdgeCraftSystem getSystemAPI() {
 		return systemAPI;
 	}
 	
+	/**
+	 * Returns the LanguageAPI
+	 * 
+	 * @return LanguageHandler
+	 */
 	public static final LanguageHandler getLanguageAPI() {
 		return languageAPI;
 	}
 	
+	/**
+	 * Returns the ChatAPI
+	 * 
+	 * @return ChatHandler
+	 */
 	public static final ChatHandler getChatAPI() {
 		return chatAPI;
 	}

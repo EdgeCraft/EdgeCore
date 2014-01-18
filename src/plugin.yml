@@ -1,7 +1,7 @@
 ﻿name: EdgeCraft
 version: 2.3
 author: Panjab
-authors: [ lush ]
+authors: [lush]
 website: http://edgecraft.de
 
 main: net.edgecraft.edgecraft.EdgeCraft

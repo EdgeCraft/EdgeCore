@@ -14,11 +14,10 @@ public class LanguageHandler {
 	
 	private static String defaultLanguage;
 	
-
 	/**
 	 * Returns the default language.
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public static String getDefaultLanguage() {
 		return LanguageHandler.defaultLanguage;
@@ -39,7 +38,7 @@ public class LanguageHandler {
 	 * 
 	 * @param lang
 	 * @param messageKey
-	 * @return
+	 * @return String
 	 */
 	public String getColoredMessage(String lang, String messageKey) {
 		return ChatColor.translateAlternateColorCodes('@', getRawMessage(lang, "message", messageKey));
@@ -51,7 +50,7 @@ public class LanguageHandler {
 	 * @param lang
 	 * @param element
 	 * @param messageKey
-	 * @return
+	 * @return String
 	 */
 	public String getRawMessage(String lang, String element, String messageKey) {
 		
