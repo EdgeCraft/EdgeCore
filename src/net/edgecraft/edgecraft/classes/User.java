@@ -13,7 +13,8 @@ public class User {
 	private int id;
 	private String name;
 	private String ip;
-	private int level; // deprecated soon.
+	@Deprecated
+	private int level;
 	private String language;
 	private boolean banned;
 	private String banreason;
@@ -27,6 +28,7 @@ public class User {
 	 * @param level
 	 * @throws Exception
 	 */
+	@Deprecated
 	public void updateLevel(int level) throws Exception {
 		if( level >= 0 ) {
 			setLevel( level );
@@ -100,6 +102,7 @@ public class User {
 	 * Returns the users' level.
 	 * @return Integer
 	 */
+	@Deprecated
 	public int getLevel() {
 		return level;
 	}
