@@ -21,6 +21,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class EdgeCraft extends JavaPlugin {
 	
+	public static final String edgebanner = "[EdgeCraft] ";
+	
 	public static final Logger log = Logger.getLogger("Minecraft");
 	private static EdgeCraft instance;
 	
@@ -35,15 +37,15 @@ public class EdgeCraft extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
-	    log.info("[EdgeCraft] Das Plugin wird gestoppt..");
-	    log.info("[EdgeCraft] Plugin wurde erfolgreich beendet!");		
+	    log.info( EdgeCraft.edgebanner + "Das Plugin wird gestoppt..");
+	    log.info( EdgeCraft.edgebanner + "Plugin wurde erfolgreich beendet!");		
 	}
 	
 	@Override
 	public void onEnable() {
 	    registerData();
 
-	    log.info("[EdgeCraft] Plugin wurde erfolgreich gestartet!");		
+	    log.info( EdgeCraft.edgebanner + "Plugin wurde erfolgreich gestartet!");		
 	}
 	
 	@Override

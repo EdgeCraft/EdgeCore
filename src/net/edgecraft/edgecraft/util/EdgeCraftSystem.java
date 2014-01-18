@@ -69,12 +69,12 @@ public class EdgeCraftSystem {
 	}
 
 	public void getConsoleOverview() {
-		EdgeCraft.log.info("[EdgeCraft] Uptime: " + getUptime());
-		EdgeCraft.log.info("[EdgeCraft] Maximaler RAM: " + getMaxMemory() + " [MB]");
-		EdgeCraft.log.info("[EdgeCraft] Totaler RAM: " + getTotalMemory() + " [MB]");
-		EdgeCraft.log.info("[EdgeCraft] Freier RAM: " + getFreeMemory() + " [MB]");
-		EdgeCraft.log.info("[EdgeCraft] Genutzter RAM: " + getUsedMemory() + " [MB]");
-		Bukkit.getServer().getConsoleSender().sendMessage("[EdgeCraft] Memory Status: "	+ (overloadedMemory() 
+		EdgeCraft.log.info( EdgeCraft.edgebanner + "Uptime: " + getUptime());
+		EdgeCraft.log.info( EdgeCraft.edgebanner + "Maximaler RAM: " + getMaxMemory() + " [MB]");
+		EdgeCraft.log.info( EdgeCraft.edgebanner + "Totaler RAM: " + getTotalMemory() + " [MB]");
+		EdgeCraft.log.info( EdgeCraft.edgebanner + "Freier RAM: " + getFreeMemory() + " [MB]");
+		EdgeCraft.log.info( EdgeCraft.edgebanner + "Genutzter RAM: " + getUsedMemory() + " [MB]");
+		Bukkit.getServer().getConsoleSender().sendMessage( EdgeCraft.edgebanner + "Memory Status: "	+ (overloadedMemory() 
 																						? ChatColor.RED + "Ausgelastet!" 
 																						: new StringBuilder().append(ChatColor.GREEN).append("Gut.").toString()));
 	}
