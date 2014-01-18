@@ -35,6 +35,7 @@ public class EdgeCraft extends JavaPlugin {
 	
 	private static String currency;
 	
+	
 	@Override
 	public void onDisable() {
 	    log.info( EdgeCraft.edgebanner + "Das Plugin wird gestoppt..");
@@ -102,6 +103,8 @@ public class EdgeCraft extends JavaPlugin {
 		return EdgeCraft.currency;
 	}
 
+	
+	
 	public static void setCurrency( String currency ) {
 		if( currency != null ) {
 			EdgeCraft.currency = currency;

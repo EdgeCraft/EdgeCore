@@ -18,6 +18,16 @@ public class SystemCommand implements CommandExecutor {
 	private final EdgeCraftSystem system = EdgeCraft.getSystem();
 	private final UserManager userManager = EdgeCraft.getUsers();
 	
+	
+	/**
+	 * Gets executed whenever sb. uses the '/system'-command.
+	 * 
+	 * @param sender
+	 * @param cmd
+	 * @param label
+	 * @param args
+	 * @return true/false
+	 */
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if (!(sender instanceof Player)) {

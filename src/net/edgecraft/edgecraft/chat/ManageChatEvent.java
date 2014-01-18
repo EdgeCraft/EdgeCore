@@ -15,6 +15,7 @@ public class ManageChatEvent implements Listener {
 	private final UserManager userManager = EdgeCraft.getUsers();
 	private final LanguageHandler lang = EdgeCraft.getLang();
 	
+	
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
 		

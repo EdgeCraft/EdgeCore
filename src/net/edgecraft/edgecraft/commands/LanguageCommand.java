@@ -16,6 +16,16 @@ public class LanguageCommand implements CommandExecutor {
 	private final LanguageHandler lang = EdgeCraft.getLang();
 	private final UserManager userManager = EdgeCraft.getUsers();
 
+	/**
+	 * 
+	 * Gets executed whenever sb. uses the ( '/language' || '/lang' )-command.
+	 * 
+	 * @param sender
+	 * @param cmd
+	 * @param label
+	 * @param args
+	 * @return true/false
+	 */
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if (!(sender instanceof Player)) {

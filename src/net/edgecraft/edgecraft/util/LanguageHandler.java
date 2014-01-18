@@ -1,8 +1,6 @@
 package net.edgecraft.edgecraft.util;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,29 +13,49 @@ import org.w3c.dom.NodeList;
 public class LanguageHandler {
 	
 	private static String defaultLanguage;
-	private static List<String> messageList = new ArrayList<String>();
 	
 
+	/**
+	 * Returns the default language.
+	 * 
+	 * @return
+	 */
 	public static String getDefaultLanguage() {
 		return LanguageHandler.defaultLanguage;
 	}
 
-	public static List<String> getMessageList() {
-		return LanguageHandler.messageList;
-	}
-
-
+	/**
+	 * Sets the default language.
+	 * 
+	 * @param defaultLanguage
+	 */
 	public static void setDefaultLanguage( String defaultLanguage ) {
 		if( defaultLanguage != null )	
 			LanguageHandler.defaultLanguage = defaultLanguage;
 	}
 
+	/**
+	 * Returns a colored message in the specified language (if available) with the specified message-key.
+	 * 
+	 * @param lang
+	 * @param messageKey
+	 * @return
+	 */
 	public String getColoredMessage(String lang, String messageKey) {
 		return ChatColor.translateAlternateColorCodes('@', getRawMessage(lang, "message", messageKey));
 	}
 	
+	/**
+	 * Returns a raw message in the specified language (if available) with the given message-key.
+	 * 
+	 * @param lang
+	 * @param element
+	 * @param messageKey
+	 * @return
+	 */
 	public String getRawMessage(String lang, String element, String messageKey) {
-	    try {
+		
+		try {
 	    	
 	      DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
 	      DocumentBuilder builder = fac.newDocumentBuilder();
@@ -52,11 +70,8 @@ public class LanguageHandler {
 	        Node key = current.getAttributes().getNamedItem("key");
 
 	        if ((key != null) && (messageKey.equals(key.getNodeValue()))) {
-	        	
-	          Node valueNode = current.getAttributes().getNamedItem("value");
-	          messageList.add(valueNode.getNodeValue());
 	          
-	          return valueNode.getNodeValue().replace("[nl]", "\n");	     
+	          return current.getAttributes().getNamedItem("value").getNodeValue().replace("[nl]", "\n");	     
 	          
 	        }
 	      }
@@ -69,6 +84,12 @@ public class LanguageHandler {
 	    return "@cCouldn't find phrase for @6" + messageKey + " @cin @6" + lang + "@c!";		
 	}
 	
+	/**
+	 * Checks whether the given language is available or not.
+	 * 
+	 * @param language
+	 * @return true/false
+	 */
 	public boolean exists(String language) {
 	    return new File("plugins/EdgeCraft/languages/lang_" + language + ".xml").exists();		
 	}

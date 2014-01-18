@@ -15,6 +15,10 @@ public class RegisterUserEvent implements Listener {
 	private final UserManager userManager = EdgeCraft.getUsers();
 	private final LanguageHandler lang = EdgeCraft.getLang();
 	
+	/**
+	 * TODO: Add senseful comment.
+	 * @param event
+	 */
 	@EventHandler
 	public void registerUser(PlayerJoinEvent event) {
 		

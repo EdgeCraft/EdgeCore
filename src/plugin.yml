@@ -1,6 +1,7 @@
-name: EdgeCraft
+﻿name: EdgeCraft
 version: 2.3
 author: Panjab
+authors: [ lush ]
 website: http://edgecraft.de
 
 main: net.edgecraft.edgecraft.EdgeCraft
@@ -14,6 +15,7 @@ commands:
       aliases: ['lang']
     system:
       description: System Command
+	aliases: ['sys']
     user:
       description: User Command
     who:

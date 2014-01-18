@@ -19,28 +19,15 @@ public class UserManager {
 	private static int defaultLevel;
 	
 	private final DatabaseHandler db = EdgeCraft.getDB();
-	
+		
+	public UserManager() { /* ... */ }
 
-
-	public Map<Integer, User> getUsers() {
-		return users;
-	}
-
-	public static List<String> getBannedIPs() {
-		return bannedIPs;
-	}
-
-	public int getDefaultLevel() {
-		return defaultLevel;
-	}
-
-	
-	
-	public static void setDefaultLevel( int defaultLevel ) {
-		if( defaultLevel >= 0 )
-			UserManager.defaultLevel = defaultLevel;
-	}
-
+	/**
+	 * Registers a new user.
+	 * (local + db)
+	 * @param name
+	 * @param ip
+	 */
 	public void registerUser(String name, String ip) {
 		try {
 			
@@ -56,7 +43,11 @@ public class UserManager {
 		}
 	}
 	
-
+	/**
+	 * Deletes an existing user.
+	 * (local + db)
+	 * @param id
+	 */
 	public void deleteUser(int id) {
 		try {
 			
@@ -68,12 +59,22 @@ public class UserManager {
 		}
 	}
 	
+	/**
+	 * Generates a possible user-id.
+	 * @return
+	 * @throws Exception
+	 */
 	public int generateID() throws Exception {
 		if (amountOfUsers() <= 0) return 1;
 		
 		return greatestID() + 1;
 	}
 	
+	/**
+	 * Returns the greatest user-id.
+	 * @return
+	 * @throws Exception
+	 */
 	public int greatestID() throws Exception {
 
 		Map<String, Object> greatestID = this.db.getResults("SELECT * FROM edgecraft_users ORDER BY id DESC LIMIT 1;").get(0);
@@ -83,10 +84,19 @@ public class UserManager {
 		return (int) greatestID.get("id");
 	}
 	
+	/**
+	 * Returns the current amount of users.
+	 * @return
+	 */
 	public int amountOfUsers() {
 		return users.size();
 	}
 	
+	/**
+	 * Returns a list with all existing (online) users.
+	 * @param language
+	 * @return
+	 */
 	public String getUserList(String language) {
 		
 	    if (Bukkit.getOnlinePlayers().length <= 0) {
@@ -110,18 +120,39 @@ public class UserManager {
 	    return EdgeCraft.getLang().getColoredMessage(language, "userlist").replace("[0]", Bukkit.getOnlinePlayers().length + "").replace("[1]", Bukkit.getMaxPlayers() + "").replace("[2]", sb.toString());
 	}
 	
+	/**
+	 * Checks whether the given id is already in use. 
+	 * @param id
+	 * @return true/false
+	 */
 	public boolean exists(int id) {
 		return users.containsKey(id);
 	}
 	
+	
+	/**
+	 * Checks whether the given name is already in use.
+	 * @param name
+	 * @return
+	 */
 	public boolean exists(String name) {
 		return getUser(name) != null;
 	}
 	
+	/**
+	 * Returns the user registered with the given id.
+	 * @param id
+	 * @return
+	 */
 	public User getUser(int id) {
 		return users.get(id);
 	}
 	
+	/**
+	 * Return the user registered with the given name.
+	 * @param name
+	 * @return
+	 */
 	public User getUser(String name) {
 		
 		int id = 0;
@@ -138,6 +169,11 @@ public class UserManager {
 		return users.get(id);
 	}
 	
+	/**
+	 * Returns the user registered with the given IP-Token.
+	 * @param ip
+	 * @return
+	 */
 	public User getUserByIP(String ip) {
 		
 		int id = 0;
@@ -154,6 +190,9 @@ public class UserManager {
 		return users.get(id);
 	}
 	
+	/**
+	 * Synchronizes all users.
+	 */
 	public void synchronizeUsers() {
 		try {
 			
@@ -166,6 +205,11 @@ public class UserManager {
 		}
 	}
 	
+	/**
+	 * Synchronizes the user given through his id.
+	 * ( db --> local )
+	 * @param id
+	 */
 	public void synchronizeUser(int id) {
 		try {
 			
@@ -209,5 +253,40 @@ public class UserManager {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Returns the map containing all users.
+	 * (local)
+	 * @return
+	 */
+	public Map<Integer, User> getUsers() {
+		return users;
+	}
+
+	/**
+	 * Returns the list containing all banned IPs.
+	 * (local)
+	 * @return
+	 */
+	public static List<String> getBannedIPs() {
+		return bannedIPs;
+	}
+
+	/**
+	 * Returns the default level of an user.
+	 * @return
+	 */
+	public int getDefaultLevel() {
+		return defaultLevel;
+	}
+	
+	/**
+	 * Sets the default level of users.
+	 * @param defaultLevel
+	 */
+	public static void setDefaultLevel( int defaultLevel ) {
+		if( defaultLevel >= 0 )
+			UserManager.defaultLevel = defaultLevel;
 	}
 }

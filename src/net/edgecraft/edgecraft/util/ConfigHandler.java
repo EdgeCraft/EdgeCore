@@ -13,23 +13,37 @@ public class ConfigHandler {
 	private EdgeCraft plugin;
 	private FileConfiguration config;
 	
+	/**
+	 * Constructor
+	 * @param instance
+	 */
 	public ConfigHandler(EdgeCraft instance) {
 		setPlugin( instance );
 	}
 	
+	/**
+	 * Loads the config of the EdgeCraft-Instance.
+	 * 
+	 */
 	public void loadConfig() {
-		setConfig( getPlugin().getConfig() );
+			
+			// Config-itself.
+			setConfig( getPlugin().getConfig() );
 		
+			// Database
 	    	getConfig().addDefault( DatabaseHandler.DatabaseHost, DatabaseHandler.unset);
 	    	getConfig().addDefault( DatabaseHandler.DatabaseUser, DatabaseHandler.unset);
 	    	getConfig().addDefault( DatabaseHandler.DatabasePW, DatabaseHandler.unset);
 	    	getConfig().addDefault( DatabaseHandler.DatabaseDB, DatabaseHandler.unset);
 	   
-	   	getConfig().addDefault("Language.Default", "de");
+	    	// Language
+	    	getConfig().addDefault("Language.Default", "de");
 
+	    	// User
 	    	getConfig().addDefault("User.DefaultLevel", Integer.valueOf(0));
 	    
-		getConfig().addDefault("Economy.Currency", "$");	
+	    	// Economy
+	    	getConfig().addDefault("Economy.Currency", "$");	
 
 	    	getConfig().options().copyDefaults(true);
 	    	getPlugin().saveConfig();
@@ -38,6 +52,11 @@ public class ConfigHandler {
 	    	getPlugin().saveDefaultConfig();		
 	}
 	
+	/**
+	 * Updates all local settings using the configuration.
+	 * 
+	 * @param instance
+	 */
 	public final void update(EdgeCraft instance) {
 
 		DatabaseHandler.setHost( getConfig().getString(DatabaseHandler.DatabaseHost));
@@ -53,22 +72,43 @@ public class ConfigHandler {
 		EdgeCraft.setCurrency( this.config.getString("Economy.Currency") );
 	}
 	
+	/**
+	 * Returns the used EdgeCraft-instance.
+	 * 
+	 * @return
+	 */
 	private EdgeCraft getPlugin() {
 		
 		return plugin;
 	}
 	
+	/**
+	 * Returns the used file-configuration.
+	 * 
+	 * @return
+	 */
 	public FileConfiguration getConfig() {
 		return config;
 	}
-
-	protected void setConfig( FileConfiguration config ) {
-		if( config != null )
-			this.config = config;
-	}
-
+	
+	/**
+	 * Sets the EdgeCraft-instance.
+	 * 
+	 * @param instance
+	 */
 	protected void setPlugin( EdgeCraft instance ) {
 		if( instance != null )
 			plugin = instance;
 	}
+
+	/**
+	 * Sets the file-configuration.
+	 * 
+	 * @param config
+	 */
+	protected void setConfig( FileConfiguration config ) {
+		if( config != null )
+			this.config = config;
+	}
+	
 }

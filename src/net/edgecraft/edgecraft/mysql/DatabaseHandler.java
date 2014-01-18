@@ -29,58 +29,8 @@ public class DatabaseHandler {
 	
 	private Connection connection;
 	
-
-
-	public String getHost() {
-		return host;
-	}
-
-	public static String getUser() {
-		return user;
-	}
-
-	public static String getPW() {
-		return pw;
-	}
-
-	public static String getDB() {
-		return db;
-	}
-
-	public Connection getConnection() {
-		return connection;
-	}
-	
-
-
-	public static void setHost( String host ) {
-		if( host != null )
-			DatabaseHandler.host = host;
-	}
-
-	public static void setUser( String user ) {
-		if( user != null )
-			DatabaseHandler.user = user;
-	}
-
-	public static void setPW( String pw ) {
-		if( pw != null )
-			DatabaseHandler.pw = pw;
-	}
-
-	public static void setDB ( String db ) {
-		if( db != null ) 
-			DatabaseHandler.db = db;
-	}
-
-
-	public void setConnection( Connection connection ) {
-		if( connection != null )
-			this.connection = connection;
-	}
-
-	public DatabaseHandler() {} // default
-
+	// Constructors:
+	public DatabaseHandler() {/* ... */}
 
 	public DatabaseHandler( String host, String user, String pw, String db ) {
 
@@ -90,16 +40,10 @@ public class DatabaseHandler {
 		setDB( db );
 	}
 
-
-	/**
-	 * Erstellt eine Datenbank-Verbindung mit den in der Konfiguration angegebenen Werten
-	 */
-	public synchronized void loadConnection() {
-		loadConnection( getHost(), getUser(), getPW(), getDB() );
-	}
 	
 	/**
-	 * Erstellt eine Datenbank-Verbindung mit den angegebenen Werten
+	 * Establishes a database-connection with the given config.
+	 * 
 	 * @param host
 	 * @param user
 	 * @param pw
@@ -123,8 +67,20 @@ public class DatabaseHandler {
 		}		
 	}
 	
+	
 	/**
-	 * Schlie�t die Datenbank-Verbindung
+	 * Establishes a database-connection with the local config.
+	 * 
+	 */
+	public synchronized void loadConnection() {
+		loadConnection( getHost(), getUser(), getPW(), getDB() );
+	}
+	
+
+	
+	/**
+	 * Closes the database-connection.
+	 * 
 	 * @throws SQLException
 	 */
 	public void closeConnection() throws SQLException {
@@ -134,7 +90,8 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Pr�ft, ob die Datenbank-Verbindung aufrecht steht
+	 * Checks whether the database-connection is already established.
+	 * 
 	 * @return true/false
 	 * @throws Exception
 	 */
@@ -143,7 +100,8 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * F�hrt einen Query-Befehl in der Datenbank aus
+	 * Executes a query-command.
+	 * 
 	 * @param sql
 	 * @throws Exception
 	 */
@@ -152,7 +110,8 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * F�hrt einen Update-Befehl in der Datenbank aus
+	 * Executes an update-command.
+	 * 
 	 * @param sql
 	 * @throws Exception
 	 */
@@ -162,7 +121,8 @@ public class DatabaseHandler {
 	
 
 	/**
-	 * Gibt alle Datenbanken vom verwendeten Host aus
+	 * Returns all databases of the host.
+	 * 
 	 * @return String
 	 * @throws Exception
 	 */
@@ -181,7 +141,8 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Pr�ft, ob angegebene Datenbank existiert
+	 * Checks whether the given database already exists.
+	 * 
 	 * @param db
 	 * @return true/false
 	 * @throws Exception
@@ -201,7 +162,8 @@ public class DatabaseHandler {
 	}
 
 	/**
-	 * Pr�ft, ob angegebene Tabelle existiert
+	 * Checks whether the given table already exists.
+	 * 
 	 * @param table
 	 * @return true/false
 	 * @throws Exception
@@ -218,7 +180,8 @@ public class DatabaseHandler {
 	}
 	
 	/**
-	 * Gibt alle Objekte in einer 'List<Map<String, Object>>' zur�ck, welche vom SQL-Befehl gefunden wurden
+	 * Returns all returned values of the given sql-command.
+	 * 
 	 * @param sql
 	 * @return List<Map<String, Object>>
 	 * @throws Exception
@@ -248,5 +211,101 @@ public class DatabaseHandler {
 		return columns;
 	}
 
+	/**
+	 * Returns the host.
+	 * 
+	 * @return
+	 */
+	public String getHost() {
+		return host;
+	}
+
+	/**
+	 * Returns the user.
+	 * 
+	 * @return
+	 */
+	public static String getUser() {
+		return user;
+	}
+
+	/**
+	 * Returns the password.
+	 * 
+	 * @return
+	 */
+	public static String getPW() {
+		return pw;
+	}
+
+	/**
+	 * Returns the database.
+	 * 
+	 * @return
+	 */
+	public static String getDB() {
+		return db;
+	}
+
+	/**
+	 * Returns the connection.
+	 * 
+	 * @return
+	 */
+	public Connection getConnection() {
+		return connection;
+	}
+	
+
+	/**
+	 * Sets the host.
+	 * 
+	 * @param host
+	 */
+
+	public static void setHost( String host ) {
+		if( host != null )
+			DatabaseHandler.host = host;
+	}
+
+	/**
+	 * Sets the user.
+	 * 
+	 * @param user
+	 */
+	public static void setUser( String user ) {
+		if( user != null )
+			DatabaseHandler.user = user;
+	}
+
+	/**
+	 * Sets the password.
+	 * 
+	 * @param pw
+	 */
+	public static void setPW( String pw ) {
+		if( pw != null )
+			DatabaseHandler.pw = pw;
+	}
+
+	/**
+	 * Sets the database.
+	 * 
+	 * @param db
+	 */
+	public static void setDB ( String db ) {
+		if( db != null ) 
+			DatabaseHandler.db = db;
+	}
+
+	/**
+	 * Sets the connection.
+	 * 
+	 * @param connection
+	 */
+	public void setConnection( Connection connection ) {
+		if( connection != null )
+			this.connection = connection;
+	}
 	
 }
