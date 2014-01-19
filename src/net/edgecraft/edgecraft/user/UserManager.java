@@ -1,4 +1,4 @@
-package net.edgecraft.edgecraft.classes;
+package net.edgecraft.edgecraft.user;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import net.edgecraft.edgecraft.EdgeCraft;
-import net.edgecraft.edgecraft.mysql.DatabaseHandler;
+import net.edgecraft.edgecraft.command.Level;
+import net.edgecraft.edgecraft.db.DatabaseHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,9 +20,15 @@ public class UserManager {
 	private static int defaultLevel;
 	
 	private final DatabaseHandler db = EdgeCraft.getDB();
+	
+	protected static final UserManager instance = new UserManager();
 		
-	public UserManager() { /* ... */ }
+	protected UserManager() { /* ... */ }
 
+	public static final UserManager getInstance() {
+		return instance;
+	}
+	
 	/**
 	 * Registers a new user.
 	 * (local + db)
@@ -230,9 +237,8 @@ public class UserManager {
 					} else if(entry.getKey().equals("ip")) {
 						user.setIP(entry.getValue().toString());
 						
-					} else if(entry.getKey().equals("level")) {
-						user.setLevel(Integer.valueOf(entry.getValue().toString()));
-						
+					} else if(entry.getKey().equals("level")) {						
+						user.setLevel( Level.getInstance(Integer.valueOf(entry.getValue().toString())) );
 					} else if(entry.getKey().equals("language")) {
 						user.setLanguage(entry.getValue().toString());
 						

@@ -2,10 +2,11 @@ package net.edgecraft.edgecraft.api;
 
 import net.edgecraft.edgecraft.EdgeCraft;
 import net.edgecraft.edgecraft.chat.ChatHandler;
-import net.edgecraft.edgecraft.classes.UserManager;
-import net.edgecraft.edgecraft.mysql.DatabaseHandler;
-import net.edgecraft.edgecraft.util.EdgeCraftSystem;
-import net.edgecraft.edgecraft.util.LanguageHandler;
+import net.edgecraft.edgecraft.command.CommandHandler;
+import net.edgecraft.edgecraft.db.DatabaseHandler;
+import net.edgecraft.edgecraft.lang.LanguageHandler;
+import net.edgecraft.edgecraft.system.EdgeCraftSystem;
+import net.edgecraft.edgecraft.user.UserManager;
 
 public class EdgeCraftPlugin {
 	
@@ -14,13 +15,14 @@ public class EdgeCraftPlugin {
 	private static final EdgeCraftSystem systemAPI = EdgeCraft.getSystem();
 	private static final LanguageHandler languageAPI = EdgeCraft.getLang();
 	private static final ChatHandler chatAPI = EdgeCraft.getChat();
+	private static final CommandHandler commandsAPI = EdgeCraft.getCommands();
 	
 	/**
 	 * Returns the DatabaseAPI
 	 * 
 	 * @return DatabaseHandler
 	 */
-	public static final DatabaseHandler getDatabaseAPI() {
+	public static final DatabaseHandler databaseAPI() {
 		return databaseAPI;
 	}
 	
@@ -29,7 +31,7 @@ public class EdgeCraftPlugin {
 	 * 
 	 * @return UserManager
 	 */
-	public static final UserManager getUserAPI() {
+	public static final UserManager userAPI() {
 		return userAPI;
 	}
 	
@@ -38,7 +40,7 @@ public class EdgeCraftPlugin {
 	 * 
 	 * @return EdgeCraftSystem
 	 */
-	public static final EdgeCraftSystem getSystemAPI() {
+	public static final EdgeCraftSystem systemAPI() {
 		return systemAPI;
 	}
 	
@@ -47,7 +49,7 @@ public class EdgeCraftPlugin {
 	 * 
 	 * @return LanguageHandler
 	 */
-	public static final LanguageHandler getLanguageAPI() {
+	public static final LanguageHandler languageAPI() {
 		return languageAPI;
 	}
 	
@@ -56,7 +58,16 @@ public class EdgeCraftPlugin {
 	 * 
 	 * @return ChatHandler
 	 */
-	public static final ChatHandler getChatAPI() {
+	public static final ChatHandler chatAPI() {
 		return chatAPI;
+	}
+	
+	/**
+	 * Returns the CommandsAPI
+	 * 
+	 * @return CommandHandler
+	 */
+	public static final CommandHandler commandsAPI() {
+		return commandsAPI;
 	}
 }

@@ -1,9 +1,9 @@
 package net.edgecraft.edgecraft.chat;
 
 import net.edgecraft.edgecraft.EdgeCraft;
-import net.edgecraft.edgecraft.classes.User;
-import net.edgecraft.edgecraft.classes.UserManager;
-import net.edgecraft.edgecraft.util.LanguageHandler;
+import net.edgecraft.edgecraft.lang.LanguageHandler;
+import net.edgecraft.edgecraft.user.User;
+import net.edgecraft.edgecraft.user.UserManager;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

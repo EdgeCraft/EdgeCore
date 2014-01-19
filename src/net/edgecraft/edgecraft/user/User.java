@@ -1,9 +1,10 @@
-package net.edgecraft.edgecraft.classes;
+package net.edgecraft.edgecraft.user;
 
 import net.edgecraft.edgecraft.EdgeCraft;
 import net.edgecraft.edgecraft.chat.Channel;
 import net.edgecraft.edgecraft.chat.ChatHandler;
-import net.edgecraft.edgecraft.mysql.DatabaseHandler;
+import net.edgecraft.edgecraft.command.Level;
+import net.edgecraft.edgecraft.db.DatabaseHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ public class User {
 	private int id;
 	private String name;
 	private String ip;
-	private int level;
+	private Level lvl;
 	private String language;
 	private boolean banned;
 	private String banreason;
@@ -27,12 +28,10 @@ public class User {
 	 * @param level
 	 * @throws Exception
 	 */
-	@Deprecated
-	public void updateLevel(int level) throws Exception {
-		if( level >= 0 ) {
-			setLevel( level );
-			db.executeUpdate("UPDATE edgecraft_users SET level = '" + level + "' WHERE id = '" + this.id + "';");
-		}
+	public void updateLevel(Level lvl) throws Exception {
+		
+			update( "level", lvl.value() );
+			setLevel( lvl );
 	}
 	
 	/**
@@ -41,8 +40,15 @@ public class User {
 	 * @throws Exception
 	 */
 	public void updateLanguage(String language) throws Exception {
+
+		update( "language", language );	
 		setLanguage(language);
-		this.db.executeUpdate("UPDATE edgecraft_users SET language = '" + language + "' WHERE id = '" + this.id + "';");	
+	}
+	
+	private void update( String var, Object obj ) throws Exception {
+		if( var != null && obj != null ) {
+			this.db.executeUpdate("UPDATE edgecraft_users SET" + var + " = '" + obj.toString() + "' WHERE id = '" + this.id + "';");
+		}
 	}
 	
 	/**
@@ -105,9 +111,8 @@ public class User {
 	 * 
 	 * @return Integer
 	 */
-	@Deprecated
-	public int getLevel() {
-		return level;
+	public Level getLevel() {
+		return lvl;
 	}
 
 	/**
@@ -200,10 +205,10 @@ public class User {
 	 * Sets the users' level
 	 * @param level
 	 */
-	protected void setLevel(int level) {
-		if( level >= 0 )
-			this.level = level;
+	protected void setLevel(Level lvl) {
+			this.lvl = lvl;
 	}
+	
 	
 	/**
 	 * Sets the users' language

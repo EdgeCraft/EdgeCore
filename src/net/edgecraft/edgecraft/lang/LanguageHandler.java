@@ -1,4 +1,4 @@
-package net.edgecraft.edgecraft.util;
+package net.edgecraft.edgecraft.lang;
 
 import java.io.File;
 
@@ -13,6 +13,15 @@ import org.w3c.dom.NodeList;
 public class LanguageHandler {
 	
 	private static String defaultLanguage;
+	
+	protected static final LanguageHandler instance = new LanguageHandler();
+	
+	protected LanguageHandler() { /* ... */ }
+	
+	public static final LanguageHandler getInstance() {
+		return instance;
+	}
+	
 	
 	/**
 	 * Returns the default language.

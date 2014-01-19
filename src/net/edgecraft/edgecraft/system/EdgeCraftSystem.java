@@ -1,4 +1,4 @@
-package net.edgecraft.edgecraft.util;
+package net.edgecraft.edgecraft.system;
 
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -16,8 +16,13 @@ public class EdgeCraftSystem {
 	public static final int overloadedMemoryAmount = 80;
 	private final Runtime runtime = Runtime.getRuntime();
 
-	public EdgeCraftSystem() { /* ... */ }
+	protected static final EdgeCraftSystem instance = new EdgeCraftSystem();
 	
+	protected EdgeCraftSystem() { /* ... */ }
+	
+	public static EdgeCraftSystem getInstance() {
+		return instance;
+	}
 	
 	/**
 	 * Logs important system-information of the runtime.

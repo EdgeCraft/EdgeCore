@@ -1,4 +1,4 @@
-package net.edgecraft.edgecraft.mysql;
+package net.edgecraft.edgecraft.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,18 +27,23 @@ public class DatabaseHandler {
 	
 	public static final String unset = "default";
 	
+	private static final DatabaseHandler instance = new DatabaseHandler();
 	private Connection connection;
 	
 	// Constructors:
-	public DatabaseHandler() {/* ... */}
+	protected DatabaseHandler() {/* ... */}
 
-	public DatabaseHandler( String host, String user, String pw, String db ) {
-
-		setHost( host );
-		setUser( user );
-		setPW( pw );
-		setDB( db );
+	public static DatabaseHandler getInstance() {
+		return instance;
 	}
+	
+//	protected DatabaseHandler( String host, String user, String pw, String db ) {
+//
+//		setHost( host );
+//		setUser( user );
+//		setPW( pw );
+//		setDB( db );
+//	}
 
 	
 	/**

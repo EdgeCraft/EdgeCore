@@ -1,7 +1,7 @@
 ﻿name: EdgeCraft
 version: 3.0
 author: Panjab
-authors: [lush]
+authors: [lush,horoking]
 website: http://edgecraft.de
 
 main: net.edgecraft.edgecraft.EdgeCraft

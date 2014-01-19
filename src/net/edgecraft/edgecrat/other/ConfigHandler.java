@@ -1,10 +1,11 @@
-package net.edgecraft.edgecraft.util;
+package net.edgecraft.edgecrat.other;
 
 import java.io.File;
 
 import net.edgecraft.edgecraft.EdgeCraft;
-import net.edgecraft.edgecraft.classes.UserManager;
-import net.edgecraft.edgecraft.mysql.DatabaseHandler;
+import net.edgecraft.edgecraft.db.DatabaseHandler;
+import net.edgecraft.edgecraft.lang.LanguageHandler;
+import net.edgecraft.edgecraft.user.UserManager;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -13,12 +14,13 @@ public class ConfigHandler {
 	private EdgeCraft plugin;
 	private FileConfiguration config;
 	
-	/**
-	 * Constructor
-	 * @param instance
-	 */
-	public ConfigHandler(EdgeCraft instance) {
-		setPlugin( instance );
+	protected static final ConfigHandler instance = new ConfigHandler();
+	
+	protected ConfigHandler() { /* ... */ }
+	
+	public static final ConfigHandler getInstance( EdgeCraft plugin ) {
+		instance.setPlugin(plugin);
+		return instance;
 	}
 	
 	/**

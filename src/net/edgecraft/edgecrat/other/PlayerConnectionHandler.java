@@ -1,9 +1,9 @@
-package net.edgecraft.edgecraft.events;
+package net.edgecraft.edgecrat.other;
 
 import net.edgecraft.edgecraft.EdgeCraft;
-import net.edgecraft.edgecraft.classes.User;
-import net.edgecraft.edgecraft.classes.UserManager;
-import net.edgecraft.edgecraft.util.LanguageHandler;
+import net.edgecraft.edgecraft.lang.LanguageHandler;
+import net.edgecraft.edgecraft.user.User;
+import net.edgecraft.edgecraft.user.UserManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerConnectionHandler implements Listener {
 	
-	private final UserManager userManager = EdgeCraft.getUsers();
+	private final UserManager users = EdgeCraft.getUsers();
 	private final LanguageHandler lang = EdgeCraft.getLang();
 	
 	/**
@@ -30,9 +30,9 @@ public class PlayerConnectionHandler implements Listener {
 		Player player = event.getPlayer();
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (this.userManager.exists(p.getName())) {
+			if (this.users.exists(p.getName())) {
 				
-				User user = this.userManager.getUser(p.getName());
+				User user = this.users.getUser(p.getName());
 				p.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "login").replace("[0]", player.getName()));
 				
 			}
@@ -51,9 +51,9 @@ public class PlayerConnectionHandler implements Listener {
 		Player player = event.getPlayer();
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (this.userManager.exists(p.getName())) {
+			if (this.users.exists(p.getName())) {
 				
-				User user = this.userManager.getUser(p.getName());
+				User user = this.users.getUser(p.getName());
 				p.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "logout").replace("[0]", player.getName()));
 			}
 		}
@@ -68,13 +68,13 @@ public class PlayerConnectionHandler implements Listener {
 		
 		String joinIP = "";
 		
-		if (!userManager.exists(e.getPlayer().getName())) {
+		if (!users.exists(e.getPlayer().getName())) {
 			
 			joinIP = e.getPlayer().getAddress().toString();
 			
 		} else {
 			
-			joinIP = userManager.getUser(e.getPlayer().getName()).getIP();
+			joinIP = users.getUser(e.getPlayer().getName()).getIP();
 			
 		}
 		
@@ -82,8 +82,8 @@ public class PlayerConnectionHandler implements Listener {
 			for (Player p : Bukkit.getOnlinePlayers()) {				
 				if (p.hasPermission("edgecraft.ipwarning")) {
 					
-					User user = userManager.getUser(p.getName());
-					User banned = userManager.getUserByIP(joinIP);
+					User user = users.getUser(p.getName());
+					User banned = users.getUserByIP(joinIP);
 					
 					if (user != null && banned != null) {
 						p.sendMessage(lang.getColoredMessage(user.getLanguage(), "info_bannedip").replace("[0]", joinIP).replace("[1]", banned.getName()));

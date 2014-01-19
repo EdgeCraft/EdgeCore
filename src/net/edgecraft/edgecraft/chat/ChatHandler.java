@@ -14,6 +14,14 @@ public class ChatHandler {
 	
 	private final static Map<Integer, Channel> channels = new HashMap<>();
 	
+	private static final ChatHandler instance = new ChatHandler();
+	
+	protected ChatHandler(){ /* ... */ }
+	
+	public static final ChatHandler getInstance() {
+		return instance;
+	}
+	
 
 	/**
 	 * Sends a message to the server.

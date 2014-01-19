@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.edgecraft.edgecraft.EdgeCraft;
-import net.edgecraft.edgecraft.classes.User;
-import net.edgecraft.edgecraft.util.LanguageHandler;
+import net.edgecraft.edgecraft.lang.LanguageHandler;
+import net.edgecraft.edgecraft.user.User;
 
 public class Channel {
 	
