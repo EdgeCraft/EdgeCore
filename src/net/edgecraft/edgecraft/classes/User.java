@@ -27,7 +27,6 @@ public class User {
 	 * @param level
 	 * @throws Exception
 	 */
-	@Deprecated
 	public void updateLevel(int level) throws Exception {
 		if( level >= 0 ) {
 			setLevel( level );
@@ -105,7 +104,6 @@ public class User {
 	 * 
 	 * @return Integer
 	 */
-	@Deprecated
 	public int getLevel() {
 		return level;
 	}
