@@ -43,7 +43,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Establishes a database-connection with the given config.
-	 * 
 	 * @param host
 	 * @param user
 	 * @param pw
@@ -70,7 +69,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Establishes a database-connection with the local config.
-	 * 
 	 */
 	public synchronized void loadConnection() {
 		loadConnection( getHost(), getUser(), getPW(), getDB() );
@@ -80,7 +78,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Closes the database-connection.
-	 * 
 	 * @throws SQLException
 	 */
 	public void closeConnection() throws SQLException {
@@ -91,7 +88,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Checks whether the database-connection is already established.
-	 * 
 	 * @return true/false
 	 * @throws Exception
 	 */
@@ -101,7 +97,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Executes a query-command.
-	 * 
 	 * @param sql
 	 * @throws Exception
 	 */
@@ -111,7 +106,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Executes an update-command.
-	 * 
 	 * @param sql
 	 * @throws Exception
 	 */
@@ -122,7 +116,6 @@ public class DatabaseHandler {
 
 	/**
 	 * Returns all databases of the host.
-	 * 
 	 * @return String
 	 * @throws Exception
 	 */
@@ -142,7 +135,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Checks whether the given database already exists.
-	 * 
 	 * @param db
 	 * @return true/false
 	 * @throws Exception
@@ -163,7 +155,6 @@ public class DatabaseHandler {
 
 	/**
 	 * Checks whether the given table already exists.
-	 * 
 	 * @param table
 	 * @return true/false
 	 * @throws Exception
@@ -181,7 +172,6 @@ public class DatabaseHandler {
 	
 	/**
 	 * Returns all returned values of the given sql-command.
-	 * 
 	 * @param sql
 	 * @return List<Map<String, Object>>
 	 * @throws Exception
@@ -213,8 +203,7 @@ public class DatabaseHandler {
 
 	/**
 	 * Returns the host.
-	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getHost() {
 		return host;
@@ -222,8 +211,7 @@ public class DatabaseHandler {
 
 	/**
 	 * Returns the user.
-	 * 
-	 * @return
+	 * @return String
 	 */
 	public static String getUser() {
 		return user;
@@ -231,8 +219,7 @@ public class DatabaseHandler {
 
 	/**
 	 * Returns the password.
-	 * 
-	 * @return
+	 * @return String
 	 */
 	public static String getPW() {
 		return pw;
@@ -240,8 +227,7 @@ public class DatabaseHandler {
 
 	/**
 	 * Returns the database.
-	 * 
-	 * @return
+	 * @return String
 	 */
 	public static String getDB() {
 		return db;
@@ -249,8 +235,7 @@ public class DatabaseHandler {
 
 	/**
 	 * Returns the connection.
-	 * 
-	 * @return
+	 * @return Connection
 	 */
 	public Connection getConnection() {
 		return connection;
@@ -259,7 +244,6 @@ public class DatabaseHandler {
 
 	/**
 	 * Sets the host.
-	 * 
 	 * @param host
 	 */
 
@@ -270,7 +254,6 @@ public class DatabaseHandler {
 
 	/**
 	 * Sets the user.
-	 * 
 	 * @param user
 	 */
 	public static void setUser( String user ) {
@@ -280,7 +263,6 @@ public class DatabaseHandler {
 
 	/**
 	 * Sets the password.
-	 * 
 	 * @param pw
 	 */
 	public static void setPW( String pw ) {
@@ -290,7 +272,6 @@ public class DatabaseHandler {
 
 	/**
 	 * Sets the database.
-	 * 
 	 * @param db
 	 */
 	public static void setDB ( String db ) {
@@ -300,7 +281,6 @@ public class DatabaseHandler {
 
 	/**
 	 * Sets the connection.
-	 * 
 	 * @param connection
 	 */
 	public void setConnection( Connection connection ) {

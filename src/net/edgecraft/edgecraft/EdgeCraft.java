@@ -89,8 +89,7 @@ public class EdgeCraft extends JavaPlugin {
 	}
 	
 	/**
-	 * Returns an instance of this class
-	 * 
+	 * Returns an instance of this class 
 	 * @return EdgeCraft
 	 */
 	public static EdgeCraft getInstance() {
@@ -99,7 +98,6 @@ public class EdgeCraft extends JavaPlugin {
 
 	/**
 	 * Returns the DatabaseAPI which is instantiated in this class
-	 * 
 	 * @return DatabaseHandler
 	 */
 	public static DatabaseHandler getDB() {
@@ -107,8 +105,7 @@ public class EdgeCraft extends JavaPlugin {
 	}
 	
 	/**
-	 * Returns the SystemAPI which is instantiated in this class
-	 *  
+	 * Returns the SystemAPI which is instantiated in this class 
 	 * @return EdgeCraftSystem
 	 */
 	public static EdgeCraftSystem getSystem() {
@@ -117,7 +114,6 @@ public class EdgeCraft extends JavaPlugin {
 	
 	/**
 	 * Returns the UserAPI which is instantiated in this class
-	 * 
 	 * @return UserManager
 	 */
 	public static UserManager getUsers() {
@@ -126,7 +122,6 @@ public class EdgeCraft extends JavaPlugin {
 	
 	/**
 	 * Returns the LanguageAPI which is instantiated in this class
-	 * 
 	 * @return LanguageHandler
 	 */
 	public static LanguageHandler getLang() {
@@ -135,7 +130,6 @@ public class EdgeCraft extends JavaPlugin {
 	
 	/**
 	 * Returns the ChatAPI which is instantiated in this class
-	 * 
 	 * @return ChatHandler
 	 */
 	public static ChatHandler getChat() {
@@ -144,7 +138,6 @@ public class EdgeCraft extends JavaPlugin {
 	
 	/**
 	 * Returns the currency which is set in the configuration
-	 * 
 	 * @return String
 	 */
 	public static String getCurrency() {
@@ -154,7 +147,6 @@ public class EdgeCraft extends JavaPlugin {
 	/**
 	 * Sets the currency temporarily for this plugin-session
 	 * This variable will be resetted after a restart/reload of this plugin
-	 * 
 	 * @param currency
 	 */
 	public static void setCurrency( String currency ) {

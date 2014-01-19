@@ -17,7 +17,6 @@ public class EdgeCraftPlugin {
 	
 	/**
 	 * Returns the DatabaseAPI
-	 * 
 	 * @return DatabaseHandler
 	 */
 	public static final DatabaseHandler getDatabaseAPI() {
@@ -26,7 +25,6 @@ public class EdgeCraftPlugin {
 	
 	/**
 	 * Returns the UserAPI
-	 * 
 	 * @return UserManager
 	 */
 	public static final UserManager getUserAPI() {
@@ -35,7 +33,6 @@ public class EdgeCraftPlugin {
 	
 	/**
 	 * Returns the SystemAPI
-	 * 
 	 * @return EdgeCraftSystem
 	 */
 	public static final EdgeCraftSystem getSystemAPI() {
@@ -44,7 +41,6 @@ public class EdgeCraftPlugin {
 	
 	/**
 	 * Returns the LanguageAPI
-	 * 
 	 * @return LanguageHandler
 	 */
 	public static final LanguageHandler getLanguageAPI() {
@@ -53,7 +49,6 @@ public class EdgeCraftPlugin {
 	
 	/**
 	 * Returns the ChatAPI
-	 * 
 	 * @return ChatHandler
 	 */
 	public static final ChatHandler getChatAPI() {

@@ -20,7 +20,6 @@ public class PlayerConnectionHandler implements Listener {
 	
 	/**
 	 * Gets executed whenever a player joins.
-	 * 
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOW)
@@ -41,7 +40,6 @@ public class PlayerConnectionHandler implements Listener {
 	
 	/**
 	 * Gets executed whenever a player logs out.
-	 * 
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOW)
@@ -60,7 +58,8 @@ public class PlayerConnectionHandler implements Listener {
 	}
 	
 	/**
-	 * TODO: Add senseful comment.
+	 * Checks if the joining player is banned 
+	 * It also checks the IP and prints out a warning
 	 * @param e
 	 */
 	@EventHandler

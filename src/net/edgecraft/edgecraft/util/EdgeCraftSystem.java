@@ -21,7 +21,6 @@ public class EdgeCraftSystem {
 	
 	/**
 	 * Logs important system-information of the runtime.
-	 * 
 	 */
 	public void getConsoleOverview() {
 		EdgeCraft.log.info( EdgeCraft.edgebanner + "Uptime: " + getUptime());
@@ -30,13 +29,12 @@ public class EdgeCraftSystem {
 		EdgeCraft.log.info( EdgeCraft.edgebanner + "Freier RAM: " + getFreeMemory() + " [MB]");
 		EdgeCraft.log.info( EdgeCraft.edgebanner + "Genutzter RAM: " + getUsedMemory() + " [MB]");
 		Bukkit.getServer().getConsoleSender().sendMessage( EdgeCraft.edgebanner + "Memory Status: "	+ (overloadedMemory() 
-																						? ChatColor.RED + "Ausgelastet!" 
-																						: new StringBuilder().append(ChatColor.GREEN).append("Gut.").toString()));
+																						? ChatColor.RED + "Overloaded!" 
+																						: new StringBuilder().append(ChatColor.GREEN).append("Good.").toString()));
 	}
 	
 	/**
 	 * Starts the timer for the uptime-value.
-	 * 
 	 */
 	public void startTimer() {
 
@@ -79,8 +77,7 @@ public class EdgeCraftSystem {
 
 	/**
 	 * Returns the maximum amount of memory [MB] the VM will use.
-	 * 
-	 * @return
+	 * @return Integer
 	 */
 	public int getMaxMemory() {
 		return ( (int) this.runtime.maxMemory() / 1024 / 1024 );
@@ -88,8 +85,7 @@ public class EdgeCraftSystem {
 
 	/**
 	 * Returns total amount of memory [MB] of the VM.
-	 * 
-	 * @return
+	 * @return Integer
 	 */
 	public int getTotalMemory() {
 		return ( (int) this.runtime.totalMemory() / 1024 / 1024 );
@@ -97,8 +93,7 @@ public class EdgeCraftSystem {
 
 	/**
 	 * Returns the amount of free memory [MB] of the VM.
-	 * 
-	 * @return
+	 * @return Integer
 	 */
 	public int getFreeMemory() {
 		return ( (int) this.runtime.freeMemory() / 1024 / 1024 );
@@ -106,8 +101,7 @@ public class EdgeCraftSystem {
 
 	/**
 	 * Returns the amount of used memory [MB] of the VM.
-	 * 
-	 * @return
+	 * @return Integer
 	 */
 	public int getUsedMemory() {
 		return ( getTotalMemory() - getFreeMemory() );
@@ -115,7 +109,6 @@ public class EdgeCraftSystem {
 	
 	/**
 	 * Returns true if the system is (80%) busy.
-	 * 
 	 * @return true/false
 	 */
 	public boolean overloadedMemory() {
@@ -124,8 +117,7 @@ public class EdgeCraftSystem {
 	
 	/**
 	 * Returns the uptime of the EdgeCraft-instance.
-	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getUptime() {
 		return this.uptime;
@@ -142,7 +134,6 @@ public class EdgeCraftSystem {
 
 	/**
 	 * Resets the uptime of the EdgeCraft-instance.
-	 * 
 	 */
 	public void resetUptime() {
 		setUptime( "" );

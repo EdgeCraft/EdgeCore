@@ -74,7 +74,6 @@ public class User {
 	
 	/**
 	 * Returns the users' id
-	 * 
 	 * @return Integer
 	 */
 	public int getID() {
@@ -83,7 +82,6 @@ public class User {
 	
 	/**
 	 * Returns the users' name
-	 * 
 	 * @return String
 	 */
 	public String getName() {
@@ -91,8 +89,7 @@ public class User {
 	}
 
 	/**
-	 * Returns the users' ip
-	 * 
+	 * Returns the users' ip 
 	 * @return String
 	 */
 	public String getIP() {
@@ -101,7 +98,6 @@ public class User {
 	
 	/**
 	 * Returns the users' level
-	 * 
 	 * @return Integer
 	 */
 	public int getLevel() {
@@ -110,7 +106,6 @@ public class User {
 
 	/**
 	 * Returns the users' language-setting
-	 * 
 	 * @return String
 	 */
 	public String getLanguage() {
@@ -119,7 +114,6 @@ public class User {
 
 	/**
 	 * Checks whether the user is banned or not
-	 * 
 	 * @return true/false
 	 */
 	public boolean isBanned() {
@@ -129,7 +123,6 @@ public class User {
 	/**
 	 * Returns the reason for the ban
 	 * Returns null if the user isn't banned
-	 * 
 	 * @return String
 	 */
 	public String getBanReason() {
@@ -141,7 +134,6 @@ public class User {
 	
 	/**
 	 * Returns the bukkit-player-instance of the user
-	 * 
 	 * @return Player
 	 */
 	public Player getPlayer() {
@@ -150,7 +142,6 @@ public class User {
 	
 	/**
 	 * Returns the users' channel
-	 * 
 	 * @return Channel
 	 */
 	public Channel getChannel() {
@@ -168,7 +159,6 @@ public class User {
 	
 	/**
 	 * Sets the users' id
-	 * 
 	 * @param id
 	 */
 	protected void setID(int id) {

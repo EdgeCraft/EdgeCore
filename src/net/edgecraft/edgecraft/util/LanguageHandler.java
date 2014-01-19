@@ -16,7 +16,6 @@ public class LanguageHandler {
 	
 	/**
 	 * Returns the default language.
-	 * 
 	 * @return String
 	 */
 	public static String getDefaultLanguage() {
@@ -25,7 +24,6 @@ public class LanguageHandler {
 
 	/**
 	 * Sets the default language.
-	 * 
 	 * @param defaultLanguage
 	 */
 	public static void setDefaultLanguage( String defaultLanguage ) {
@@ -35,7 +33,6 @@ public class LanguageHandler {
 
 	/**
 	 * Returns a colored message in the specified language (if available) with the specified message-key.
-	 * 
 	 * @param lang
 	 * @param messageKey
 	 * @return String
@@ -46,7 +43,6 @@ public class LanguageHandler {
 	
 	/**
 	 * Returns a raw message in the specified language (if available) with the given message-key.
-	 * 
 	 * @param lang
 	 * @param element
 	 * @param messageKey
@@ -85,7 +81,6 @@ public class LanguageHandler {
 	
 	/**
 	 * Checks whether the given language is available or not.
-	 * 
 	 * @param language
 	 * @return true/false
 	 */

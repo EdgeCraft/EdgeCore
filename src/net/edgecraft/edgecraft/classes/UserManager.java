@@ -61,7 +61,7 @@ public class UserManager {
 	
 	/**
 	 * Generates a possible user-id.
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int generateID() throws Exception {
@@ -72,7 +72,7 @@ public class UserManager {
 	
 	/**
 	 * Returns the greatest user-id.
-	 * @return
+	 * @return Integer
 	 * @throws Exception
 	 */
 	public int greatestID() throws Exception {
@@ -86,7 +86,7 @@ public class UserManager {
 	
 	/**
 	 * Returns the current amount of users.
-	 * @return
+	 * @return Integer
 	 */
 	public int amountOfUsers() {
 		return users.size();
@@ -94,8 +94,8 @@ public class UserManager {
 	
 	/**
 	 * Returns a list with all existing (online) users.
-	 * @param language
-	 * @return
+	 * @param language	 * 
+	 * @return String
 	 */
 	public String getUserList(String language) {
 		
@@ -133,16 +133,16 @@ public class UserManager {
 	/**
 	 * Checks whether the given name is already in use.
 	 * @param name
-	 * @return
+	 * @return true/false
 	 */
 	public boolean exists(String name) {
 		return getUser(name) != null;
 	}
 	
 	/**
-	 * Returns the user registered with the given id.
+	 * Returns the user registered with the given id. 
 	 * @param id
-	 * @return
+	 * @return User
 	 */
 	public User getUser(int id) {
 		return users.get(id);
@@ -151,7 +151,7 @@ public class UserManager {
 	/**
 	 * Return the user registered with the given name.
 	 * @param name
-	 * @return
+	 * @return User
 	 */
 	public User getUser(String name) {
 		
@@ -172,7 +172,7 @@ public class UserManager {
 	/**
 	 * Returns the user registered with the given IP-Token.
 	 * @param ip
-	 * @return
+	 * @return User
 	 */
 	public User getUserByIP(String ip) {
 		
@@ -258,7 +258,7 @@ public class UserManager {
 	/**
 	 * Returns the map containing all users.
 	 * (local)
-	 * @return
+	 * @return Map<Integer, User>
 	 */
 	public Map<Integer, User> getUsers() {
 		return users;
@@ -266,8 +266,8 @@ public class UserManager {
 
 	/**
 	 * Returns the list containing all banned IPs.
-	 * (local)
-	 * @return
+	 * (local) 
+	 * @return List<String>
 	 */
 	public static List<String> getBannedIPs() {
 		return bannedIPs;
@@ -275,7 +275,7 @@ public class UserManager {
 
 	/**
 	 * Returns the default level of an user.
-	 * @return
+	 * @return Integer
 	 */
 	public int getDefaultLevel() {
 		return defaultLevel;

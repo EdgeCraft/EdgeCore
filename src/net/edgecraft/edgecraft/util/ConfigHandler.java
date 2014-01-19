@@ -23,11 +23,10 @@ public class ConfigHandler {
 	
 	/**
 	 * Loads the config of the EdgeCraft-Instance.
-	 * 
 	 */
 	public void loadConfig() {
 			
-			// Config-itself.
+			// Config itself.
 			setConfig( getPlugin().getConfig() );
 		
 			// Database
@@ -54,7 +53,6 @@ public class ConfigHandler {
 	
 	/**
 	 * Updates all local settings using the configuration.
-	 * 
 	 * @param instance
 	 */
 	public final void update(EdgeCraft instance) {
@@ -74,8 +72,7 @@ public class ConfigHandler {
 	
 	/**
 	 * Returns the used EdgeCraft-instance.
-	 * 
-	 * @return
+	 * @return EdgeCraft
 	 */
 	private EdgeCraft getPlugin() {
 		
@@ -84,8 +81,7 @@ public class ConfigHandler {
 	
 	/**
 	 * Returns the used file-configuration.
-	 * 
-	 * @return
+	 * @return FileConfiguration
 	 */
 	public FileConfiguration getConfig() {
 		return config;
@@ -93,7 +89,6 @@ public class ConfigHandler {
 	
 	/**
 	 * Sets the EdgeCraft-instance.
-	 * 
 	 * @param instance
 	 */
 	protected void setPlugin( EdgeCraft instance ) {
@@ -103,7 +98,6 @@ public class ConfigHandler {
 
 	/**
 	 * Sets the file-configuration.
-	 * 
 	 * @param config
 	 */
 	protected void setConfig( FileConfiguration config ) {
