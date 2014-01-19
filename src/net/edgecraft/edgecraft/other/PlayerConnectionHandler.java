@@ -1,4 +1,4 @@
-package net.edgecraft.edgecrat.other;
+package net.edgecraft.edgecraft.other;
 
 import net.edgecraft.edgecraft.EdgeCraft;
 import net.edgecraft.edgecraft.lang.LanguageHandler;

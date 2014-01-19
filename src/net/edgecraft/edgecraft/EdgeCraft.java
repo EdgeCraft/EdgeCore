@@ -10,14 +10,14 @@ import net.edgecraft.edgecraft.db.DatabaseCommand;
 import net.edgecraft.edgecraft.db.DatabaseHandler;
 import net.edgecraft.edgecraft.lang.LanguageCommand;
 import net.edgecraft.edgecraft.lang.LanguageHandler;
+import net.edgecraft.edgecraft.other.ConfigHandler;
+import net.edgecraft.edgecraft.other.ListCommand;
+import net.edgecraft.edgecraft.other.PlayerConnectionHandler;
 import net.edgecraft.edgecraft.system.EdgeCraftSystem;
 import net.edgecraft.edgecraft.system.SystemCommand;
 import net.edgecraft.edgecraft.user.RegisterUserEvent;
 import net.edgecraft.edgecraft.user.UserCommand;
 import net.edgecraft.edgecraft.user.UserManager;
-import net.edgecraft.edgecrat.other.ConfigHandler;
-import net.edgecraft.edgecrat.other.ListCommand;
-import net.edgecraft.edgecrat.other.PlayerConnectionHandler;
 
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
