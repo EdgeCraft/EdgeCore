@@ -10,7 +10,7 @@ import net.edgecraft.edgecraft.user.UserManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public abstract class AbstractCommand implements ICommand {
+public abstract class AbstractCommand {
 
 	
 	protected static final UserManager users = EdgeCraft.getUsers();
@@ -18,11 +18,15 @@ public abstract class AbstractCommand implements ICommand {
 	protected static final DatabaseHandler db = EdgeCraft.getDB();
 	protected static final EdgeCraftSystem system = EdgeCraft.getSystem();
 	
-	protected AbstractCommand instance;
+	public abstract String[] getNames();
+	public abstract Level getLevel();
 	
-	public AbstractCommand getInstance() {
-		return instance;
-	}
+	
+	public abstract boolean validArgsRange( String[] args );	
+	public abstract void sendUsage( CommandSender sender ); // How to use the command.
+	public abstract boolean runImpl( Player player, User user, String[] args ) throws Exception; // Access through Player
+	public abstract boolean sysAccess( CommandSender sender, String[] args ); // Access through System.
+
 	
 	public final boolean run( CommandSender sender, String[] args ) throws Exception {
 		
@@ -49,13 +53,20 @@ public abstract class AbstractCommand implements ICommand {
 			
 	}
 
-	public abstract boolean validArgsRange( String[] args );
-	
-	public abstract boolean sysAccess( CommandSender sender, String[] args );
-	
 	public final boolean sysAccess( CommandSender sender ) {
 		sendUsage(sender);
 		return true;
 	}
-
+	
+	public final String getName() {
+		return getNames()[0];
+	}
+	
+	public final boolean hasAlias( String alias ) {
+		for( String name : getNames() ) {
+			if( name.equalsIgnoreCase(alias) ) return true;
+		}
+		
+		return false;
+	}
 }

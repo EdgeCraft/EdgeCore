@@ -11,11 +11,30 @@ import org.bukkit.entity.Player;
 
 public class LanguageCommand extends AbstractCommand {
 	
-	public LanguageCommand() { instance = new LanguageCommand(); }
+	public LanguageCommand() { /* ... */ }
 	
 	@Override
-	public LanguageCommand getInstance() {
-		return (LanguageCommand)instance;
+	public String[] getNames() {
+		String[] names = { "language", "lang" };
+		return names;
+	}
+	
+	@Override
+	public Level getLevel() {
+		return Level.ADMIN;
+	}
+	
+	@Override
+	public boolean validArgsRange(String[] args) {
+		if( args.length < 1  || args.length > 3) return false;
+		
+		return true;
+	}
+
+	@Override
+	public boolean sysAccess(CommandSender sender, String[] args) {
+		sender.sendMessage( EdgeCraft.sysColor + "Default language: " + ChatColor.WHITE + LanguageHandler.getDefaultLanguage());
+		return true;
 	}
 	
 	@Override
@@ -78,29 +97,4 @@ public class LanguageCommand extends AbstractCommand {
 		sender.sendMessage(EdgeCraft.usageColor + "/language list");
 		sender.sendMessage(EdgeCraft.usageColor + "/language help");
 	}
-
-	@Override
-	public String getName() {
-		return "language";
-	}
-	
-	@Override
-	public Level getLevel() {
-		return Level.GUEST;
-	}
-
-
-	@Override
-	public boolean validArgsRange(String[] args) {
-		if( args.length < 1  || args.length > 3) return false;
-		
-		return true;
-	}
-
-	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) {
-		sender.sendMessage( EdgeCraft.sysColor + "Default language: " + ChatColor.WHITE + LanguageHandler.getDefaultLanguage());
-		return true;
-	}
-
 }

@@ -12,13 +12,42 @@ import org.bukkit.entity.Player;
 
 public class DatabaseCommand extends AbstractCommand {
 	
-	public DatabaseCommand(){ super.instance = new DatabaseCommand(); }
-	
+	public DatabaseCommand(){ /* ... */ }
+
 	@Override
-	public DatabaseCommand getInstance() {
-		return (DatabaseCommand)super.getInstance();
+	public String[] getNames() {
+		String[] names = { "database", "db" };
+		return names;
 	}
 
+	@Override
+	public Level getLevel() {
+		return Level.ADMIN;
+	}
+	
+	@Override
+	public boolean validArgsRange(String[] args) {
+		
+		if( args.length < 2 || args.length > 6 ) return false;
+		
+		return true;
+	}
+
+	@Override
+	public boolean sysAccess(CommandSender sender, String[] args) {
+		try {
+			
+			sender.sendMessage(EdgeCraft.sysColor + "Databases: " + ChatColor.WHITE + db.getDatabases().replace("edgecraft", ChatColor.AQUA + "edgecraft"));
+			return true;
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws Exception {
 			
@@ -129,11 +158,6 @@ public class DatabaseCommand extends AbstractCommand {
 			}	
 		return true;
 	}
-	
-	@Override
-	public String getName() {
-		return "db";
-	}
 
 	@Override
 	public void sendUsage( CommandSender sender ) {
@@ -143,33 +167,5 @@ public class DatabaseCommand extends AbstractCommand {
 			sender.sendMessage(EdgeCraft.sysColor + "/db connect <host> <user> <pw> <database>");
 			sender.sendMessage(EdgeCraft.sysColor + "/db close");
 		}
-	}
-
-	@Override
-	public Level getLevel() {
-		return Level.ADMIN;
-	}
-
-	@Override
-	public boolean validArgsRange(String[] args) {
-		
-		if( args.length < 2 || args.length > 6 ) return false;
-		
-		return true;
-	}
-
-	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) {
-		try {
-			
-			sender.sendMessage(EdgeCraft.sysColor + "Databases: " + ChatColor.WHITE + db.getDatabases().replace("edgecraft", ChatColor.AQUA + "edgecraft"));
-			return true;
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-			sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
-		}
-		
-		return false;
 	}
 }

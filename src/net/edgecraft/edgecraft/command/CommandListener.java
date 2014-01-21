@@ -3,7 +3,7 @@ package net.edgecraft.edgecraft.command;
 import java.util.ArrayList;
 
 import net.edgecraft.edgecraft.EdgeCraft;
-import net.edgecraft.edgecraft.api.EdgeCraftPlugin;
+import net.edgecraft.edgecraft.EdgeCraftAPI;
 import net.edgecraft.edgecraft.lang.LanguageHandler;
 import net.edgecraft.edgecraft.user.User;
 
@@ -20,8 +20,8 @@ public class CommandListener implements Listener {
 
 	private static CommandListener instance = new CommandListener();
 	
-	private final CommandHandler commands = EdgeCraftPlugin.commandsAPI();
-	private final LanguageHandler lang = EdgeCraftPlugin.languageAPI();
+	private final CommandHandler commands = EdgeCraftAPI.commandsAPI();
+	private final LanguageHandler lang = EdgeCraftAPI.languageAPI();
 	
 	private CommandListener() { /* ... */ }
 	
@@ -86,7 +86,7 @@ public class CommandListener implements Listener {
 			String[] args = e.getCommand();
 			
 			//PERMISSION
-			User u = EdgeCraftPlugin.userAPI().getUser( e.getSender().getName() );
+			User u = EdgeCraftAPI.userAPI().getUser( e.getSender().getName() );
 			
 			boolean run = cmd.run(e.getSender(), args);
 			

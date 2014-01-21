@@ -10,10 +10,28 @@ import org.bukkit.entity.Player;
 
 public class SystemCommand extends AbstractCommand {
 	
-	public SystemCommand() { super.instance = new SystemCommand(); }
+	public SystemCommand() { /* ... */ }
 	
-	public final SystemCommand getInstance() {
-		return (SystemCommand)super.instance;
+	@Override
+	public String[] getNames() {
+		String[] names = { "system", "sys" };
+		return names;
+	}
+	
+	@Override
+	public Level getLevel() {
+		return Level.ADMIN;
+	}
+
+	@Override
+	public boolean validArgsRange(String[] args) {
+		return !(args.length < 2 || args.length > 3);
+	}
+
+	@Override
+	public boolean sysAccess(CommandSender sender, String[] args) {
+		system.getConsoleOverview();
+		return true;
 	}
 	
 	@Override
@@ -97,13 +115,6 @@ public class SystemCommand extends AbstractCommand {
 		
 		return true;
 	}
-	
-
-	@Override
-	public String getName() {
-		return "system";
-	}
-
 
 	@Override
 	public void sendUsage(CommandSender sender) {
@@ -112,22 +123,5 @@ public class SystemCommand extends AbstractCommand {
 		sender.sendMessage(EdgeCraft.usageColor + "/system uptime");
 		sender.sendMessage(EdgeCraft.usageColor + "/system reset");
 		
-	}
-
-
-	@Override
-	public final Level getLevel() {
-		return Level.ADMIN;
-	}
-
-	@Override
-	public boolean validArgsRange(String[] args) {
-		return !(args.length < 2 || args.length > 3);
-	}
-
-	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) {
-		system.getConsoleOverview();
-		return true;
 	}
 }

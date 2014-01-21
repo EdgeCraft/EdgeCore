@@ -1,14 +1,14 @@
-package net.edgecraft.edgecraft.api;
+package net.edgecraft.edgecraft;
 
-import net.edgecraft.edgecraft.EdgeCraft;
 import net.edgecraft.edgecraft.chat.ChatHandler;
 import net.edgecraft.edgecraft.command.CommandHandler;
 import net.edgecraft.edgecraft.db.DatabaseHandler;
 import net.edgecraft.edgecraft.lang.LanguageHandler;
+import net.edgecraft.edgecraft.mod.TicketManager;
 import net.edgecraft.edgecraft.system.EdgeCraftSystem;
 import net.edgecraft.edgecraft.user.UserManager;
 
-public class EdgeCraftPlugin {
+public final class EdgeCraftAPI {
 	
 	private static final DatabaseHandler databaseAPI = EdgeCraft.getDB();
 	private static final UserManager userAPI = EdgeCraft.getUsers();
@@ -16,6 +16,9 @@ public class EdgeCraftPlugin {
 	private static final LanguageHandler languageAPI = EdgeCraft.getLang();
 	private static final ChatHandler chatAPI = EdgeCraft.getChat();
 	private static final CommandHandler commandsAPI = EdgeCraft.getCommands();
+	private static final TicketManager ticketAPI = EdgeCraft.getTickets();
+	
+	private EdgeCraftAPI() { /* ... */ }
 	
 	/**
 	 * Returns the DatabaseAPI
@@ -69,5 +72,14 @@ public class EdgeCraftPlugin {
 	 */
 	public static final CommandHandler commandsAPI() {
 		return commandsAPI;
+	}
+	
+	/**
+	 * Returns the TicketAPI
+	 * 
+	 * @return
+	 */
+	public static final TicketManager ticketAPI() {
+		return ticketAPI;
 	}
 }

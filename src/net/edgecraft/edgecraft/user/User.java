@@ -1,5 +1,7 @@
 package net.edgecraft.edgecraft.user;
 
+import java.io.Serializable;
+
 import net.edgecraft.edgecraft.EdgeCraft;
 import net.edgecraft.edgecraft.chat.Channel;
 import net.edgecraft.edgecraft.chat.ChatHandler;
@@ -9,7 +11,12 @@ import net.edgecraft.edgecraft.db.DatabaseHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class User {
+public class User implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private String name;

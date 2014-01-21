@@ -10,11 +10,29 @@ import org.bukkit.entity.Player;
 public class UserCommand extends AbstractCommand {
 
 
-	public UserCommand(){ super.instance = new UserCommand(); }
+	public UserCommand(){ /* ... */ }
 	
 	
-	public final UserCommand getInstance() {
-		return (UserCommand)super.instance;
+	@Override
+	public String[] getNames() {
+		String[] names = { "user" };
+		return names;
+	}
+	
+	@Override
+	public Level getLevel() {
+		return Level.ADMIN;
+	}
+	
+	@Override
+	public boolean validArgsRange(String[] args) {
+		return !( args.length < 2 || args.length > 3);
+	}
+
+
+	@Override
+	public boolean sysAccess(CommandSender sender, String[] args) {
+		return super.sysAccess(sender);
 	}
 
 	@Override
@@ -125,11 +143,6 @@ public class UserCommand extends AbstractCommand {
 	}
 
 	@Override
-	public String getName() {
-		return "user";
-	}
-
-	@Override
 	public void sendUsage(CommandSender sender) {
 		
 		if( !(sender instanceof Player) || Level.canUse( users.getUser( ((Player)sender).getName()), getLevel()) ) {
@@ -139,23 +152,5 @@ public class UserCommand extends AbstractCommand {
 			sender.sendMessage(EdgeCraft.usageColor + "/user reload [<user>]");
 			sender.sendMessage(EdgeCraft.usageColor + "/user amount");
 		}
-	}
-
-	@Override
-	public Level getLevel() {
-		return Level.ADMIN;
-	}
-
-	@Override
-	public boolean validArgsRange(String[] args) {
-		return !( args.length < 2 || args.length > 3);
-	}
-
-
-	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) {
-		return super.sysAccess(sender);
-	}
-	
-	
+	}	
 }

@@ -10,6 +10,8 @@ import net.edgecraft.edgecraft.db.DatabaseCommand;
 import net.edgecraft.edgecraft.db.DatabaseHandler;
 import net.edgecraft.edgecraft.lang.LanguageCommand;
 import net.edgecraft.edgecraft.lang.LanguageHandler;
+import net.edgecraft.edgecraft.mod.ModCommand;
+import net.edgecraft.edgecraft.mod.TicketManager;
 import net.edgecraft.edgecraft.other.ConfigHandler;
 import net.edgecraft.edgecraft.other.ListCommand;
 import net.edgecraft.edgecraft.other.PlayerConnectionHandler;
@@ -39,6 +41,7 @@ public class EdgeCraft extends JavaPlugin {
 	protected static final LanguageHandler lang = LanguageHandler.getInstance();
 	protected static final ChatHandler chat = ChatHandler.getInstance();
 	protected static final CommandHandler commands = CommandHandler.getInstance();
+	protected static final TicketManager tickets = TicketManager.getInstance();
 	
 	private final ConfigHandler config = ConfigHandler.getInstance(this);
 	
@@ -91,11 +94,12 @@ public class EdgeCraft extends JavaPlugin {
 	    getServer().getPluginManager().registerEvents(new ManageChatEvent(), this);
 	    getServer().getPluginManager().registerEvents( CommandListener.getInstance(), this);
 
-	    commands.registerCommand("system", new SystemCommand() );
-	    commands.registerCommand("db", new DatabaseCommand() );
-	    commands.registerCommand("user", new UserCommand() );
-	    commands.registerCommand("who", new ListCommand() );
-	    commands.registerCommand("language", new LanguageCommand() );
+	    commands.registerCommand( new SystemCommand() );
+	    commands.registerCommand( new DatabaseCommand() );
+	    commands.registerCommand( new UserCommand() );
+	    commands.registerCommand( new ListCommand() );
+	    commands.registerCommand( new LanguageCommand() );
+	    commands.registerCommand( new ModCommand() );
 //	    
 	    
 	    
@@ -162,6 +166,15 @@ public class EdgeCraft extends JavaPlugin {
 	 */
 	public static CommandHandler getCommands() {
 		return EdgeCraft.commands;
+	}
+	
+	/**
+	 * Returns the TicketAPI which is instantiated in this class
+	 * 
+	 * @return
+	 */
+	public static TicketManager getTickets() {
+		return EdgeCraft.tickets;
 	}
 	
 	/**
