@@ -46,8 +46,16 @@ public class CommandHandler {
 		return cmdlist;
 	}
 	
-	public AbstractCommand getHandler( String name ){
-		return cmdlist.get(name);
+	
+	public AbstractCommand getCommand( String name ) {
+		
+		for( Map.Entry<String, AbstractCommand> entry : cmdlist.entrySet() ) {
+			AbstractCommand cmd = entry.getValue();
+			
+			if( cmd.hasAlias(name) ) return cmd;
+		}
+		
+		return null;
 	}
 	
 	public boolean isCommandPresent( String name ){
@@ -62,16 +70,5 @@ public class CommandHandler {
 			
 		}
 		return false;
-	}
-	
-	public AbstractCommand getCommand( String name ) {
-		
-		for( Map.Entry<String, AbstractCommand> entry : cmdlist.entrySet() ) {
-			AbstractCommand cmd = entry.getValue();
-			
-			if( cmd.hasAlias(name) ) return cmd;
-		}
-		
-		return null;
 	}
 }

@@ -67,7 +67,7 @@ public class CommandListener implements Listener {
 		
 		CommandEvent ee = new CommandEvent( e.getPlayer(), (String[]) command.toArray() );
 		
-		if( commands.isCommandPresent(command.get(0)) ){
+		if( commands.isCommandPresent( command.get(0) ) ){
 			Bukkit.getPluginManager().callEvent(ee);
 		
 			if(	ee.isCancelled() ){
@@ -81,9 +81,9 @@ public class CommandListener implements Listener {
 		
 		try{
 			
-			AbstractCommand cmd = commands.getHandler(e.getCommand()[0]);
-			
 			String[] args = e.getCommand();
+			
+			AbstractCommand cmd = commands.getCommand( args[0] );
 			
 			//PERMISSION
 			User u = EdgeCraftAPI.userAPI().getUser( e.getSender().getName() );
