@@ -9,6 +9,7 @@ public class ModHandler extends CommandHandler {
 		private ModHandler() { 
 				super.registerCommand( new KickCommand() );
 				super.registerCommand( new BanCommand() );
+				super.registerCommand( new TeleportCommand() );
 				super.registerCommand( new TicketCommand() );
 		}
 		
