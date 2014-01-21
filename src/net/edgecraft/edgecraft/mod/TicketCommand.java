@@ -33,11 +33,29 @@ public class TicketCommand extends AbstractCommand {
 	@Override
 	public void sendUsage(CommandSender sender) {
 		
-            sender.sendMessage( EdgeCraft.usageColor + "/ticket" );
+		if( sender instanceof Player ) {
+			
+			User u = EdgeCraftAPI.userAPI().getUser( ((Player) sender).getName() );
+			
+			if( !Level.canUse( u, Level.USER )) return;
+			
+			sender.sendMessage( EdgeCraft.usageColor + "/ticket" );
+			
+			if( !Level.canUse( u, Level.TEAM )) return;
+			
             sender.sendMessage( EdgeCraft.usageColor + "/ticket open 'title' 'msg'" );        
             sender.sendMessage( EdgeCraft.usageColor + "/ticket list" );
             sender.sendMessage( EdgeCraft.usageColor + "/ticket read ID" );
             sender.sendMessage( EdgeCraft.usageColor + "/ticket close ID" );
+			
+            return; 
+            
+		}	
+			sender.sendMessage( EdgeCraft.usageColor + "/ticket" );
+			sender.sendMessage( EdgeCraft.usageColor + "/ticket open 'title' 'msg'" );        
+            sender.sendMessage( EdgeCraft.usageColor + "/ticket list" );
+            sender.sendMessage( EdgeCraft.usageColor + "/ticket read ID" );
+            sender.sendMessage( EdgeCraft.usageColor + "/ticket close ID" );	
 	}
 
 	@Override
