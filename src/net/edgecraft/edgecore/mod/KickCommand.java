@@ -1,5 +1,6 @@
 package net.edgecraft.edgecore.mod;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -32,20 +33,14 @@ public class KickCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args) throws Exception {
+	public boolean runImpl(Player player, User user, String[] args) {
         
-        if( args.length == 2 ) {
-        	user.getPlayer().kickPlayer("You were kicked.");
-        	return true;
-        }
-        
-        user.getPlayer().kickPlayer( args[2] );
-	    return true;
+		Bukkit.getPlayerExact( args[1] ).kickPlayer("You were kicked.");
+		return true;
 	}
 
 	@Override
 	public boolean sysAccess(CommandSender sender, String[] args) {
-		// Kick all?
 		return true;
 	}
 
