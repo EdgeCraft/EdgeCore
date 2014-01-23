@@ -48,16 +48,23 @@ public class TimeCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws Exception {
 		
-		return timeCommand( args );
+		return timeCommand( player, args );
 		
 	}
 
 	@Override
 	public boolean sysAccess(CommandSender sender, String[] args) {
-		return timeCommand( args );
+		return timeCommand( sender, args );
 	}
 	
-	private boolean timeCommand( String[] args ) {
+	private boolean timeCommand( CommandSender sender, String[] args ) {
+		
+		if( args.length == 1 ) {
+			
+			sender.sendMessage( Long.toString(Bukkit.getWorlds().get(0).getTime()) );
+			
+			return true;
+		}
 		
 		int time;
 		
