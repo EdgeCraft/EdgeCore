@@ -1,5 +1,6 @@
 package net.edgecraft.edgecore.mod;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -45,11 +46,11 @@ public class TeleportCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
 		
-		Player from = EdgeCoreAPI.userAPI().getUser( args[1] ).getPlayer();
+		Player from = Bukkit.getPlayerExact( args[1] );
 
 		if( args.length == 3 ) {
 			
-			Location to = EdgeCoreAPI.userAPI().getUser( args[2] ).getPlayer().getLocation();
+			Location to = Bukkit.getPlayerExact( args[2] ).getLocation();
 			
 			from.getLocation().setX( to.getX() );
 			from.getLocation().setY( to.getY() );

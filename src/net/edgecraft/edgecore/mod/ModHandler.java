@@ -11,6 +11,7 @@ public class ModHandler extends CommandHandler {
 				super.registerCommand( new TicketCommand() );
 				super.registerCommand( new TeleportCommand() );
 				super.registerCommand( new GiveCommand() );
+				super.registerCommand( new PunishCommand() );
 				super.registerCommand( new TimeCommand() );
 				super.registerCommand( new GameModeCommand() );
 				super.registerCommand( new KillCommand() );
