@@ -30,13 +30,13 @@ public class EdgeCraftSystem {
 	 */
 	public void getConsoleOverview() {
 		EdgeCore.log.info( EdgeCore.edgebanner + "Uptime: " + getUptime());
-		EdgeCore.log.info( EdgeCore.edgebanner + "Maximaler RAM: " + getMaxMemory() + " [MB]");
-		EdgeCore.log.info( EdgeCore.edgebanner + "Totaler RAM: " + getTotalMemory() + " [MB]");
-		EdgeCore.log.info( EdgeCore.edgebanner + "Freier RAM: " + getFreeMemory() + " [MB]");
-		EdgeCore.log.info( EdgeCore.edgebanner + "Genutzter RAM: " + getUsedMemory() + " [MB]");
+		EdgeCore.log.info( EdgeCore.edgebanner + "Maximum RAM: " + getMaxMemory() + " [MB]");
+		EdgeCore.log.info( EdgeCore.edgebanner + "Total RAM: " + getTotalMemory() + " [MB]");
+		EdgeCore.log.info( EdgeCore.edgebanner + "Free RAM: " + getFreeMemory() + " [MB]");
+		EdgeCore.log.info( EdgeCore.edgebanner + "Used RAM: " + getUsedMemory() + " [MB]");
 		Bukkit.getServer().getConsoleSender().sendMessage( EdgeCore.edgebanner + "Memory Status: "	+ (overloadedMemory() 
-																						? ChatColor.RED + "Ausgelastet!" 
-																						: new StringBuilder().append(ChatColor.GREEN).append("Gut.").toString()));
+														? ChatColor.RED + "Overloaded!" 
+														: new StringBuilder().append(ChatColor.GREEN).append("Well.").toString()));
 	}
 	
 	/**
