@@ -1,10 +1,10 @@
-﻿name: EdgeCraft
-version: 3.0
+name: EdgeCore
+version: 3.5
 author: Panjab
 authors: [lush,horoking,Exodevil]
 website: http://edgecraft.de
 
-main: net.edgecraft.edgecraft.EdgeCraft
+main: net.edgecraft.edgecore.EdgeCore
 
 commands:
     db:
