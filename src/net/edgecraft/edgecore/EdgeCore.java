@@ -46,6 +46,7 @@ public class EdgeCore extends JavaPlugin {
 	private final ConfigHandler config = ConfigHandler.getInstance(this);
 	
 	private static String currency;
+	private static boolean maintenance;
 	
 	private EdgeCore() { }
 	
@@ -100,8 +101,6 @@ public class EdgeCore extends JavaPlugin {
 	    commands.registerCommand( new ListCommand() );
 	    commands.registerCommand( new LanguageCommand() );
 	    commands.registerCommand( new ModCommand() );
-//	    
-	    
 	    
 	}
 	
@@ -196,5 +195,21 @@ public class EdgeCore extends JavaPlugin {
 		if( currency != null ) {
 			EdgeCore.currency = currency;
 		} else return;
+	}
+	
+	/**
+	 * Checks if maintenance is enabled
+	 * @return true/false
+	 */
+	public boolean isMaintenance() {
+		return EdgeCore.maintenance;
+	}
+	
+	/**
+	 * Toggles maintenance status
+	 * @param var
+	 */
+	public void setMaintenance(boolean var) {
+		EdgeCore.maintenance = var;
 	}
 }

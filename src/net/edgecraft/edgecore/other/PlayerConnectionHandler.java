@@ -1,6 +1,8 @@
 package net.edgecraft.edgecore.other;
 
 import net.edgecraft.edgecore.EdgeCore;
+import net.edgecraft.edgecore.EdgeCoreAPI;
+import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 import net.edgecraft.edgecore.user.UserManager;
@@ -11,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerConnectionHandler implements Listener {
@@ -33,6 +36,7 @@ public class PlayerConnectionHandler implements Listener {
 			if (this.users.exists(p.getName())) {
 				
 				User user = this.users.getUser(p.getName());
+				
 				p.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "login").replace("[0]", player.getName()));
 				
 			}
@@ -89,6 +93,25 @@ public class PlayerConnectionHandler implements Listener {
 						p.sendMessage(lang.getColoredMessage(user.getLanguage(), "info_bannedip").replace("[0]", joinIP).replace("[1]", banned.getName()));
 					}
 				}
+			}
+		}
+	}
+	
+	/**
+	 * TODO: Add senseful comment.
+	 * @param e
+	 */
+	@EventHandler
+	public void onMaintenanceLogin(PlayerLoginEvent e) {
+		
+		Player player = e.getPlayer();
+		
+		if (EdgeCoreAPI.userAPI().exists(player.getName())) {
+			
+			User user = EdgeCoreAPI.userAPI().getUser(player.getName());
+			
+			if (EdgeCore.getInstance().isMaintenance() && !Level.canUse(user, Level.ARCHITECT)) {
+				e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You can not join while maintenance!");
 			}
 		}
 	}
