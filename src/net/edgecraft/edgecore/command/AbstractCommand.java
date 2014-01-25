@@ -31,8 +31,9 @@ public abstract class AbstractCommand {
 	
 	public final boolean run( CommandSender sender, String[] args ) throws Exception {
 		
-		if( !(sender instanceof Player) ) {
-			return sysAccess(sender, args);
+		if( args.length == 2 && args[1].equalsIgnoreCase("help") ) {
+			sendUsage(sender);
+			return true;
 		}
 		
 		if( !validArgsRange( args ) ) {
@@ -40,17 +41,17 @@ public abstract class AbstractCommand {
 			return true;
 		}
 		
+		if( !(sender instanceof Player) ) {
+			return sysAccess(sender, args);
+		}
+		
+		
 		Player player = (Player) sender;
 		User user = users.getUser(player.getName());
 		
 		if( user == null ) return true;
 		
-		if( args[1].equalsIgnoreCase("help") ) {
-			sendUsage(sender);
-			return true;
-		}
-		
-		if( !Level.canUse(user, getLevel()) ) {
+		if( !Level.canUse( user, getLevel() ) ) {
 			sender.sendMessage( lang.getColoredMessage(user.getLanguage(), "nopermission"));
 			return false;
 		}
