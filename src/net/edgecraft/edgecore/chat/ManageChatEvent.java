@@ -26,6 +26,15 @@ public class ManageChatEvent implements Listener {
 		Player p = e.getPlayer();
 		
 		User user = userManager.getUser(p.getName());
+		
+		// horoking
+		
+		if(user.isMuted()){
+			e.setCancelled(true);
+		}
+		
+		// horoking
+		
 		String msg = e.getMessage();
 		
 		if (user != null) {
