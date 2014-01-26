@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-public class MuteCommand extends AbstractCommand implements Listener {
+public class MuteCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
