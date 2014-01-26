@@ -28,7 +28,7 @@ public class WeatherCommand extends AbstractCommand {
 
 	@Override
 	public boolean validArgsRange(String[] args) {
-		return( args.length == 2 || args.length == 3 );
+		return( args.length == 2 );
 	}
 
 	@Override

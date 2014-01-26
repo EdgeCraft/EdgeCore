@@ -27,7 +27,9 @@ public class ModCommand extends AbstractCommand {
 			}
 		}
 		
-		return (String[])names.toArray();
+		String[] namesArray = names.toArray(new String[names.size()]);
+		
+		return namesArray;
 		
 	}
 	

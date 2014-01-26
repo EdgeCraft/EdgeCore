@@ -14,6 +14,8 @@ import org.bukkit.ChatColor;
 
 public class UserManager {
 	
+	public final static String userTable = "edgecore_users";
+	
 	private static Map<Integer, User> users = new HashMap<>();
 	private static List<String> bannedIPs = new ArrayList<>();
 	
@@ -42,7 +44,7 @@ public class UserManager {
 			
 			int id = generateID();
 			
-			this.db.executeUpdate("INSERT INTO edgecraft_users (id, name, ip, level, language, banned, banreason) VALUES ('" + id + "', '" + name + "', '" + ip + "', '" + defaultLevel + "', DEFAULT, DEFAULT, DEFAULT);");
+			this.db.executeUpdate("INSERT INTO " + UserManager.userTable + " (id, name, ip, level, language, banned, banreason) VALUES ('" + id + "', '" + name + "', '" + ip + "', '" + defaultLevel + "', DEFAULT, DEFAULT, DEFAULT);");
 			synchronizeUser(id);
 			
 		} catch(Exception e) {
@@ -58,7 +60,7 @@ public class UserManager {
 	public void deleteUser(int id) {
 		try {
 			
-			this.db.executeUpdate("DELETE FROM edgecraft_users WHERE id = '" + id + "';");
+			this.db.executeUpdate("DELETE FROM " + UserManager.userTable + " WHERE id = '" + id + "';");
 			users.remove(id);
 			
 		} catch(Exception e) {
@@ -83,12 +85,10 @@ public class UserManager {
 	 * @throws Exception
 	 */
 	public int greatestID() throws Exception {
-
-		Map<String, Object> greatestID = this.db.getResults("SELECT * FROM edgecraft_users ORDER BY id DESC LIMIT 1;").get(0);
-
-		if( greatestID.isEmpty() ) return 1;
+		List<Map<String, Object>> tempVar = db.getResults("SELECT * FROM " + UserManager.userTable + " ORDER BY id DESC LIMIT 1;");
+		if (tempVar.isEmpty()) return 1;
 		
-		return (int) greatestID.get("id");
+		return (int) tempVar.get(0).get("id");
 	}
 	
 	/**
@@ -220,7 +220,7 @@ public class UserManager {
 	public void synchronizeUser(int id) {
 		try {
 			
-			List<Map<String, Object>> results = db.getResults("SELECT * FROM edgecraft_users WHERE id = '" + id + "';");
+			List<Map<String, Object>> results = db.getResults("SELECT * FROM " + UserManager.userTable + " WHERE id = '" + id + "';");
 			
 			for (int i = 0; i < results.size(); i++) {
 				

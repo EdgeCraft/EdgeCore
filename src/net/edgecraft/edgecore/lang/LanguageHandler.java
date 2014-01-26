@@ -69,7 +69,7 @@ public class LanguageHandler {
 	      DocumentBuilder builder = fac.newDocumentBuilder();
 	      fac.setNamespaceAware(false);
 
-	      Document doc = builder.parse("plugins/EdgeCraft/languages/lang_" + lang + ".xml");
+	      Document doc = builder.parse("plugins/EdgeCore/languages/lang_" + lang + ".xml");
 	      NodeList messages = doc.getElementsByTagName(element);
 
 	      for (int i = 0; i < messages.getLength(); i++) {
@@ -99,6 +99,6 @@ public class LanguageHandler {
 	 * @return true/false
 	 */
 	public boolean exists(String language) {
-	    return new File("plugins/EdgeCraft/languages/lang_" + language + ".xml").exists();		
+	    return new File("plugins/EdgeCore/languages/lang_" + language + ".xml").exists();		
 	}
 }

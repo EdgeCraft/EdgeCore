@@ -48,8 +48,6 @@ public class EdgeCore extends JavaPlugin {
 	private static String currency;
 	private static boolean maintenance;
 	
-	private EdgeCore() { }
-	
 	/**
 	 * Is used when the plugin is going to shut down
 	 */
@@ -93,7 +91,7 @@ public class EdgeCore extends JavaPlugin {
 	    getServer().getPluginManager().registerEvents(new RegisterUserEvent(), this);
 	    getServer().getPluginManager().registerEvents(new PlayerConnectionHandler(), this);
 	    getServer().getPluginManager().registerEvents(new ManageChatEvent(), this);
-	    getServer().getPluginManager().registerEvents( CommandListener.getInstance(), this);
+	    getServer().getPluginManager().registerEvents(new CommandListener(), this);
 
 	    commands.registerCommand( new SystemCommand() );
 	    commands.registerCommand( new DatabaseCommand() );
@@ -201,7 +199,7 @@ public class EdgeCore extends JavaPlugin {
 	 * Checks if maintenance is enabled
 	 * @return true/false
 	 */
-	public boolean isMaintenance() {
+	public static boolean isMaintenance() {
 		return EdgeCore.maintenance;
 	}
 	

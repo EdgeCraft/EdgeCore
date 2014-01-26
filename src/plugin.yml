@@ -21,3 +21,14 @@ commands:
     who:
       description: Who Command
       aliases: ['list']
+    ban:
+      description: Ban Command
+    crash:
+      description: Crash Command
+    difficulty:
+      description: Difficulty Command
+    gamemode:
+      description: GameMode Command
+      aliases: ['gm']
+    give:
+      description: Give Command

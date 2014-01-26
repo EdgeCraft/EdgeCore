@@ -13,6 +13,10 @@ public class CommandEvent extends Event {
 		return handlers;
 	}
 	
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
+	
 	private String[] command;
 	private CommandSender sender;
 	private boolean cancel = true;

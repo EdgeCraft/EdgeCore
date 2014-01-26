@@ -1,6 +1,7 @@
 package net.edgecraft.edgecore.system;
 
 import net.edgecraft.edgecore.EdgeCore;
+import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
@@ -118,6 +119,20 @@ public class SystemCommand extends AbstractCommand {
 
 	@Override
 	public void sendUsage(CommandSender sender) {
+		
+		if (sender instanceof Player) {
+			
+			User u = EdgeCoreAPI.userAPI().getUser(sender.getName());
+			
+			if (u != null) {
+				
+				if (!Level.canUse(u, getLevel())) {
+					sender.sendMessage(lang.getColoredMessage(u.getLanguage(), "nopermission"));
+					return;
+				}
+			}
+		}
+		
 		sender.sendMessage(EdgeCore.usageColor + "/system overview");
 		sender.sendMessage(EdgeCore.usageColor + "/system memory <max|total|free|used>");
 		sender.sendMessage(EdgeCore.usageColor + "/system uptime");

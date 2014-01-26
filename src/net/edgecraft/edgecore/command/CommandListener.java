@@ -15,20 +15,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 
-
 public class CommandListener implements Listener {
-
-	private static CommandListener instance = new CommandListener();
 	
 	private final CommandHandler commands = EdgeCoreAPI.commandsAPI();
 	private final LanguageHandler lang = EdgeCoreAPI.languageAPI();
-	
-	private CommandListener() { /* ... */ }
-	
-	public static final CommandListener getInstance() {
-		return instance;
-	}
-	
 	
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void consoleCmd( ServerCommandEvent e ){
@@ -44,7 +34,8 @@ public class CommandListener implements Listener {
 			}
 		}
 		
-		CommandEvent ee = new CommandEvent( e.getSender(), (String[]) command.toArray() );
+		String[] commandArray = command.toArray(new String[command.size()]);
+		CommandEvent ee = new CommandEvent( e.getSender(), commandArray );
 		
 		if( commands.isCommandPresent( command.get(0) ) ){
 			Bukkit.getPluginManager().callEvent(ee);
@@ -65,7 +56,8 @@ public class CommandListener implements Listener {
 			}
 		}
 		
-		CommandEvent ee = new CommandEvent( e.getPlayer(), (String[]) command.toArray() );
+		String[] commandArray = command.toArray(new String[command.size()]);
+		CommandEvent ee = new CommandEvent( e.getPlayer(), commandArray );
 		
 		if( commands.isCommandPresent( command.get(0) ) ){
 			Bukkit.getPluginManager().callEvent(ee);

@@ -33,6 +33,8 @@ public class PlayerConnectionHandler implements Listener {
 		Player player = event.getPlayer();
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (p.getName().equalsIgnoreCase(event.getPlayer().getName())) continue;
+			
 			if (this.users.exists(p.getName())) {
 				
 				User user = this.users.getUser(p.getName());
@@ -55,6 +57,8 @@ public class PlayerConnectionHandler implements Listener {
 		Player player = event.getPlayer();
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (p.getName().equalsIgnoreCase(event.getPlayer().getName())) continue;
+			
 			if (this.users.exists(p.getName())) {
 				
 				User user = this.users.getUser(p.getName());
@@ -110,7 +114,7 @@ public class PlayerConnectionHandler implements Listener {
 			
 			User user = EdgeCoreAPI.userAPI().getUser(player.getName());
 			
-			if (EdgeCore.getInstance().isMaintenance() && !Level.canUse(user, Level.ARCHITECT)) {
+			if (EdgeCore.isMaintenance() && !Level.canUse(user, Level.ARCHITECT)) {
 				e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You can not join while maintenance!");
 			}
 		}
