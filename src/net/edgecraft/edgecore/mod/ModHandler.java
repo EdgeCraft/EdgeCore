@@ -12,6 +12,7 @@ public class ModHandler extends CommandHandler {
 				super.registerCommand( new TeleportCommand() );
 				super.registerCommand( new GiveCommand() );
 				super.registerCommand( new PunishCommand() );
+				super.registerCommand( new MuteCommand() );
 				super.registerCommand( new TimeCommand() );
 				super.registerCommand( new GameModeCommand() );
 				super.registerCommand( new KillCommand() );
@@ -21,8 +22,7 @@ public class ModHandler extends CommandHandler {
 				super.registerCommand( new BanCommand() );
 				super.registerCommand( new DifficultyCommand() );
 				super.registerCommand( new CrashCommand() );
-				super.registerCommand( new MuteCommand() );
-				super.registerCommand( new UnmuteCommand() );
+				super.registerCommand( new MaintenanceCommand() );
 
 		}
 		

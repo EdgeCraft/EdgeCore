@@ -55,12 +55,14 @@ public class MaintenanceCommand extends AbstractCommand {
 	}	
 	
 	private void maintenance() {
-		for (Player p : Bukkit.getServer().getOnlinePlayers()) {			
-			User u = EdgeCore.getUsers().getUser(p.getName());
+		
+		for ( Player p : Bukkit.getServer().getOnlinePlayers() ) {			
+			User u = EdgeCore.getUsers().getUser( p.getName() );
 			
-			if (u != null && !Level.canUse(u, Level.ARCHITECT)) {
+			if ( u != null && !Level.canUse( u, Level.ARCHITECT ) ) {
 				u.getPlayer().kickPlayer("Server is in maintenance!");
 			}
 		}
+		return;
 	}
 }
