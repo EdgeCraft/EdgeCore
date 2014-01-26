@@ -265,4 +265,15 @@ public class User implements Serializable {
 		
 		return false;
 	}
+	
+	private boolean muted = false;
+	
+	public boolean isMuted(){
+		return muted;
+	}
+	
+	public void setMuted(boolean mute){
+		muted = mute;
+	}
+	
 }

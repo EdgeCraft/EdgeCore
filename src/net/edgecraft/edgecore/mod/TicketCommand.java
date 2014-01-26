@@ -42,22 +42,16 @@ public class TicketCommand extends AbstractCommand {
 			sender.sendMessage( EdgeCore.usageColor + "/ticket" );
 			
 			if( !Level.canUse( u, Level.TEAM )) return;
-			
-            sender.sendMessage( EdgeCore.usageColor + "/ticket open 'title' 'msg'" );        
-            sender.sendMessage( EdgeCore.usageColor + "/ticket list" );
-            sender.sendMessage( EdgeCore.usageColor + "/ticket read ID" );
-            sender.sendMessage( EdgeCore.usageColor + "/ticket close ID" );
-            sender.sendMessage( EdgeCore.usageColor + "/ticket enable");
-            sender.sendMessage( EdgeCore.usageColor + "/ticket disable");
-			
-            return; 
-            
 		}	
-			sender.sendMessage( EdgeCore.usageColor + "/ticket" );
+		
+		else sender.sendMessage( EdgeCore.usageColor + "/ticket");
+
+		
 			sender.sendMessage( EdgeCore.usageColor + "/ticket open 'title' 'msg'" );        
             sender.sendMessage( EdgeCore.usageColor + "/ticket list" );
             sender.sendMessage( EdgeCore.usageColor + "/ticket read ID" );
             sender.sendMessage( EdgeCore.usageColor + "/ticket close ID" );	
+            return;
 	}
 
 	@Override
@@ -67,14 +61,14 @@ public class TicketCommand extends AbstractCommand {
         
 		
         // '/ticket open "title" "msg"'
-        if( args.length == 3 ) {
+        if( args.length == 4 ) {
                 
                 if( !Level.canUse( user, Level.USER ) ) {
                         player.sendMessage( lang.getColoredMessage(userLang, "nopermission") );
                         return false;
                 }
                 
-                if( args[1] == "open" && args.length == 4 ) {
+                if( args[1].equalsIgnoreCase( "open" ) ) {
             
                 		Ticket t = new Ticket();
                 		t.setAuthor( user );
