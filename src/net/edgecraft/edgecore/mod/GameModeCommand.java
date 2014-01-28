@@ -53,17 +53,17 @@ public class GameModeCommand extends AbstractCommand {
 			return true;
 		}
 		
-		if( args[2].equalsIgnoreCase( "creative" ) || args[2].equalsIgnoreCase( "c" ) ) {
+		if( args[2].equalsIgnoreCase( "creative" || "1" ) || args[2].equalsIgnoreCase( "c" ) ) {
 			p.setGameMode( GameMode.CREATIVE );
 			return true;
 		}
 		
-		if( args[2].equalsIgnoreCase( "adventure" ) || args[2].equalsIgnoreCase( "a" ) ) {
+		if( args[2].equalsIgnoreCase( "adventure" || "2"  ) || args[2].equalsIgnoreCase( "a" ) ) {
 			p.setGameMode( GameMode.ADVENTURE );
 			return true;
 		}
 		
-		if( args[2].equalsIgnoreCase( "survival" ) || args[2].equalsIgnoreCase( "s" ) ) {
+		if( args[2].equalsIgnoreCase( "survival" || "0"  ) || args[2].equalsIgnoreCase( "s" ) ) {
 			p.setGameMode( GameMode.SURVIVAL );
 			return true;
 		}
