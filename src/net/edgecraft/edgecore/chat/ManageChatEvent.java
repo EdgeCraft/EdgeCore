@@ -5,6 +5,7 @@ import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 import net.edgecraft.edgecore.user.UserManager;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -41,7 +42,7 @@ public class ManageChatEvent implements Listener {
 					
 					if (msg.length() <= 1) e.setCancelled(true);
 					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[P]")
-																											.replace("[1]", "[S]").replace("[2]", p.getName())
+																											.replace("[1]", ChatColor.ITALIC + "[" + user.getLevel().name() + "]").replace("[2]", p.getName())
 																											.replace("[3]", msg.substring(1, msg.length())));
 					
 				} else {
@@ -53,8 +54,8 @@ public class ManageChatEvent implements Listener {
 				
 			} else {
 				e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[P]")
-						.replace("[1]", "[S]").replace("[2]", p.getName())
-						.replace("[3]", msg.substring(1, msg.length())));
+						.replace("[1]", ChatColor.ITALIC + "[" + user.getLevel().name() + "]").replace("[2]", p.getName())
+						.replace("[3]", msg.substring(0, msg.length())));
 			}
 		}
 	}

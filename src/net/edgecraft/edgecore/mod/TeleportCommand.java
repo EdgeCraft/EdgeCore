@@ -50,19 +50,21 @@ public class TeleportCommand extends AbstractCommand {
 
 		if( args.length == 3 ) {
 			
-			Location to = Bukkit.getPlayerExact( args[2] ).getLocation();
+			Player to = Bukkit.getPlayerExact(args[2]);
 			
-			from.getLocation().setX( to.getX() );
-			from.getLocation().setY( to.getY() );
-			from.getLocation().setZ( to.getZ() );
+			if (to == null) {
+				player.sendMessage(EdgeCoreAPI.languageAPI().getColoredMessage(user.getLanguage(), "notfound"));
+				return false;
+			}
+			
+			from.teleport(to.getLocation());
+			
 			return true;
 		}
 		
 		if( args.length == 5 ) {
 			
-			from.getLocation().setX( Double.valueOf( args[2] ) );
-			from.getLocation().setY( Double.valueOf( args[3] ) );
-			from.getLocation().setZ( Double.valueOf( args[4] ) );
+			from.teleport(new Location(from.getWorld(), Double.valueOf(args[2]), Double.valueOf(args[3]), Double.valueOf(args[4])));
 			
 			return true;
 		}
