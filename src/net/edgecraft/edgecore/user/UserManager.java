@@ -1,7 +1,7 @@
 package net.edgecraft.edgecore.user;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public class UserManager {
 	
 	public final static String userTable = "edgecore_users";
 	
-	private static Map<Integer, User> users = new HashMap<>();
+	private static Map<Integer, User> users = new LinkedHashMap<>();
 	private static List<String> bannedIPs = new ArrayList<>();
 	
 	private static int defaultLevel;
