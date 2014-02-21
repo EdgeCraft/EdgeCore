@@ -80,6 +80,8 @@ public class CommandListener implements Listener {
 			//PERMISSION
 			User u = EdgeCoreAPI.userAPI().getUser( e.getSender().getName() );
 			
+			if(!(u.getLevel().value() >= cmd.getLevel().value())) throw new Exception();
+			
 			boolean run = cmd.run(e.getSender(), args);
 			
 			if(!run){
