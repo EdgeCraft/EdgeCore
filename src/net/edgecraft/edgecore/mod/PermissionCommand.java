@@ -34,13 +34,22 @@ public class PermissionCommand extends AbstractCommand {
 
 	@Override
 	public boolean sysAccess( CommandSender sender, String[] args) {
-		listranks(sender);
-		return true;
+		try {
+			return command(sender, args);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws NumberFormatException, Exception {
-		
+		return command((CommandSender) player, args);
+	}
+	
+	private boolean command(CommandSender sender, String[] args) throws NumberFormatException, Exception{
 		
 		switch( args.length ){
 		
@@ -48,19 +57,19 @@ public class PermissionCommand extends AbstractCommand {
 			return false;
 		case 2:
 			if( args[1].equalsIgnoreCase( "listranks" ) ) {
-				listranks( player );
+				listranks(sender);
 				return true;
 			}
 			break;
 		case 3:
 			if( args[1].equalsIgnoreCase( "getlevel" ) ) {
-				return getrank( player, args[2] );
+				return getrank(sender, args[2] );
 			} else {
 				return false;
 			}
 		case 4:
 			if( args[1].equalsIgnoreCase("setlevel") ){
-				return setrank( player, args[2], args[3] );
+				return setrank(sender, args[2], args[3] );
 			}
 			return false;
 		default:
@@ -69,10 +78,10 @@ public class PermissionCommand extends AbstractCommand {
 		}
 		
 		return true;
+		
 	}
 	
-	
-private boolean setrank(CommandSender sender, String name, String level) throws NumberFormatException, Exception {
+	private boolean setrank(CommandSender sender, String name, String level) throws NumberFormatException, Exception {
 		
 		User u = EdgeCoreAPI.userAPI().getUser( name );
 		
