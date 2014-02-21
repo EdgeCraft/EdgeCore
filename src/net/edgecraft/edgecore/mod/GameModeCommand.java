@@ -36,7 +36,7 @@ public class GameModeCommand extends AbstractCommand {
 		if( sender instanceof Player ) {
 			User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );
 			
-			if( !Level.canUse(u, getLevel() ) ) return;
+			if( u != null && !Level.canUse(u, getLevel() ) ) return;
 		}
 		
 		sender.sendMessage( EdgeCore.usageColor + "/gamemode <player> [mode]");

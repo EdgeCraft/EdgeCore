@@ -55,19 +55,21 @@ public class DatabaseHandler {
 	 * @param db
 	 */
 	public synchronized void loadConnection(String host, String user, String pw, String db) {
+		if (host.equals(unset) || user.equals(unset) || pw.equals(unset) || db.equals(unset)) throw new IllegalArgumentException("Given Database Parameters are set to default!");
+		
 		try {
 			
-			EdgeCore.log.info("[EdgeCraft] Baue Datenbankverbindung auf..");
+			EdgeCore.log.info(EdgeCore.edgebanner + " Baue Datenbankverbindung auf..");
 			
 			if (!isAvailable()) closeConnection();
 			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			setConnection( DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + db + "?user=" + user + "&password=" + pw) );
 			
-			EdgeCore.log.info("[EdgeCraft] Erfolgreich mit Datenbank '" + db + "' verbunden!");
+			EdgeCore.log.info(EdgeCore.edgebanner + " Erfolgreich mit Datenbank '" + db + "' verbunden!");
 			
 		} catch(Exception e) {
-			EdgeCore.log.severe("[EdgeCraft] Schwerer Fehler beim Vebrinden mit Datenbank '" + db + "'!");
+			EdgeCore.log.severe(EdgeCore.edgebanner + " Schwerer Fehler beim Vebrinden mit Datenbank '" + db + "'!");
 			e.printStackTrace();
 		}		
 	}

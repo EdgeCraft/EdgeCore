@@ -54,7 +54,7 @@ public class User implements Serializable {
 	
 	private void update( String var, Object obj ) throws Exception {
 		if( var != null && obj != null ) {
-			this.db.executeUpdate("UPDATE " + UserManager.userTable + " SET" + var + " = '" + obj.toString() + "' WHERE id = '" + this.id + "';");
+			this.db.executeUpdate("UPDATE " + UserManager.userTable + " SET " + var + " = '" + obj.toString() + "' WHERE id = '" + this.id + "';");
 		}
 	}
 	

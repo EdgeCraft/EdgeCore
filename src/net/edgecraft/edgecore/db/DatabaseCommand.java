@@ -95,6 +95,7 @@ public class DatabaseCommand extends AbstractCommand {
 						
 						if (!db.existsTable(args[3])) {
 							player.sendMessage(lang.getColoredMessage(userLang, "db_check_table_false").replace("[0]", args[3]));
+							return true;
 						}
 						
 						player.sendMessage(lang.getColoredMessage(userLang, "db_check_table_true").replace("[0]", args[3]));
@@ -163,9 +164,9 @@ public class DatabaseCommand extends AbstractCommand {
 	public void sendUsage( CommandSender sender ) {
 
 		if( !(sender instanceof Player) || EdgeCore.getUsers().getUser(((Player)sender).getName()).getLevel() == Level.ADMIN ) {
-			sender.sendMessage(EdgeCore.sysColor + "/db check <name> <table>");
-			sender.sendMessage(EdgeCore.sysColor + "/db connect <host> <user> <pw> <database>");
-			sender.sendMessage(EdgeCore.sysColor + "/db close");
+			sender.sendMessage(EdgeCore.usageColor + "/db check <name> <table>");
+			sender.sendMessage(EdgeCore.usageColor + "/db connect <host> <user> <pw> <database>");
+			sender.sendMessage(EdgeCore.usageColor + "/db close");
 		}
 	}
 }

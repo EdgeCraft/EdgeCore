@@ -7,6 +7,8 @@ import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 
+import org.bukkit.Material;
+
 public class Channel {
 	
 	private int tempID;
@@ -14,6 +16,8 @@ public class Channel {
 	private String password;
 	private int maxMembers;
 	private boolean listed;
+	
+	private Material requiredItem;
 	
 	private String admin;
 	private List<User> members = new ArrayList<User>();
@@ -24,7 +28,7 @@ public class Channel {
 	public static final String defaultAdmin = "Admin";
 	
 	// Constructors:
-	public Channel(String name, String password, int maxMembers, String admin, List<User> members, boolean listed) {
+	public Channel(String name, String password, int maxMembers, String admin, List<User> members, boolean listed, Material requiredItem) {
 
 		setTempID( chatHandler.generateChannelTempID() );
 		setName( name );
@@ -32,39 +36,40 @@ public class Channel {
 		setMaxMembers( maxMembers );
 		setAdmin( admin );
 		setMembers( members );
-		setListed( listed );		
+		setListed( listed );	
+		setRequiredItem(requiredItem);
 		
 		ChatHandler.getChannels().put(getTempID(), this);
 	}
 	
-	public Channel(String name, boolean listed) {
+	public Channel(String name, boolean listed, Material requiredItem) {
 		
-		this( name, "", ChatHandler.getDefaultMaxChannelMembers(), Channel.defaultAdmin, null, listed );
+		this( name, "", ChatHandler.getDefaultMaxChannelMembers(), Channel.defaultAdmin, null, listed, requiredItem);
 	}
 	
-	public Channel (String name, String password, boolean listed) {
+	public Channel (String name, String password, boolean listed, Material requiredItem) {
 
-		this( name, password, ChatHandler.getDefaultMaxChannelMembers(), Channel.defaultAdmin, null, listed );
+		this( name, password, ChatHandler.getDefaultMaxChannelMembers(), Channel.defaultAdmin, null, listed, requiredItem);
 	}
 	
-	public Channel(String name, String password, String admin, boolean listed) {
+	public Channel(String name, String password, String admin, boolean listed, Material requiredItem) {
 
-		this( name, password, ChatHandler.getDefaultMaxChannelMembers(), admin, null, listed );
+		this( name, password, ChatHandler.getDefaultMaxChannelMembers(), admin, null, listed, requiredItem );
 	}
 	
-	public Channel(String name, String password, int maxMembers, String admin, boolean listed) {
+	public Channel(String name, String password, int maxMembers, String admin, boolean listed, Material requiredItem) {
 
-		this( name, password, maxMembers, admin, null, listed );
+		this( name, password, maxMembers, admin, null, listed, requiredItem );
 	}
 	
-	public Channel(String name, String password, String admin, List<User> members, boolean listed) {
+	public Channel(String name, String password, String admin, List<User> members, boolean listed, Material requiredItem) {
 
-		this( name, password, members.size(), admin, members, listed );
+		this( name, password, members.size(), admin, members, listed, requiredItem );
 	}
 
-	public Channel(String name, List<User> members, boolean listed) {
+	public Channel(String name, List<User> members, boolean listed, Material requiredItem) {
 
-		this( name, null, -1, Channel.defaultAdmin, members, listed );
+		this( name, null, -1, Channel.defaultAdmin, members, listed, requiredItem );
 	}
 		
 
@@ -188,6 +193,14 @@ public class Channel {
 	}
 	
 	/**
+	 * Returns the required item
+	 * @return Material
+	 */
+	public Material getRequiredItem() {
+		return this.requiredItem;
+	}
+	
+	/**
 	 * Returns the admin of the channel.
 	 * Default: "Admin"
 	 * @return String
@@ -283,6 +296,14 @@ public class Channel {
 	 */
 	public void setListed(boolean val) {
 		this.listed = val;
+	}
+	
+	/**
+	 * Sets the required material
+	 * @param material
+	 */
+	public void setRequiredItem(Material material) {
+		this.requiredItem = material;
 	}
 	
 	/**

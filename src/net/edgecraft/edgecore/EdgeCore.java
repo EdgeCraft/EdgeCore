@@ -20,19 +20,21 @@ import net.edgecraft.edgecore.system.SystemCommand;
 import net.edgecraft.edgecore.user.RegisterUserEvent;
 import net.edgecraft.edgecore.user.UserCommand;
 import net.edgecraft.edgecore.user.UserManager;
+import net.edgecraft.edgecore.user.UserSynchronizationTask;
 
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 public class EdgeCore extends JavaPlugin {
 	
-	public static final String edgebanner = "[EdgeCraft] ";
+	public static final String edgebanner = "[EdgeCore] ";
 	
 	public static final String usageColor = ChatColor.RED.toString();
 	public static final String sysColor = ChatColor.GREEN.toString();
 	public static final String errorColor = ChatColor.RED.toString();
 	
-	public static final Logger log = Logger.getLogger("EdgeCraft");
+	public static final Logger log = Logger.getLogger("EdgeCore");
 	private static EdgeCore instance;
 	
 	protected static final DatabaseHandler db = DatabaseHandler.getInstance();
@@ -53,7 +55,7 @@ public class EdgeCore extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
-	    log.info( EdgeCore.edgebanner + "Das Plugin wird gestoppt..");
+		users.synchronizeUsers();
 	    log.info( EdgeCore.edgebanner + "Plugin wurde erfolgreich beendet!");		
 	}
 	
@@ -100,6 +102,7 @@ public class EdgeCore extends JavaPlugin {
 	    commands.registerCommand( new LanguageCommand() );
 	    commands.registerCommand( new ModCommand() );
 	    
+	    @SuppressWarnings("unused") BukkitTask userTask = new UserSynchronizationTask().runTaskTimer(this, 0, 20L * 60 * 10);
 	}
 	
 	/**

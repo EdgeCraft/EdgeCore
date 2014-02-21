@@ -38,6 +38,15 @@ public class ManageChatEvent implements Listener {
 			if (user.getChannel() != null) {
 				Channel c = user.getChannel();
 				
+				if (c.getRequiredItem() != null) {
+					if (p.getItemInHand().getType() == c.getRequiredItem()) {
+						
+						c.send(user.getName(), msg);
+						e.setCancelled(true);
+						
+					} 
+				}
+				
 				if (msg.startsWith(">")) {
 					
 					if (msg.length() <= 1) e.setCancelled(true);

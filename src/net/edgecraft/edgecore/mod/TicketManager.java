@@ -25,7 +25,7 @@ public class TicketManager {
 	
 	private static final TicketManager instance = new TicketManager();
 	
-	protected TicketManager() { autoSave(); }
+	private TicketManager() { autoSave(); }
 	
 	
 	public static final TicketManager getInstance() {
