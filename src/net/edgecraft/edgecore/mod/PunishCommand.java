@@ -47,7 +47,7 @@ public class PunishCommand extends AbstractCommand {
 		
 		if( args.length == 2 ) {
 		
-			punish.setHealth( player.getHealth() / 2 );
+			punish.setHealth( punish.getHealth() / 2 );
 			return true;
 		}
 		
