@@ -16,7 +16,7 @@ public class ListCommand extends AbstractCommand {
 	
 	@Override
 	public String[] getNames() {
-		String[] names = { "who", "list" };
+		String[] names = { "list", "who" };
 		return names;
 	}
 	

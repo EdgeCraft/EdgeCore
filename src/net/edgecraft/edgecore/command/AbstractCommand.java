@@ -31,8 +31,20 @@ public abstract class AbstractCommand {
 	
 	public final boolean run( CommandSender sender, String[] args ) throws Exception {
 		
-		if( args.length == 2 && args[1].equalsIgnoreCase("help") ) {
-			sendUsage(sender);
+		if( args.length == 2 ) {
+			
+			if( args[1].equalsIgnoreCase("help") )
+				sendUsage(sender);
+			
+			else if( args[1].equalsIgnoreCase("aliases")) {
+				StringBuilder sb = new StringBuilder();
+				for( String alias : getNames() ) {
+					sb.append( alias + ", ");
+				}
+				sb.deleteCharAt(sb.length());
+				sender.sendMessage( sb.toString() );
+			}
+				
 			return true;
 		}
 		
