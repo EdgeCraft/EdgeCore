@@ -1,5 +1,6 @@
 package net.edgecraft.edgecore.user;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -44,7 +45,13 @@ public class UserManager {
 			
 			int id = generateID();
 			
-			this.db.executeUpdate("INSERT INTO " + UserManager.userTable + " (id, name, ip, level, language, banned, banreason) VALUES ('" + id + "', '" + name + "', '" + ip + "', '" + defaultLevel + "', DEFAULT, DEFAULT, DEFAULT);");
+			PreparedStatement registerUser = db.prepareUpdate("INSERT INTO " + UserManager.userTable + " (id, name, ip, level, language, banned, banreason) VALUES (?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT);");
+			registerUser.setInt(1, id);
+			registerUser.setString(2, name);
+			registerUser.setString(3, ip);
+			registerUser.setInt(4, getDefaultLevel());
+			registerUser.executeUpdate();
+			
 			synchronizeUser(id);
 			
 		} catch(Exception e) {
@@ -60,7 +67,9 @@ public class UserManager {
 	public void deleteUser(int id) {
 		try {
 			
-			this.db.executeUpdate("DELETE FROM " + UserManager.userTable + " WHERE id = '" + id + "';");
+			PreparedStatement deleteUser = db.prepareUpdate("DELETE FROM " + UserManager.userTable + " WHERE id = '" + id + "';");
+			deleteUser.executeUpdate();
+			
 			users.remove(id);
 			
 		} catch(Exception e) {
@@ -85,9 +94,9 @@ public class UserManager {
 	 * @throws Exception
 	 */
 	public int greatestID() throws Exception {
-		List<Map<String, Object>> tempVar = db.getResults("SELECT * FROM " + UserManager.userTable + " ORDER BY id DESC LIMIT 1;");
-		if (tempVar.isEmpty()) return 1;
-		
+		List<Map<String, Object>> tempVar = db.getResults("SELECT IFNULL(MAX(id), 0) FROM " + UserManager.userTable);
+		if (tempVar.get(0).get("id") == null) return 1;
+
 		return (int) tempVar.get(0).get("id");
 	}
 	

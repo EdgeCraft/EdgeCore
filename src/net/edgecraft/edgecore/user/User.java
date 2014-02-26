@@ -54,7 +54,7 @@ public class User implements Serializable {
 	
 	private void update( String var, Object obj ) throws Exception {
 		if( var != null && obj != null ) {
-			this.db.executeUpdate("UPDATE " + UserManager.userTable + " SET " + var + " = '" + obj.toString() + "' WHERE id = '" + this.id + "';");
+			this.db.prepareUpdate("UPDATE " + UserManager.userTable + " SET " + var + " = '" + obj.toString() + "' WHERE id = '" + this.id + "';").executeUpdate();
 		}
 	}
 	
@@ -71,7 +71,7 @@ public class User implements Serializable {
 		}
 		
 		int banned_ = status ? 1 : 0;
-		this.db.executeUpdate("UPDATE " + UserManager.userTable + " SET banned = '" + banned_ + "' WHERE id = '" + this.id + "';");
+		update("banned", banned_);
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class User implements Serializable {
 	public void updateBanReason(String reason) throws Exception {
 		if( reason != null ) {
 			setBanReason( reason );
-			this.db.executeUpdate("UPDATE " + UserManager.userTable + " SET banreason = '" + reason + "' WHERE id = '" + this.id + "';");
+			update("banreason", reason);
 		}
 	}
 	

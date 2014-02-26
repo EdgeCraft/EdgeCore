@@ -2,6 +2,7 @@ package net.edgecraft.edgecore.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -112,8 +113,8 @@ public class DatabaseHandler {
 	 * @param sql
 	 * @throws Exception
 	 */
-	public synchronized void executeQuery( String sql ) throws Exception {
-		getConnection().prepareStatement(sql).executeQuery();
+	public synchronized PreparedStatement prepareQuery( String sql ) throws Exception {
+		return getConnection().prepareStatement(sql);
 	}
 	
 	/**
@@ -122,8 +123,8 @@ public class DatabaseHandler {
 	 * @param sql
 	 * @throws Exception
 	 */
-	public synchronized void executeUpdate( String sql ) throws Exception {
-		getConnection().prepareStatement(sql).executeUpdate();
+	public synchronized PreparedStatement prepareUpdate( String sql ) throws Exception {
+		return getConnection().prepareStatement(sql);
 	}
 	
 

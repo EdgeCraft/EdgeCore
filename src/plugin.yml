@@ -1,7 +1,10 @@
 name: EdgeCore
-version: 3.5
+version: beta_3.7
 author: Panjab
 authors: [lush,horoking,Exodevil]
 website: http://edgecraft.de
+
+load: STARTUP
+loadbefore: [EdgeConomy, EdgeCuboid]
 
 main: net.edgecraft.edgecore.EdgeCore
