@@ -94,10 +94,12 @@ public class UserManager {
 	 * @throws Exception
 	 */
 	public int greatestID() throws Exception {
-		List<Map<String, Object>> tempVar = db.getResults("SELECT IFNULL(MAX(id), 0) FROM " + UserManager.userTable);
-		if (tempVar.get(0).get("id") == null) return 1;
+		List<Map<String, Object>> tempVar = db.getResults("SELECT COUNT(id) AS amount FROM " + UserManager.userTable);
+		int tempID = Integer.parseInt(String.valueOf(tempVar.get(0).get("amount")));
+		
+		if (tempID <= 0) return 1;
 
-		return (int) tempVar.get(0).get("id");
+		return tempID;
 	}
 	
 	/**
