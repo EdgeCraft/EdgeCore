@@ -29,13 +29,18 @@ public class TicketCommand extends AbstractCommand {
 	public Level getLevel() {
 		return Level.USER;
 	}
+	
+	@Override
+	public boolean validArgsRange(String[] args) {
+		return ( args.length >= 1 && args.length <= 4 );
+	}
 
 	@Override
 	public void sendUsage(CommandSender sender) {
 		
 		if( sender instanceof Player ) {
 			
-			User u = EdgeCoreAPI.userAPI().getUser( ((Player) sender).getName() );
+			User u = EdgeCoreAPI.userAPI().getUser( sender.getName() );
 			
 			if( !Level.canUse( u, Level.USER )) return;
 			
@@ -78,9 +83,13 @@ public class TicketCommand extends AbstractCommand {
                         tickets.addTicket( t );
                         tickets.notifyAll( Level.TEAM, t );
                         
+                        return true;
+                        
                 } else {
                         sendUsage(player);
                 }
+                
+                return true;
         }
         
         // All followig commands are TEAM-only
@@ -135,7 +144,7 @@ public class TicketCommand extends AbstractCommand {
                         sendUsage(player);
                 }
         
-        if( args[1].equalsIgnoreCase("read")) {
+        if( args[1].equalsIgnoreCase("read") ) {
         	
         	if( args.length == 2 ) {
         		
@@ -156,7 +165,7 @@ public class TicketCommand extends AbstractCommand {
         	player.sendMessage( read.getGist() );
         	player.sendMessage( read.getInfo() );
         	
-        	
+        	return true;
         }
         
         if( args[1].equalsIgnoreCase("close") ) {
@@ -180,11 +189,6 @@ public class TicketCommand extends AbstractCommand {
         
         sendUsage(player);
         return true;
-	}
-
-	@Override
-	public boolean validArgsRange(String[] args) {
-		return !( args.length < 1 || args.length > 4 );
 	}
 
 	@Override

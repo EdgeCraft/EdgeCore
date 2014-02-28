@@ -34,7 +34,7 @@ public class MuteCommand extends AbstractCommand {
 	public void sendUsage(CommandSender sender) {
 		
 		if( sender instanceof Player ) {
-			User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );
+			User u = EdgeCoreAPI.userAPI().getUser( sender.getName() );
 			
 			if( !Level.canUse(u, getLevel()) ) return;
 		}
@@ -42,7 +42,7 @@ public class MuteCommand extends AbstractCommand {
 		sender.sendMessage( EdgeCore.usageColor + "/mute list" );
 		sender.sendMessage( EdgeCore.usageColor + "/mute <player>" );
 		sender.sendMessage( EdgeCore.usageColor + "/unmute <player>");
-		
+		return;
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class MuteCommand extends AbstractCommand {
 			return true;
 		}
 		
-		if( args[0].equalsIgnoreCase("unmute") ) {
+		else if( args[0].equalsIgnoreCase("unmute") ) {
 			target.setMuted( false );
 			return true;
 		}

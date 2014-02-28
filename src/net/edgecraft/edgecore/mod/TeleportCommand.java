@@ -35,7 +35,7 @@ public class TeleportCommand extends AbstractCommand {
 		if( sender instanceof Player ) {
 			User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );
 			
-			if( !Level.canUse(u, Level.TEAM) ) return;
+			if( u == null || !Level.canUse(u, Level.TEAM) ) return;
 		}
 		
 		sender.sendMessage(EdgeCore.usageColor + "/teleport <player> <target>");
@@ -57,14 +57,14 @@ public class TeleportCommand extends AbstractCommand {
 				return false;
 			}
 			
-			from.teleport(to.getLocation());
+			from.teleport( to.getLocation() );
 			
 			return true;
 		}
 		
 		if( args.length == 5 ) {
 			
-			from.teleport(new Location(from.getWorld(), Double.valueOf(args[2]), Double.valueOf(args[3]), Double.valueOf(args[4])));
+			from.teleport( new Location( from.getWorld(), Double.valueOf( args[2] ), Double.valueOf( args[3] ), Double.valueOf( args[4] )));
 			
 			return true;
 		}

@@ -13,8 +13,7 @@ import net.edgecraft.edgecore.user.User;
 public class ModCommand extends AbstractCommand {
 	
 	private static final ModHandler commands = ModHandler.getInstance();
-	
-	public ModCommand() { /* ... */ }
+
 	
 	@Override
 	public String[] getNames() {
@@ -60,7 +59,6 @@ public class ModCommand extends AbstractCommand {
 		
 		cmd.run( player, args );
 		
-		sendUsage(player);
 		return true;
 	}
 

@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
+import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
@@ -30,6 +31,11 @@ public class KillCommand extends AbstractCommand {
 	@Override
 	public void sendUsage(CommandSender sender) {
 		
+		if( sender instanceof Player ) {
+			User u = EdgeCoreAPI.userAPI().getUser( sender.getName() );
+			
+			if( u == null || !Level.canUse(u, getLevel()) ) return;
+		}
 		sender.sendMessage( EdgeCore.usageColor + "/kill <player>" );
 		return;
 		

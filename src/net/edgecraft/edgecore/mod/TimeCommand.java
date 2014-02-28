@@ -26,7 +26,7 @@ public class TimeCommand extends AbstractCommand {
 
 	@Override
 	public boolean validArgsRange(String[] args) {
-		return ( args.length == 1 || args.length == 2);
+		return ( args.length == 1 || args.length == 2 );
 	}
 
 	@Override
@@ -48,16 +48,16 @@ public class TimeCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws Exception {
 		
-		return timeCommand( player, args );
+		return time( player, args );
 		
 	}
 
 	@Override
 	public boolean sysAccess(CommandSender sender, String[] args) {
-		return timeCommand( sender, args );
+		return time( sender, args );
 	}
 	
-	private boolean timeCommand( CommandSender sender, String[] args ) {
+	private boolean time( CommandSender sender, String[] args ) {
 		
 		if( args.length == 1 ) {
 			

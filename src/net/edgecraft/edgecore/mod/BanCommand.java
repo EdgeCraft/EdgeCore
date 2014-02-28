@@ -45,7 +45,7 @@ public class BanCommand extends AbstractCommand {
 			
 			User ban = EdgeCoreAPI.userAPI().getUser( args[1] );
 			ban.setBanned(true);
-			ban.updateBanReason( args[3] );
+			ban.updateBanReason( args[2] );
 			return true;
 		}
 		

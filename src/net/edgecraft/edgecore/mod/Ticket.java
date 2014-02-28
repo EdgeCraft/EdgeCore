@@ -110,7 +110,7 @@ public class Ticket implements Serializable {
     }
     
     private String getDateAsString() {
-            return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(getDate());
+            return DateFormat.getDateTimeInstance( DateFormat.SHORT, DateFormat.SHORT ).format( getDate() );
     }
     
     // --------------

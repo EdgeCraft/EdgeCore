@@ -34,8 +34,9 @@ public class PermissionCommand extends AbstractCommand {
 
 	@Override
 	public boolean sysAccess( CommandSender sender, String[] args) {
+
 		try {
-			return command(sender, args);
+			return permission(sender, args);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -46,10 +47,10 @@ public class PermissionCommand extends AbstractCommand {
 	
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws NumberFormatException, Exception {
-		return command((CommandSender) player, args);
+		return permission((CommandSender) player, args);
 	}
 	
-	private boolean command(CommandSender sender, String[] args) throws NumberFormatException, Exception{
+	private boolean permission(CommandSender sender, String[] args) throws NumberFormatException, Exception{
 		
 		switch( args.length ){
 		
@@ -111,7 +112,7 @@ public class PermissionCommand extends AbstractCommand {
 	@Override
 	public void sendUsage( CommandSender sender ) {
 		
-		if( !(sender instanceof Player) || Level.canUse( EdgeCore.getUsers().getUser(((Player)sender).getName()), Level.ADMIN) ) {
+		if( !(sender instanceof Player) || !Level.canUse( EdgeCore.getUsers().getUser(((Player)sender).getName()), Level.ADMIN) ) {
 			sender.sendMessage( EdgeCore.usageColor + "/permission setlevel <player> <level>");
 			sender.sendMessage( EdgeCore.usageColor + "/permission getlevel <player>");
 			sender.sendMessage( EdgeCore.usageColor + "/permission listranks" );

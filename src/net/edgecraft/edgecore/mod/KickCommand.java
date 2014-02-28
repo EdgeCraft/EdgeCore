@@ -25,11 +25,12 @@ public class KickCommand extends AbstractCommand {
 
 	@Override
 	public boolean validArgsRange(String[] args) {
-		return( args.length == 2 || args.length == 3 );
+		return ( args.length == 2 || args.length == 3 );
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {		
+	public void sendUsage(CommandSender sender) {	
+		
 		if (sender instanceof Player) {
 			
 			User u = EdgeCoreAPI.userAPI().getUser(sender.getName());
@@ -37,11 +38,10 @@ public class KickCommand extends AbstractCommand {
 			if (u != null) {
 				
 				if (!Level.canUse(u, getLevel())) return;
-				
-				sender.sendMessage( EdgeCore.usageColor + "/kick <name>");
-				
 			}
 		}
+		
+		sender.sendMessage( EdgeCore.usageColor + "/kick <name>");
 	}
 
 	@Override

@@ -1,8 +1,6 @@
 package net.edgecraft.edgecore.mod;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -51,14 +49,13 @@ public class PunishCommand extends AbstractCommand {
 			return true;
 		}
 		
-		if( args[2].equalsIgnoreCase("burn") ) {
+		else if( args[2].equalsIgnoreCase("burn") ) {
 			
-			Location burn = punish.getLocation();
-			burn.getBlock().setType( Material.FIRE );
+			punish.setFireTicks( 1000 ); // 1000?
 			return true;
 		}
 		
-		if( args[2].equalsIgnoreCase("lightning") ) {
+		else if( args[2].equalsIgnoreCase("lightning") ) {
 			
 			World w = Bukkit.getWorlds().get(0);
 			w.strikeLightning( punish.getLocation() );

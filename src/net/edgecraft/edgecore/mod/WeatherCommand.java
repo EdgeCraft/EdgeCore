@@ -34,7 +34,7 @@ public class WeatherCommand extends AbstractCommand {
 	@Override
 	public void sendUsage(CommandSender sender) {
 			if( sender instanceof Player ) {
-				User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );
+				User u = EdgeCoreAPI.userAPI().getUser( sender.getName() );
 				
 				if( !Level.canUse(u, getLevel() ) ) return;
 			}

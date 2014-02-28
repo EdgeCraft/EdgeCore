@@ -42,7 +42,7 @@ public class TicketManager {
 	
 	protected void addTicket( Ticket ticket ) {
 		if( ticket != null )
-			tickets.put(ticket.getID(), ticket);
+			tickets.put( ticket.getID(), ticket );
 	}
 	
 	public void addDontNotify( User u ) {
@@ -59,6 +59,7 @@ public class TicketManager {
 	
 	public void removeTicket( int id ) {
 		if( id <= 0 ) return; 
+		
 		tickets.remove(id);
 	}
 	
@@ -71,6 +72,8 @@ public class TicketManager {
 	}
 	
 	public Ticket getTicket( int id ) {
+		if( id <= 0 ) return null;
+		
 		return tickets.get( id );
 	}
 	
@@ -135,7 +138,7 @@ public class TicketManager {
 		
 		Timer timer = new Timer();
 		
-		timer.schedule(new TimerTask() {
+		timer.schedule( new TimerTask() {
 
 			@Override
 			public void run() {
@@ -159,9 +162,7 @@ public class TicketManager {
 		
 		if( u == null || t == null ) return;
 		
-		if( !exists(t) ) return;
-		
-		if( dontNotify.contains(u) ) return;
+		else if( !exists(t) || dontNotify.contains(u) ) return;
 		
 		EdgeCoreAPI.userAPI().notify( u, t.getGist() );
 		
@@ -170,6 +171,7 @@ public class TicketManager {
 	public void notifyAll( Level level, Ticket t ) {
 		
 		for( Map.Entry<Integer, User> entry : EdgeCoreAPI.userAPI().getUsers().entrySet() ) {
+			
 			User cur = entry.getValue();
 			
 			if( Level.canUse( cur , level) ) {

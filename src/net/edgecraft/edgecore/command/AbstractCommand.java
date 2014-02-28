@@ -33,8 +33,10 @@ public abstract class AbstractCommand {
 		
 		if( args.length == 2 ) {
 			
-			if( args[1].equalsIgnoreCase("help") )
+			if( args[1].equalsIgnoreCase("help") ) {
 				sendUsage(sender);
+				return true;
+			}
 			
 			else if( args[1].equalsIgnoreCase("aliases")) {
 				StringBuilder sb = new StringBuilder();
@@ -43,9 +45,10 @@ public abstract class AbstractCommand {
 				}
 				sb.deleteCharAt(sb.length());
 				sender.sendMessage( sb.toString() );
+				return true;
 			}
-				
-			return true;
+
+			
 		}
 		
 		if( !validArgsRange( args ) ) {

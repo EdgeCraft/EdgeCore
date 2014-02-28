@@ -35,26 +35,26 @@ public class BroadcastCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws Exception {
-		return command(player, args);
+		return broadcast(player, args);
 	}
 
 	@Override
 	public boolean sysAccess(CommandSender sender, String[] args) {
-		return command(sender, args);
+		return broadcast(sender, args);
 	}
 
-	private boolean command(CommandSender sender, String[] args) {
+	private boolean broadcast(CommandSender sender, String[] args) {
 		
-		String message = "";
+		StringBuilder msg = new StringBuilder();
 		
-		for(int i = 0; i < args.length; i++){
+		for( String arg : args ) {
 			
-			if(message == "") message += args[0];
-			else message += " " + args[0];
-			
+			if( msg.length() == 0 ) msg.append( args[0] );
+			else msg.append( arg );
 		}
 		
-		EdgeCore.getChat().broadcast(ChatColor.GREEN + "[Internal Radio Broadcast] " + ChatColor.GOLD + message);
+		
+		EdgeCore.getChat().broadcast(ChatColor.GREEN + "[Internal Radio Broadcast] " + ChatColor.GOLD + msg.toString() );
 		
 		return true;
 	}
