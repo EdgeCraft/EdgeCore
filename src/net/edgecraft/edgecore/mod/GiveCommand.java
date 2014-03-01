@@ -26,7 +26,7 @@ public class GiveCommand extends AbstractCommand {
 
 	@Override
 	public boolean validArgsRange(String[] args) {
-		return ( args.length > 2 && args.length <= 5 );
+		return ( args.length >= 3 && args.length <= 5 );
 	}
 
 	@Override
@@ -45,17 +45,32 @@ public class GiveCommand extends AbstractCommand {
 		int amount = 1;
 		short data = 0;
 		
+		if( p == null ) {
+			player.sendMessage( "Player " + args[1] + " not found.");
+			return false;
+		} else if ( m == null ) {
+			player.sendMessage( "Material " + args[2] + " not found." );
+			return false;
+		}
+		
 		if( args.length >= 4 ) {
-			amount = Integer.valueOf( args[3] );
+			try {
+				amount = Integer.valueOf( args[3] );
+			} catch( NumberFormatException e ) {
+				sendUsage( player );
+			}
 		} 
 		
 		if( args.length == 5 ) {
-			data = Short.valueOf( args[4] );
+			try {
+				data = Short.valueOf( args[4] );
+			} catch( NumberFormatException e ) {
+				sendUsage( player );
+			}
 		}
 		
 		p.getInventory().addItem( new ItemStack( m, amount, data ) );
 
-		sendUsage( player );
 		return true;
 	}
 

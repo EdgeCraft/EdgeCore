@@ -39,12 +39,12 @@ public class ModCommand extends AbstractCommand {
 	
 	@Override
 	public boolean validArgsRange(String[] args) {
-		return true; 
+		return( args.length >= 1 );
 	}
 
 	@Override
 	public void sendUsage(CommandSender sender) {
-		return;
+		
 	}
 
 	@Override
@@ -55,6 +55,21 @@ public class ModCommand extends AbstractCommand {
 		if( cmd == null ) {
 			sendUsage(player);
 			return true;
+		}
+		
+		if( args.length == 2 ) {
+			if( args[1].equalsIgnoreCase( "help" )) {
+				cmd.sendUsage( player );
+				return true;
+			} else if( args[1].equalsIgnoreCase( "aliases" ) ) {
+				StringBuilder sb = new StringBuilder();
+				for( String alias : getNames() ) {
+					sb.append( alias + ", ");
+				}
+				sb.deleteCharAt(sb.length());
+				player.sendMessage( sb.toString() );
+				return true;
+			}
 		}
 		
 		cmd.run( player, args );
