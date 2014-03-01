@@ -94,7 +94,7 @@ public class WeatherCommand extends AbstractCommand {
 			w.setWeatherDuration( duration );
 			w.setThunderDuration( duration );
 		
-			sendUsage( sender );
+			//sendUsage( sender );
 			return true;
 	}
 

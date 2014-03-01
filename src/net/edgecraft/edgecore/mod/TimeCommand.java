@@ -70,7 +70,16 @@ public class TimeCommand extends AbstractCommand {
 		
 		if( args[1].equalsIgnoreCase("day") ) time = 0;
 		else if( args[1].equalsIgnoreCase("night")) time = 12500;
-		else time = Integer.valueOf( args[1] );
+		else {
+			try {
+				time = Integer.valueOf( args[1] );
+			} catch( NumberFormatException e ) {
+				sendUsage( sender );
+				return false;
+			}
+		}
+		
+	
 		
 		for( World w : Bukkit.getWorlds() ) {
 			w.setTime( time );

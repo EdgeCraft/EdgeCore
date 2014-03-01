@@ -1,5 +1,7 @@
 package net.edgecraft.edgecore.mod;
 
+import java.util.Calendar;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -32,7 +34,7 @@ public class TicketCommand extends AbstractCommand {
 	
 	@Override
 	public boolean validArgsRange(String[] args) {
-		return ( args.length >= 1 && args.length <= 4 );
+		return ( args.length >= 1 );
 	}
 
 	@Override
@@ -40,19 +42,19 @@ public class TicketCommand extends AbstractCommand {
 		
 		if( sender instanceof Player ) {
 			
-			User u = EdgeCoreAPI.userAPI().getUser( sender.getName() );
+			User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );
 			
 			if( !Level.canUse( u, Level.USER )) return;
 			
-			sender.sendMessage( EdgeCore.usageColor + "/ticket" );
+			sender.sendMessage( EdgeCore.usageColor + "/ticket open title msg" );
 			
 			if( !Level.canUse( u, Level.TEAM )) return;
 		}	
 		
-		else sender.sendMessage( EdgeCore.usageColor + "/ticket");
+		else sender.sendMessage( EdgeCore.usageColor + "/ticket open title msg");
 
 		
-			sender.sendMessage( EdgeCore.usageColor + "/ticket open 'title' 'msg'" );        
+			sender.sendMessage( EdgeCore.usageColor + "/ticket" );        
             sender.sendMessage( EdgeCore.usageColor + "/ticket list" );
             sender.sendMessage( EdgeCore.usageColor + "/ticket read ID" );
             sender.sendMessage( EdgeCore.usageColor + "/ticket close ID" );	
@@ -60,36 +62,42 @@ public class TicketCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args) throws Exception{
+	public boolean runImpl(Player player, User user, String[] args) throws Exception {
 		
 		String userLang = user.getLanguage();
         
-		
-        // '/ticket open "title" "msg"'
-        if( args.length == 4 ) {
-                
-                if( !Level.canUse( user, Level.USER ) ) {
-                        player.sendMessage( lang.getColoredMessage(userLang, "nopermission") );
-                        return false;
-                }
-                
-                if( args[1].equalsIgnoreCase( "open" ) ) {
-            
-                		Ticket t = new Ticket();
-                		t.setAuthor( user );
-                		t.setTitle( args[2] );
-                		t.setMsg( args[3] );
-                	
-                        tickets.addTicket( t );
-                        tickets.notifyAll( Level.TEAM, t );
-                        
-                        return true;
-                        
-                } else {
-                        sendUsage(player);
-                }
-                
-                return true;
+        // '/ticket open TITLE MSG'
+        if( args.length >= 4 ) {
+        	
+        	if( !Level.canUse( user, Level.USER ) ) {
+        		player.sendMessage( lang.getColoredMessage( userLang,  "nopermission") );
+        		return false;
+        	}
+        	
+        	if( args[1].equalsIgnoreCase( "open" ) ) {
+        		
+        		Ticket t = new Ticket();
+        		t.setAuthor( user );
+        		t.setTitle( args[2] );
+        		t.setID( tickets.generateID() );
+        		t.setDate( Calendar.getInstance().getTime() );
+        		
+        		StringBuilder msg = new StringBuilder();
+        		
+        		for( int i = 3; i < args.length; i++ ) {
+        			msg.append( args[i] );
+        		}
+        		
+        		t.setMsg( msg.toString() );
+        	
+        		tickets.addTicket( t );
+        		tickets.notifyAll( Level.TEAM, t );
+        		
+        		return true;
+        	} else {
+        		sendUsage( player );
+        		return true;
+        	}	
         }
         
         // All followig commands are TEAM-only
@@ -122,7 +130,7 @@ public class TicketCommand extends AbstractCommand {
         }
         
         // '/ticket list'
-        if( args[1].equalsIgnoreCase("list") ) {
+        if( args[1].equalsIgnoreCase( "list" ) ) {
                 
                 if( args.length != 2 ) {
                 	sendUsage(player);
@@ -137,14 +145,15 @@ public class TicketCommand extends AbstractCommand {
                                         player.sendMessage( tickets.getTicket(i).getGist() );
                                 }
                         
-                        } catch( Exception e ) {
+                } catch( Exception e ) {
                                 e.printStackTrace();
-                        }
-                } else {
-                        sendUsage(player);
+                                return false;
                 }
+                
+                return true;
+        }
         
-        if( args[1].equalsIgnoreCase("read") ) {
+        else if( args[1].equalsIgnoreCase("read") ) {
         	
         	if( args.length == 2 ) {
         		
@@ -161,30 +170,50 @@ public class TicketCommand extends AbstractCommand {
         		return true;
         	}
         	
-        	Ticket read = tickets.getTicket( tickets.getTicket( Integer.valueOf( args[2] ) ) );
-        	player.sendMessage( read.getGist() );
-        	player.sendMessage( read.getInfo() );
-        	
+        	try {
+        		Ticket read = tickets.getTicket( tickets.getTicket( Integer.valueOf( args[2] ) ) );
+            	
+        		if( read == null ) {
+        			player.sendMessage("Ticket not found.");
+        			return false;
+        		}
+        		
+            	player.sendMessage( read.getGist() );
+            	player.sendMessage( read.getInfo() );
+            	
+        	} catch( NumberFormatException e ) {
+        		player.sendMessage("Ticket not found.");
+        		return false;
+        	}
+
         	return true;
         }
         
-        if( args[1].equalsIgnoreCase("close") ) {
+        else if( args[1].equalsIgnoreCase("close") ) {
         	
         	if( args.length != 3 ) {
         		sendUsage( player );
         		return true;
         	}
+
+        	try {
+        		tickets.removeTicket( Integer.valueOf( args[2] ) );
+        	 } catch( NumberFormatException e ) {
+        		 player.sendMessage("Ticket not found.");
+        		 return false;
+        	 }
         	
-        	tickets.removeTicket( Integer.valueOf( args[2] ) );
         	return true;
         }
         
-        if( args[1].equalsIgnoreCase("enable") ) {
+        else if( args[1].equalsIgnoreCase("enable") ) {
         	tickets.removeDontNotify( user );
+        	return true;
         }
         
-        if( args[1].equalsIgnoreCase("disable") ) {
+        else if( args[1].equalsIgnoreCase("disable") ) {
         	tickets.addDontNotify( user );
+        	return true;
         }
         
         sendUsage(player);

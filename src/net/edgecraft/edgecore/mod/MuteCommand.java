@@ -80,11 +80,13 @@ public class MuteCommand extends AbstractCommand {
 		
 		if( args[0].equalsIgnoreCase("mute") ) { 
 			target.setMuted( true );
+			sender.sendMessage("Muted " + args[1] );
 			return true;
 		}
 		
 		else if( args[0].equalsIgnoreCase("unmute") ) {
 			target.setMuted( false );
+			sender.sendMessage("Unmuted " + args[1] );
 			return true;
 		}
 		

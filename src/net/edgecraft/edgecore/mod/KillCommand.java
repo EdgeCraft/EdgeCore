@@ -32,7 +32,7 @@ public class KillCommand extends AbstractCommand {
 	public void sendUsage(CommandSender sender) {
 		
 		if( sender instanceof Player ) {
-			User u = EdgeCoreAPI.userAPI().getUser( sender.getName() );
+			User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );
 			
 			if( u == null || !Level.canUse(u, getLevel()) ) return;
 		}

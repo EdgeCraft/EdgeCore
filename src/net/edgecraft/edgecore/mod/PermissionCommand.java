@@ -27,9 +27,20 @@ public class PermissionCommand extends AbstractCommand {
 	
 	@Override
 	public boolean validArgsRange(String[] args) {
-		if( args.length < 2 || args.length > 4 ) return false;
 		
-		return true;
+		return ( args.length >= 2 && args.length <= 4 );
+	}
+	
+
+	@Override
+	public void sendUsage( CommandSender sender ) {
+		
+		if( !(sender instanceof Player) || !Level.canUse( EdgeCore.getUsers().getUser(((Player)sender).getName()), Level.ADMIN) ) {
+			sender.sendMessage( EdgeCore.usageColor + "/permission setlevel <player> <level>");
+			sender.sendMessage( EdgeCore.usageColor + "/permission getlevel <player>");
+			sender.sendMessage( EdgeCore.usageColor + "/permission listranks" );
+		}
+		return;
 	}
 
 	@Override
@@ -58,27 +69,30 @@ public class PermissionCommand extends AbstractCommand {
 			return false;
 		case 2:
 			if( args[1].equalsIgnoreCase( "listranks" ) ) {
-				listranks(sender);
+				listranks( sender );
+				return true;
+			} else {
+				sendUsage( sender );
 				return true;
 			}
-			break;
 		case 3:
-			if( args[1].equalsIgnoreCase( "getlevel" ) ) {
+			if( args[1].equalsIgnoreCase( "getlevel" ) || args[1].equalsIgnoreCase( "getrank" )  ) {
 				return getrank(sender, args[2] );
 			} else {
+				sendUsage( sender );
 				return false;
 			}
 		case 4:
-			if( args[1].equalsIgnoreCase("setlevel") ){
+			if( args[1].equalsIgnoreCase("setlevel") || args[1].equalsIgnoreCase( "setrank" ) ){
 				return setrank(sender, args[2], args[3] );
 			}
+			sendUsage( sender );
 			return false;
 		default:
+			sendUsage( sender );
 			return false;
 		
 		}
-		
-		return true;
 		
 	}
 	
@@ -107,16 +121,5 @@ public class PermissionCommand extends AbstractCommand {
 		sender.sendMessage(ChatColor.GRAY + "Architekt - 5");
 		sender.sendMessage(ChatColor.GRAY + "User - 1");
 		sender.sendMessage(ChatColor.GRAY + "Gast - 0");
-	}
-
-	@Override
-	public void sendUsage( CommandSender sender ) {
-		
-		if( !(sender instanceof Player) || !Level.canUse( EdgeCore.getUsers().getUser(((Player)sender).getName()), Level.ADMIN) ) {
-			sender.sendMessage( EdgeCore.usageColor + "/permission setlevel <player> <level>");
-			sender.sendMessage( EdgeCore.usageColor + "/permission getlevel <player>");
-			sender.sendMessage( EdgeCore.usageColor + "/permission listranks" );
-		}
-		return;
 	}
 }

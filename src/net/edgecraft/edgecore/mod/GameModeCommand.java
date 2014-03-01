@@ -48,6 +48,10 @@ public class GameModeCommand extends AbstractCommand {
 		
 		Player p = Bukkit.getPlayerExact( args[1] );
 		
+		if( p == null ) {
+			player.sendMessage( args[1] + " not found!" );
+		}
+		
 		if( args.length == 2 ) {
 			player.sendMessage( p.getGameMode().toString() );
 			return true;

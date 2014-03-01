@@ -56,7 +56,7 @@ public class CommandListener implements Listener {
 			}
 		}
 		
-		String[] commandArray = command.toArray(new String[command.size()]);
+		String[] commandArray = command.toArray( new String[ command.size() ] );
 		CommandEvent ee = new CommandEvent( e.getPlayer(), commandArray );
 		
 		if( commands.isCommandPresent( command.get(0) ) ){
