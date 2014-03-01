@@ -159,7 +159,13 @@ public class User implements Serializable {
 	 * @return Player
 	 */
 	public Player getPlayer() {
-		return Bukkit.getServer().getPlayerExact(this.name);
+		Player ret = Bukkit.getServer().getPlayerExact( getName() );
+		
+		if( ret == null ) {
+			EdgeCore.log.info("[USER]Player " + getName() + " doesn't exist.");
+		}
+		
+		return ret;
 	}
 	
 	/**
