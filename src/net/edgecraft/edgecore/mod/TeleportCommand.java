@@ -26,7 +26,7 @@ public class TeleportCommand extends AbstractCommand {
 
 	@Override
 	public boolean validArgsRange(String[] args) {
-		return ( args.length == 3 || args.length == 5 );
+		return ( args.length >= 3 && args.length <= 5 );
 	}
 
 	@Override
@@ -38,6 +38,8 @@ public class TeleportCommand extends AbstractCommand {
 			if( u == null || !Level.canUse(u, Level.TEAM) ) return;
 		}
 		
+		sender.sendMessage( EdgeCore.usageColor + "/teleport <target>" );
+		sender.sendMessage( EdgeCore.usageColor + "/teleport <x> <y> <z>");
 		sender.sendMessage(EdgeCore.usageColor + "/teleport <player> <target>");
 		sender.sendMessage(EdgeCore.usageColor + "/teleport <player> <x> <y> <z>");
 		
@@ -45,9 +47,19 @@ public class TeleportCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
+
+		if( args.length == 4 ) {
+			player.teleport( new Location( player.getWorld(), Double.valueOf( args[1]), Double.valueOf( args[2] ), Double.valueOf(args[3]) ) );
+		}
 		
 		Player from = Bukkit.getPlayerExact( args[1] );
-
+		
+		if( args.length == 2 ) {
+			
+			player.teleport( from.getLocation() );
+			return true;
+		}
+		
 		if( args.length == 3 ) {
 			
 			Player to = Bukkit.getPlayerExact(args[2]);
@@ -61,6 +73,8 @@ public class TeleportCommand extends AbstractCommand {
 			
 			return true;
 		}
+		
+
 		
 		if( args.length == 5 ) {
 			

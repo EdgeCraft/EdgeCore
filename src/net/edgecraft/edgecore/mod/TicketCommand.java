@@ -141,9 +141,14 @@ public class TicketCommand extends AbstractCommand {
                 try {
                         
                                 int greatestID = tickets.amountOfTickets();
+                                
+                                if( greatestID == 0 ) { 
+                                	player.sendMessage( ChatColor.RED + "No open tickets." );
+                                	return true;
+                                }
                         
                                 for( int i = greatestID; i > 0; i-- ) {
-                                        player.sendMessage( tickets.getTicket(i).getGist() );
+                                        player.sendMessage( ChatColor.RED + tickets.getTicket(i).getGist() );
                                 }
                         
                 } catch( Exception e ) {
