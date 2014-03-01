@@ -316,7 +316,7 @@ public class UserManager {
 		if( u == null || msg == null ) return;
 		if( !exists(u) ) return;
 		
-		u.getPlayer().sendMessage( msg );
+		u.getPlayer().sendMessage( ChatColor.BLUE + msg );
 		
 	}
 	

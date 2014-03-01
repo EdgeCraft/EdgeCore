@@ -36,7 +36,7 @@ public class Ticket implements Serializable {
     // ----------
     
     public String getGist() {
-            return ( "ID: " + this.getID() + " " + "[" + this.getDateAsString() + "]" + " " + "[" + this.getAuthor() + "]" + ": " + this.getTitle() );
+            return ( "ID: " + this.getID() + " " + "[" + this.getDateAsString() + "]" + " " + "[" + this.getAuthor().getName() + "]" + ": " + this.getTitle() );
     }
     
     public String getInfo() {

@@ -71,6 +71,7 @@ public class TicketCommand extends AbstractCommand {
         	
         	if( !Level.canUse( user, Level.USER ) ) {
         		player.sendMessage( lang.getColoredMessage( userLang,  "nopermission") );
+        		EdgeCore.log.info( user.getName() + " tried to use /ticket open title msg");
         		return false;
         	}
         	
@@ -178,8 +179,8 @@ public class TicketCommand extends AbstractCommand {
         			return false;
         		}
         		
-            	player.sendMessage( read.getGist() );
-            	player.sendMessage( read.getInfo() );
+            	player.sendMessage( ChatColor.BLUE + read.getGist() );
+            	player.sendMessage( ChatColor.GREEN + read.getInfo() );
             	
         	} catch( NumberFormatException e ) {
         		player.sendMessage("Ticket not found.");
@@ -208,11 +209,13 @@ public class TicketCommand extends AbstractCommand {
         
         else if( args[1].equalsIgnoreCase("enable") ) {
         	tickets.removeDontNotify( user );
+        	player.sendMessage("Ticket-notification enabled.");
         	return true;
         }
         
         else if( args[1].equalsIgnoreCase("disable") ) {
         	tickets.addDontNotify( user );
+        	player.sendMessage("Ticket-notification disabled.");
         	return true;
         }
         

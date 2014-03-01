@@ -174,6 +174,8 @@ public class TicketManager {
 			
 			User cur = entry.getValue();
 			
+			if( dontNotify.contains( cur ) ) continue;
+			
 			if( Level.canUse( cur , level) ) {
 				notify( cur, t);
 			}
