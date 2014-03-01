@@ -12,6 +12,7 @@ import net.edgecraft.edgecore.db.DatabaseHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 public class UserManager {
 	
@@ -316,7 +317,11 @@ public class UserManager {
 		if( u == null || msg == null ) return;
 		if( !exists(u) ) return;
 		
-		u.getPlayer().sendMessage( ChatColor.BLUE + msg );
+		Player to = u.getPlayer();
+		
+		if( to == null ) return;
+		
+		to.sendMessage( ChatColor.BLUE + msg );
 		
 	}
 	
@@ -327,9 +332,12 @@ public class UserManager {
 		for( Map.Entry<Integer, User> entry : users.entrySet() ) {
 			
 			User cur = entry.getValue();
+			Player p = cur.getPlayer();
+			
+			if( p == null ) return;
 			
 			if( Level.canUse( cur, level) ) {
-				cur.getPlayer().sendMessage( msg );
+				p.sendMessage( msg );
 			}
 			
 		}
