@@ -47,12 +47,12 @@ public class BroadcastCommand extends AbstractCommand {
 		
 		StringBuilder msg = new StringBuilder();
 		
-		for( String arg : args ) {
+		for(int i = 1; i < args.length; i++) {
+			if (msg.length() > 0)
+				msg.append(" ");
 			
-			if( msg.length() == 0 ) msg.append( args[0] );
-			else msg.append( arg );
+			msg.append(args[i]);
 		}
-		
 		
 		EdgeCore.getChat().broadcast(ChatColor.GREEN + "[Internal Radio Broadcast] " + ChatColor.GOLD + msg.toString() );
 		

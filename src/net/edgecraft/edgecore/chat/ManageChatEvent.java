@@ -1,6 +1,7 @@
 package net.edgecraft.edgecore.chat;
 
 import net.edgecraft.edgecore.EdgeCore;
+import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 import net.edgecraft.edgecore.user.UserManager;
@@ -50,8 +51,8 @@ public class ManageChatEvent implements Listener {
 				if (msg.startsWith(">")) {
 					
 					if (msg.length() <= 1) e.setCancelled(true);
-					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[P]")
-																											.replace("[1]", ChatColor.ITALIC + "[" + user.getLevel().name() + "]").replace("[2]", p.getName())
+					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[" + user.getLevel().name() + "]")
+																											.replace("[1]", "[S]").replace("[2]", p.getName())
 																											.replace("[3]", msg.substring(1, msg.length())));
 					
 				} else {
@@ -62,9 +63,20 @@ public class ManageChatEvent implements Listener {
 				}
 				
 			} else {
-				e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[P]")
-						.replace("[1]", ChatColor.ITALIC + "[" + user.getLevel().name() + "]").replace("[2]", p.getName())
-						.replace("[3]", msg.substring(0, msg.length())));
+				
+				if (Level.canUse(user, Level.ARCHITECT)) {
+					
+					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[" + user.getLevel().name() + "]")
+							.replace("[1]", "[S]").replace("[2]", p.getName())
+							.replace("[3]", ChatColor.translateAlternateColorCodes('&', msg)));
+					
+				} else {
+					
+					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[" + user.getLevel().name() + "]")
+							.replace("[1]", "[S]").replace("[2]", p.getName())
+							.replace("[3]", msg));
+					
+				}
 			}
 		}
 	}
