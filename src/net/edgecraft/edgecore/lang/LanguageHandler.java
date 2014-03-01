@@ -1,6 +1,8 @@
 package net.edgecraft.edgecore.lang;
 
-import java.io.File;
+import java.io.InputStream;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -68,8 +70,10 @@ public class LanguageHandler {
 	      DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
 	      DocumentBuilder builder = fac.newDocumentBuilder();
 	      fac.setNamespaceAware(false);
-
-	      Document doc = builder.parse("plugins/EdgeCore/languages/lang_" + lang + ".xml");
+	      
+	      InputStream stream = getClass().getClassLoader().getResourceAsStream("languages/lang_" + lang + ".xml");
+	      
+	      Document doc = builder.parse(stream);
 	      NodeList messages = doc.getElementsByTagName(element);
 
 	      for (int i = 0; i < messages.getLength(); i++) {
@@ -99,6 +103,13 @@ public class LanguageHandler {
 	 * @return true/false
 	 */
 	public boolean exists(String language) {
-	    return new File("plugins/EdgeCore/languages/lang_" + language + ".xml").exists();		
+		try {
+			
+			return new JarEntry(new JarFile("EdgeCore.jar").getJarEntry("languages/lang_" + language + ".xml")) == null;
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

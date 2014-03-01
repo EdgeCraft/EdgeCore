@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+        Replacement-System
+        
+        ## Color-Codes ##
+        @a, @b, @6, @4, ... 
+        > Die Buchstaben/Zahlen hinter dem @-Zeichen stehen für die Minecraft-Farbcodes
+        > Diese werden später ausgelesen und je nach Bedarf direkt durch die Farben ersetzt
+        
+        Argument-System
+        
+        ## Usable Arguments ##
+        [0], [1], [2], ...
+        > Aufgebaut wie ein Array: Es fängt bei [0] an
+        > Die Werte in den Klammern stehen für die Reihenfolge der Ersetzung, z.B. kann bei 'kick' das [0] durch den Spielernamen ersetzt werden
+        > So viele Argumente wie man möchte nutzbar
+        
+        ## Syntax Arguments ##
+        [nl]
+        > Wird durch \n ersetzt, was in Java für "new line" steht.
+        > Jeglicher Text hinter einem [nl] wird in einer neuen Zeile stehen
+        > Unendlich viele, neue Zeilen möglich
+		
+		[c]
+		> Wird durch 'currency', also die Serverwährung ersetzt
+  
+  -->
+  
+  <language>
+    <info key="name" value="Deutsch" />
+    <info key="shortcut" value="de" />
+    <info key="description" value="Standard Sprache, (Hoch-)Deutsch" />
+    <info key="author" value="Panjab @ EdgeCraft.de" />
+    
+    <messages>
+        
+        <!-- Global Exceptions -->
+        <message key="globalerror" value="@cDeine Anfrage konnte nicht bearbeitet werden!" />
+        <message key="pluginexception" value="@cDas Plugin @6[0] @ckonnte nicht fehlerlos genutzt werden!" />
+        <message key="numberformatexception" value="@cDer benötigte Wert muss eine Zahl sein!" />
+		<message key="commandexception" value="@cDer verwendete Befehl existiert nicht!" />
+        <message key="argumentexception" value="@cDie benötigten Argumente sind fehlerhaft!" />
+        <message key="nopermission" value="@cDu hast für diese Aktion nicht genügend Rechte!" />
+        
+        <!-- Informative Exceptions -->
+        <message key="notfound" value="@cDer angegebene Spieler wurde nicht gefunden!!" />
+        <message key="amounttoolow" value="@cDer angegebene Betrag ist zu niedrig!" />
+        <message key="notinrange_player" value="@cDer Spieler @6[0] @cist nicht in deiner Nähe!" />
+        <message key="notinrange_location" value="@cDer Ort @6[0] @cist nicht in deiner Nähe!" />
+        
+        <message key="unknownjob" value="@cDer Beruf @6[0] @cexistiert nicht!"/>
+        <message key="unknownaccount" value="@cDas Konto @6# [0] @cexistiert nicht!" />
+        <message key="unknowncuboidtype" value="@cDer Cuboid-Typ @6[0] @cexistiert nicht!" />
+		<message key="invalidcuboidtype" value="@cDer Cuboid-Typ stimmt nicht mit dem Benötigten überein!" />
+        <message key="unknownlanguage" value="@cDie Sprache @6'[0]' @cexistiert nicht!" />
+		<message key="unknowncuboid" value="@cDer Cuboid @6[0] @cexistiert nicht!" />
+		<message key="unknownhabitat" value="@cDas Habitat @6[0] @cexistiert nicht!" />
+		<message key="unknownshop" value="@cDer Shop @6[0] @cexistiert nicht!" />
+        
+        <!-- Chat Messages -->
+        <message key="login" value="@7@o[0] ist dem Spiel beigetreten." />
+        <message key="logout" value="@7@o[0] hat das Spiel verlassen." />
+        <message key="kick" value="@7@o[0] wurde aus dem Spiel geworfen!" />
+        <message key="tempban" value="@7@o[0] wurde temporär gesperrt!" />
+        <message key="permban" value="@7@o[0] wurde permanent gesperrt!" />
+        <message key="mute" value="@7@o[0] wurde im Chat gesperrt!" />
+        
+        <message key="info_permban" value="@cDu bist gesperrt![nl][nl]@cGrund: @6[0]" />
+        <message key="info_tempban" value="@cDu bist temporär gesperrt![nl][nl]@cGrund: @6[0][nl]@cVerbleibende Zeit: @6[1]" />
+        <message key="info_bannedip" value="@cEs wurde eine gesperrte IP erkannt:[nl]@cIP: @6[0]@c, gebannter Spieler: @6[1]" />
+        <message key="info_mute" value="@cDein Chat ist gesperrt![nl]@cGrund: @6[0]" />
+        
+        <message key="userlist" value="@7Es sind @6[0]@7/@6[1] @7Spieler online:[nl][2]" />
+		<message key="chatformat" value="[0] [1] [2]: [3]" />
+		
+		<message key="channelprefix" value="@3[@6[0]@3]" />
+		<message key="channelprefix_message" value="[0] @3@o[1]: [2]" />
+		<message key="channelprefix_message_admin" value="[0] @6@o[1]: @3[2]" />
+		<message key="channelprefix_broadcast" value="[0] @3@o- [1]" />
+        
+        <!-- Registration Messages -->
+        <message key="registration_success" value="@aDu wurdest erfolgreich in der Datenbank registriert!" />
+        <message key="registration_help" value="@7Nutze @6/help oder das Forum@7, um Hilfe zu bekommen![nl]" />
+        <message key="registration_recommendedlanguage" value="@7Deine Sprache wurde automatisch auf @6[0] @7gesetzt." />
+        
+        <message key="registration_eco_success" value="@7Du hast nun Zugriff auf @6Bargeld und Spenden!" />
+        <message key="registration_eco_accinfo" value="@7Du besitzt kein Konto! Erstellt dir doch eines in @6der Bank![nl]@7Features: @6Überweisungen, Kredite, .." />
+        
+        <!-- Economy Messages -->		
+        <message key="global_payday_start" value="@7[@6@l[0]@7] Der  PayDay begint.." />
+        <message key="global_payday_success" value="@7[@6l[0]@7] Der PayDay ist zuende! Nächster in @6[1] Minute/n!" />
+		<message key="global_payday_accountclosed" value="@cDir wurde kein PayDay ausgezahlt, da dein Konto gesperrt ist!" />
+		<message key="global_payday_noaccount" value="@cDir wurde kein PayDay ausgezahlt, da du kein Konto besitzst!" />
+        
+        <message key="private_ecomonitor_title" value="@7===== Kontoauszug =====" />
+        <message key="private_ecomonitor_payday" value="@a+ [c][0]  |  PayDay" />
+        <message key="private_ecomonitor_creditfee" value="@c- [c][0]  |  Kreditgebühren" />
+        <message key="private_ecomonitor_vehicletax" value="@c- [c][0]  |  Fahrzeugsteuer" />
+        <message key="private_ecomonitor_propertyfee" value="@c- [c][0]  |  Grundstückgebühren" />
+        <message key="private_ecomonitor_statetax" value="@c- [c][0]  |  Allgemeine Steuer" />
+        
+        <message key="noaccount" value="@cDu besitzt kein Konto!" />
+		<message key="nocredit" value="@cDu hast keinen Kredit aufgenommen!" />
+		<message key="nocredit_id" value="@cDas Konto @6# [0] @cbesitzt keinen Kredit!" />
+        <message key="notenoughmoney" value="@cDu besitzt nicht genug Geld!" />
+        <message key="account_closed" value="@cDein Konto ist gesperrt!" />
+        <message key="account_closed_id" value="@cDas Konto @6# [0] @cist gesperrt!" />
+		<message key="transaction_gist" value="[[0]] Überweisung #[1] - [2] nach [3][nl]'[4]' - [c][5]" />
+        <message key="transaction_highamount" value="@cEs wurde ein überdurchschnittlich hoher Geldbetrag übertragen![nl]@6[0] @czu @6[1] @c - @6[c][2]" />
+		<message key="withdraw_needbank" value="@cBeträge @6über [c][0] @ckönnen nur in einer Bank abgehoben werden!" />
+		<message key="eco_nocuboid" value="@cDu kannst hier nicht mit Geld interagieren!" />
+		
+		<!-- World Messages -->
+		<message key="cuboid_nopermission" value="@cDu hast auf diesem Gebiet keine Rechte!" />
+		<message key="cuboid_nopermission_modify" value="@cDu darfst das angegebene Gebiet nicht bearbeiten!" />
+		<message key="cuboid_nopermission_entity" value="@cDu darfst auf diesem Gebiet nicht mit Mobs interagieren!" />
+		<message key="cuboid_illegalplacement" value="@cDu darfst den Block @6[0] @cnicht setzen!" />
+		
+		<message key="cuboid_creation_point" value="@7[0]. Eckpunkt: @6X [1] Y [2] z [3]" />
+		<message key="cuboid_creation_collision" value="@cDer markierte Bereich kollidiert mit einem Cuboid!" />
+		<message key="cuboid_creation_success" value="@aDer Cuboid @6[0] @awurde erfolgreich erstellt!" />
+		<message key="cuboid_creation_inprogress" value="@cDu hast bereits eine Erstellung gestartet!" />
+		<message key="cuboid_creation_cancel" value="@aAlle Vorgänge wurden abgebrochen!" />
+		
+		<message key="radiusreached" value="@cDu hast die Kartengrenze erreicht!" />
+		<message key="world_placelava" value="@cDu darfst hier keine Lava platzieren!" />
+		<message key="world_placefire" value="@cDu darfst hier kein Feuer entfachen!" />
+		<message key="world_placewater" value="@cDu darfst hier kein Wasser setzen!" />
+		
+        <!-- Command Messages -->
+		<!-- ================== -->
+        
+        <!-- SystemCommand -->
+        <message key="system_overview" value="@7Übersicht der Ressourcen:" />
+        <message key="system_uptime" value="@7Uptime: @6[0]" />
+        <message key="system_memory_max" value="@7Maximaler RAM: @6[0] MB" />
+        <message key="system_memory_total" value="@7Totaler RAM: @6[0] MB" />
+        <message key="system_memory_free" value="@7Ungenutzer RAM: @6[0] MB" />
+        <message key="system_memory_used" value="@7Genutzter RAM: @6[0] MB" />
+        <message key="system_memory_health_good" value="@7RAM-Auslastung: @aGut. (&lt; [0] %)" />
+        <message key="system_memory_health_bad" value="@7RAM-Auslastung: @cÜberlastet. (&gt; [0] %)" />
+        <message key="system_reset_success" value="@aEs wurden alle betroffenen Werte zurückgesetzt!" />
+        
+        <!-- DatabaseCommand -->
+        <message key="db_check" value="@7Datenbank-Status: [0]" />
+        <message key="db_check_good" value="@aGut." />
+        <message key="db_check_bad" value="@cSchlecht." />
+        <message key="db_check_db_true" value="@7Die Datenbank @6[0] @aexistiert!" />
+        <message key="db_check_db_false" value="@7Die Datenbank @6[0] @cexistiert nicht!" />
+        <message key="db_check_table_true" value="@7Die Tabelle @6[0] @aexistiert!" />
+        <message key="db_check_table_false" value="@7Die Tabelle @6[0] @cexistiert nicht!" />
+        <message key="db_connect_success" value="@aErfolgreich mit der Datenbank @6[0]  @averbunden!" />
+        <message key="db_connect_failed" value="@cDas Verbinden mit der Datenbank @6[0] @cist fehlgeschlagen!" />
+        <message key="db_connect_alreadyconnected" value="@cEs besteht bereits eine Datenbankverbindung!" />
+        <message key="db_close_success" value="@aDie Datenbankverbindung wurde geschlossen!" />
+        
+        <!-- UserCommand -->
+        <message key="user_exists_true" value="@7Der Spieler @6[0] @aexistiert!" />
+        <message key="user_exists_false" value="@7Der Spieler @6[0] @cexistiert nicht!" />
+        <message key="user_register_success" value="@aDer Spieler wurde erfolgreich registriert![nl]@aID: @6[0] @aName: @6[1] @aIP: @6[2]" />
+        <message key="user_register_alreadyexists" value="@cDer Spieler @6[0] @cexistiert bereits!" />
+        <message key="user_delete_success" value="@cDer Spieler @6[0] @cwurde aus der Datenbank gelöscht!" />
+        <message key="user_reload_success" value="@aDer Spieler @6[0] @awurde erfolgreich synchronisiert!" />
+        <message key="user_reload_all_success" value="@aAlle Spieler wurden erfolgreich synchronisiert!" />
+        <message key="user_amount" value="@7Anzahl registrierter Spieler: @6[0]" />
+        
+        <!-- LanguageCommand -->
+		<message key="lang_info" value="@7Momentan eingestellte Sprache: @6[0]" />
+        <message key="lang_set" value="@aDeine Sprache wurde auf @6[0] @agesetzt!" />
+        <message key="lang_set_default" value="@aDeine Sprache wurde zurückgesetzt!" />
+        <message key="lang_list" value="@7Verfügbare Sprachen: @6[0]" />
+        
+        <!-- AccountCommand -->
+        <message key="admin_acc_create_success" value="@aDas Konto für @6[0] @awurde erfolgreich erstellt!" />
+        <message key="admin_acc_create_alreadyexists" value="@cDer Spieler @6[0] @cbesitzt bereits ein Konto!" />
+        <message key="admin_acc_delete_success" value="@cDas Konto @6# [0] @cwurde gelöscht!" />
+        <message key="admin_acc_updatebalance_success" value="@aDer Kontostand vom Konto @6# [0] @awurde auf @6[c][1] @agesetzt!" />
+        <message key="admin_acc_status_locked" value="@7Das Konto @6# [0] @7wurde @cgesperrt!" />
+        <message key="admin_acc_status_unlocked" value="@7Das Konto @6# [0] @7wurde @aentsperrt!" />
+        <message key="admin_acc_exists_id_true" value="@7Das Konto @6# [0] @aexistiert!" />
+        <message key="admin_acc_exists_id_false" value="@7Das Konto @6# [0] @cexistiert nicht!" />
+        <message key="admin_acc_exists_user_true" value="@7Der Spieler @6[0] @abesitzt ein @7Konto!" />
+        <message key="admin_acc_exists_user_false" value="@7Der Spieler @6[0] @cbesitzt kein @7Konto!" />
+        <message key="admin_acc_reload_success" value="@aDas Konto @6# [0] @awurde erfolgreich synchronisiert!" />
+        <message key="admin_acc_reload_all_success" value="@aAlle Konten wurden erfolgreich synchronisiert!" />
+        <message key="admin_acc_amount" value="@7Anzahl aller Konten: @6[0]" />
+        
+        <message key="acc_info_title" value="@7=====  @lKonto-Informationen @7- @l# [0] @7=====" />
+        <message key="acc_info_id" value="@7Kontonr.: @6[0]" />
+        <message key="acc_info_owner" value="@7Vollmächtige/r: @6[0]" />
+        <message key="acc_info_balance" value="@7Kontostand: @6[c][0]" />
+        <message key="acc_info_credit" value="@7Kredit: @6[c][0] (+ Zinsen: [c][1])" />
+        <message key="acc_info_welfare_true" value="@7Sozialhilfe: @cbeansprucht" />
+        <message key="acc_info_welfare_false" value="@7Sozialhilfe: @anicht beansprucht" />
+        <message key="acc_info_status_locked" value="@7Verfügbarkeit: @cgesperrt" />
+        <message key="acc_info_status_unlocked" value="@7Verfügbarkeit: @cnicht gesperrt" />
+        <message key="acc_info_payday" value="@7PayDay: @6[c][0]" />
+        <message key="acc_info_lowestbalance" value="@7Niedrigster Kontostand: @6[c][0]" />
+        <message key="acc_info_highestbalance" value="@7Höchster Kontostand: @6[c][0]" />
+        <message key="acc_apply_success" value="@aDein Konto (@6# [0]@a) wurde erfolgreich erstellt!" />
+        <message key="acc_deactivate_success" value="@cDein Konto (@6# [0]@c) wurde deaktiviert!" />
+        <message key="acc_deposit_success" value="@aEs wurden @6[c][0] @aauf dein Konto eingezahlt!" />
+        <message key="acc_withdraw_success" value="@aEs wurden @6[c][0] @avon deinem Konto abgehoben!" />
+        
+        <!-- CashCommand -->
+        <message key="admin_cash_update_success" value="@aDas Bargeld von @6[0] @awurde auf @6[c][1] @agesetzt!" />
+        <message key="admin_cash_transfer_success" value="@aErfolgreich @6[c][0] @azwischen @6[1] @aund @6[2] @aausgetauscht!" />
+        
+        <message key="cash_info_title" value="@7===== @lBargeld-Informationen @7=====" />
+        <message key="cash_info_amount" value="@7Bargeld: @6[c][0]" />
+        <message key="cash_info_given" value="@7Insgesamt vergeben: @6[c][0]" />
+        <message key="cash_info_received" value="@7Insgesamt erhalten: @6[c][0]" />
+        <message key="cash_info_donated" value="@7Insgesamt gespendet: @6[c][0]" />
+        <message key="cash_give_success" value="@aDu hast @6[0] @aerfolgreich @6[c][1] @agegeben!" />
+        <message key="cash_donate_success" value="@aVielen Dank! Du hast @6[c][0] @agespendet!" />
+        
+        <!-- CreditCommand -->
+        <message key="admin_credit_set_success" value="@aDas Konto @6# [0] @ahat nun @6[c][1] (+ Zinsen) @aals Kredit!" />
+        <message key="admin_credit_remove_success" value="@aDas Konto @6# [0] @awurde vom Kredit befreit!" />
+        <message key="admin_credit_pay_success" value="@aEs wurden @6[c][0] @avom Konto @6# [1] @aabbezahlt![nl]@aVerbleibende Kosten: @6[c][2]" />
+        <message key="admin_credit_info_title" value="@7===== @lKredit-Informationen @7 - @l# [0] @7=====" />
+        
+        <message key="credit_apply_success" value="@aDu hast einen Kredit in Höhe von @6[c][0]9@aaufgenommen!" />
+        <message key="credit_pay_success" value="@aDu hast @6[c][0] @avom Kredit abbezahlt![nl]@aVerbleinde Kosten: @6[c][1]" />
+        <message key="credit_info_rawcredit" value="@7Kredit ohne Zinsen: @6[c][0]" />
+        <message key="credit_info_credit" value="@7Kredit mit Zinsen: @6[c][0]" />
+        <message key="credit_info_remaining" value="@7Verbleinde Kosten: @6[c][0]" />
+        <message key="credit_info_date" value="@7Beantragt am: @6[0]" />
+        
+        <!-- WelfareCommand -->
+        <message key="welfare_apply_success" value="@aDu erhälst nun Sozialhilfe. &oSieh zu das du Arbeit kriegst!" />
+        <message key="welfare_apply_warning" value="@cDu benötigst keine Sozialhilfe!" />
+		<message key="welfare_apply_alreadywelfare" value="@cDu bekommst bereits Unterstützung vom Staat!" />
+        <message key="welfare_cancel_success" value="@aGlückwunsch, du bist nun finanziell unabhängig!" />
+        <message key="welfare_cancel_warning" value="@6Du darfst - falls nötig - weiterhin Sozialhilfe beanspruchen!" />
+		<message key="welfare_cancel_nowelfare" value="@cDu hast keine Sozialhilfe beansprucht!" />
+        <message key="welfare_info_title" value="@7===== @lInformationen zur Sozialhilfe @7=====" />
+        <message key="welfare_info_status_true" value="@7Status: @cbeansprucht" />
+        <message key="welfare_info_status_false" value="@7Status: @anicht beansprucht" />
+        <message key="welfare_info_independentafter" value="@7Unabhängig ab: @6[c][0]" />
+        
+        <!-- TransferCommand -->
+        <message key="admin_transfer_success" value="@aFolgender Transfer wurde erfolgreich ausgeführt:[nl]@6Konto # [0] @a-> @6Konto # [1] @a- @6[c][2]" />
+        <message key="transfer_success" value="@aDu hast erfolgreich @6[c][0] @aan das Konto @6# [1] @aüberwiesen!" />
+        
+        <!-- StateCommand -->
+        <message key="admin_state_updatetreasury_positive" value="@7Die Staatskasse wurde auf @a+[c][0] @7gesetzt!" />
+        <message key="admin_state_updatetreasury_negative" value="@7Die Staatskasse wurde auf @c-[c][0] @7gesetzt!" />
+        <message key="admin_state_updatetreasury_warning" value="@cAchtung! Die Wirtschaft des Staates ist negativ!" />
+        <message key="admin_state_info_title" value="@7===== @lErweiterte Staats-Informationen @7=====" />
+        <message key="admin_state_info_name" value="@7Staat: @6[0]" />
+        <message key="admin_state_info_treasury" value="@7Staatskasse: @6[c][0]" />
+        <message key="admin_state_info_population" value="@7Einwohner: @6[0] Bürger" />
+        <message key="admin_state_info_inhabitatedbuildings_positive" value="@7Bewohnte Fläche: @a[0] %" />
+        <message key="admin_state_info_inhabitatedbuildings_medium" value="@7Bewohnte Fläche: @e[0] %" />
+        <message key="admin_state_info_inhabitatedbuildings_negative" value="@7Bewohnte Fläche: @c[0] %" />
+        <message key="admin_state_info_welfare" value="@7Konten mit Sozialhilfe: @6[0] %" />
+        <message key="admin_state_info_infrastructure_positive" value="@7Infrastruktur: @aGut." />
+        <message key="admin_state_info_infrastructure_medium" value="@7Infrastruktur: @eGefährdet." />
+        <message key="admin_state_info_infrastructure_negative" value="@cInfrakstruktur: Kritisch." />
+        
+        <!-- PayDayCommand -->
+        <message key="admin_payday_start_progress" value="@7Ein unabhängiger PayDay wird gestartet.." />
+        <message key="admin_payday_start_success" value="@aDer PayDay wurde erfolgreich ausgeführt!" />
+        <message key="admin_payday_start_user_progress" value="@7Ein unabhängiger PayDay für @6[0] @7wird gestartet.." />
+        <message key="admin_payday_start_user_success" value="@aDer PayDay für @6[0] @awurde erfolgreich ausgeführt!" />
+        <message key="admin_payday_status_enabled" value="@7Der PayDay wurde @a(re-)aktiviert!" />
+        <message key="admin_payday_status_disabled" value="@7Der PayDay wurde @cdeaktivert!" />
+        
+        <message key="payday_info_title" value="@7===== @lPayDay-Informationen @7=====" />
+        <message key="payday_info_remainingtime" value="@7Verbleibende Zeit: @6[0] Minute/n" />
+        <message key="payday_info_payday" value="@7Eigener PayDay: @6[c][0]" />
+        
+        <!-- IDCommand -->
+        <message key="id_apply_success" value="@aDein Personalausweis wurde dir erfolgreich zugestellt!" />
+        <message key="id_apply_error" value="@cDu besitzt bereits einen Personalausweis![nl]@cDu kannst @6im Forum @ceinen Neuen beantragen!" />
+		
+		<!-- Cuboid Command -->
+		<message key="admin_cuboid_create_start" value="@aMarkiere nun @62 Eckpunkte @amit @6[0]!" />
+		<message key="admin_cuboid_create_alreadyexists" value="@cDer gewünschte Cuboid existiert bereits!" />
+		<message key="admin_cuboid_delete_success" value="@aDer Cuboid @6[0] @awurde gelöscht!" />		
+		<message key="admin_cuboid_participant_add_success" value="@aDer Spieler @6[0] @awurde eingetragen!" />
+		<message key="admin_cuboid_participant_add_alreadyparticipant" value="@cDer angegebene Spieler ist bereits eingetragen!" />
+		<message key="admin_cuboid_participant_remove_noparticipant" value="@cDer angegebene Spieler ist nicht eingetragen!" />
+		<message key="admin_cuboid_participant_remove_success" value="@aDer Spieler @6[0] @awurde ausgetragen!" />
+		<message key="admin_cuboid_command_allow_success" value="@aDie angegebenen Befehle wurden erlaubt!" />
+		<message key="admin_cuboid_command_disallow_success" value="@aDie angegebenen Befehle wurden verboten!" />
+		<message key="admin_cuboid_command_check_true" value="@7Der Befehl @6[0] @aist nutzbar!" />
+		<message key="admin_cuboid_command_check_false" value="@7Der Befehl @6[0] @cist nicht nutzbar!" />
+		<message key="admin_cuboid_edit_entermsg_success" value="@aDie Entermessage wurde erfolgreich geändert:[nl]@6[0]"/>
+		<message key="admin_cuboid_edit_leavemsg_success" value="@aDie Leavemessage wurde erfolgreich geändert:[nl]@6[0]"/>
+		<message key="admin_cuboid_setowner_alreadyowner" value="@cDer angegebene Spieler besitzt den Cuboid bereits!" />
+		<message key="admin_cuboid_setowner_success" value="@aDer Spieler @6[0] @abesitzt nun den Cuboid @6[1]!" />
+		<message key="admin_cuboid_info_title" value="@7===== @lInformationen zum Cuboid @6[0] @7=====" />
+		<message key="admin_cuboid_jnfo_name" value="@7Name: @6[0]" />
+		<message key="admin_cuboid_info_type" value="@7Typ: @6[0]" />
+		<message key="admin_cuboid_info_owner" value="@7Besitzer: @6[0]" />
+		<message key="admin_cuboid_info_center" value="@7Mitte: @6X: [0] Y: [1] Z: [2]" />
+		<message key="admin_cuboid_info_blocks" value="@7Fläche / Volumen: @6[0] / [1] Blöcke" />
+		<message key="admin_cuboid_info_participants" value="@7Aktive Spieler: @6[0] Spieler" />
+		<message key="admin_cuboid_typelist" value="@7Verfügbare Cuboid-Typen:[nl][0]" />
+		
+        <message key="cuboid_find_start" value="@6Rechtsklicke @7mit einem @6[0] @7um Informationen zu erhalten!" />
+		<message key="cuboid_find_stop" value="@7CFind wurde deaktiviert!" />
+		<message key="cuboid_find_nocuboid" value="@cDieses Gebiet ist ungeschützt!" />
+		
+		<!-- Flag Command -->
+		<message key="flag_toggle_true" value="@7Dem Spieler @6[0] @7wurde die Flag @6[1] @azugewiesen!" />
+		<message key="flag_toggle_false" value="@7Dem Spieler @6[0] @7wurde die Flag @6[1] @centzogen!" />
+		<message key="flag_check" value="@7Der Spieler @6[0] @7besitzt folgende Flags:[nl][2]" />
+		<message key="flag_list" value="@7Verfügbare Flags:[nl][0]" />
+		
+		<!-- Event Command -->
+		<message key="event_toggle_true" value="@7Das Event @6[0] @7wurde @aaktiviert!" />
+		<message key="event_toggle_false" value="@7Das Event @6[0] @7wurde @cdeaktiviert!" />
+		<message key="event_status_all" value="@7Die Events des Cuboids @6[0] @7haben folgenden Status:[nl][1]" />
+		<message key="event_status_event_true" value="@7Das Event @6[0] @7ist @aaktiviert!" />
+		<message key="event_status_event_false" value="@7Das Event @6[0] @7ist @cdeaktiviert!" />
+		<message key="event_list" value="@7Verfügbare Events:[nl][0]" />
+		
+		<!-- Habitat Command -->
+		<message key="admin_habitat_create_success" value="@aDas Habitat @6[0] @awurde erfolgreich erstellt!" />
+		<message key="admin_habitat_create_alreadyexists" value="@cDas gewünschte Habitat existiert bereits!" />
+		<message key="admin_habitat_delete_success" value="@aDas Habitat @6[0] @awurde erfolgreich gelöscht!" />
+		<message key="admin_habitat_setowner_success" value="@aDer Spieler @6[0] @abesitzt nun das Habitat @6[1]!" />
+		<message key="admin_habitat_setowner_alreadyowner" value="@cDer angegebene Spieler besitzt das Habitat bereits!" />
+		<message key="admin_habitat_settenant_success" value="@aDas Habitat @6[0] @awird nun von @6[0] @agemietet!" />
+		<message key="admin_habitat_settenant_alreadytenant" value="@cDer angegebene Spieler ist bereits der Mieter!" />
+		<message key="admin_habitat_setworth_success" value="@aDer Preis des Habitats @6[0] @awurde auf @6[c][1] @agesetzt!" />
+		<message key="admin_habitat_setrental_success" value="@aDie Miete des Habitats @6[0] @awurde auf @6[c][1] @agesetzt!" />
+		<message key="admin_habitat_typelist" value="@7Verfügbare Habitat-Typen:[nl][0]" />
+		
+		<message key="habitat_info_title" value="@7===== @lInformationen zum Habitat @6[0] @7=====" />
+		<message key="habitat_info_name" value="@7Cuboid: @6[0]" />
+		<message key="habitat_info_type" value="@7Typ: @6[0] " />
+		<message key="habitat_info_owner" value="@7Besitzer: @6[0]" />
+		<message key="habitat_info_worth" value="@7Preis: @6[c][0]" />
+		<message key="habitat_info_tenant" value="@7Mieter: @6[0]" />
+		<message key="habitat_info_rental" value="@7Rente: @6[c][0]" />
+		<message key="habitat_info_rentable_true" value="@7Mietbar: @amietbar" />
+		<message key="habitat_info_rentable_false" value="@7Mietbar: @cnicht mietbar" />
+		
+    </messages>
+</language>
