@@ -22,6 +22,7 @@ public class ModHandler extends CommandHandler {
 				super.registerCommand( new BanCommand() );
 				super.registerCommand( new DifficultyCommand() );
 				super.registerCommand( new MaintenanceCommand() );
+				super.registerCommand( new BroadcastCommand() );
 
 		}
 		
