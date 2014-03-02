@@ -1,25 +1,39 @@
 package net.edgecraft.edgecore.command;
 
+import org.bukkit.ChatColor;
+
 import net.edgecraft.edgecore.user.User;
 
 public enum Level {
 
-	GUEST(0),
-	USER(1),
-	ARCHITECT(5),
-	TEAM(10),
-	ADMIN(15);
+	GUEST(0, "Gast", ChatColor.GRAY),
+	USER(1, "Spieler", ChatColor.WHITE),
+	ARCHITECT(5, "Architekt", ChatColor.DARK_GRAY),
+	TEAM(10, "Team", ChatColor.BLUE),
+	ADMIN(15, "Admin", ChatColor.DARK_RED);
 	
 	private int level;
+	private String chatName;
+	private ChatColor color;
 	
-	private Level(int level) {
+	private Level(int level, String chatName, ChatColor color) {
 		
 		this.level = level;
+		this.chatName = chatName;
+		this.color = color;
 		
 	}
 	
 	public int value(){
 		return this.level;
+	}
+	
+	public String getName() {
+		return this.chatName;
+	}
+	
+	public ChatColor getColor() {
+		return this.color;
 	}
 	
 	public static Level[] getLevels() {

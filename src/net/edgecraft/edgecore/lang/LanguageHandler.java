@@ -7,6 +7,8 @@ import java.util.jar.JarFile;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import net.edgecraft.edgecore.EdgeCore;
+
 import org.bukkit.ChatColor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -83,7 +85,7 @@ public class LanguageHandler {
 
 	        if ((key != null) && (messageKey.equals(key.getNodeValue()))) {
 	          
-	          return current.getAttributes().getNamedItem("value").getNodeValue().replace("[nl]", "\n");	     
+	          return current.getAttributes().getNamedItem("value").getNodeValue().replace("[nl]", "\n").replace("[c]", EdgeCore.getCurrency());	     
 	          
 	        }
 	      }

@@ -46,6 +46,7 @@
         <!-- Informative Exceptions -->
         <message key="notfound" value="@cDer angegebene Spieler wurde nicht gefunden!!" />
         <message key="amounttoolow" value="@cDer angegebene Betrag ist zu niedrig!" />
+        <message key="amounttoohigh" value="@cDer angegebene Betrag ist zu hoch!" />
         <message key="notinrange_player" value="@cDer Spieler @6[0] @cist nicht in deiner Nähe!" />
         <message key="notinrange_location" value="@cDer Ort @6[0] @cist nicht in deiner Nähe!" />
         
@@ -88,17 +89,22 @@
         <message key="registration_eco_accinfo" value="@7Du besitzt kein Konto! Erstellt dir doch eines in @6der Bank![nl]@7Features: @6Überweisungen, Kredite, .." />
         
         <!-- Economy Messages -->		
-        <message key="global_payday_start" value="@7[@6@l[0]@7] Der  PayDay begint.." />
-        <message key="global_payday_success" value="@7[@6l[0]@7] Der PayDay ist zuende! Nächster in @6[1] Minute/n!" />
-		<message key="global_payday_accountclosed" value="@cDir wurde kein PayDay ausgezahlt, da dein Konto gesperrt ist!" />
+        <message key="global_payday_start" value="@7[@6[0]@7] Der PayDay beginnt.." />
+        <message key="global_payday_success" value="@7[@6[0]@7] Der PayDay ist zuende! Nächster in @6[1] Minute/n!" />
+		<message key="global_payday_accountclosed" value="@cKonto gesperrt!" />
 		<message key="global_payday_noaccount" value="@cDir wurde kein PayDay ausgezahlt, da du kein Konto besitzst!" />
-        
-        <message key="private_ecomonitor_title" value="@7===== Kontoauszug =====" />
-        <message key="private_ecomonitor_payday" value="@a+ [c][0]  |  PayDay" />
-        <message key="private_ecomonitor_creditfee" value="@c- [c][0]  |  Kreditgebühren" />
-        <message key="private_ecomonitor_vehicletax" value="@c- [c][0]  |  Fahrzeugsteuer" />
-        <message key="private_ecomonitor_propertyfee" value="@c- [c][0]  |  Grundstückgebühren" />
-        <message key="private_ecomonitor_statetax" value="@c- [c][0]  |  Allgemeine Steuer" />
+                
+        <message key="private_ecomonitor_title" value="@6@l Kontoauszug " />
+        <message key="private_ecomonitor_payday_title" value="@7Payday:" />
+        <message key="private_ecomonitor_payday_value" value="@a+ [c][0]" />
+        <message key="private_ecomonitor_credit_title" value="@7Kredit:" />
+        <message key="private_ecomonitor_credit_value" value="@c- [c][0]" />        
+        <message key="private_ecomonitor_vehicle_title" value="@7Fahrzeug:" />
+        <message key="private_ecomonitor_vehicle_value" value="@c- [c][0]" />        
+        <message key="private_ecomonitor_property_title" value="@7Grundstück:" />
+        <message key="private_ecomonitor_property_value" value="@c- [c][0]" />        
+        <message key="private_ecomonitor_state_title" value="@7Steuer:" />
+        <message key="private_ecomonitor_state_value" value="@c- [c][0]" />        
         
         <message key="noaccount" value="@cDu besitzt kein Konto!" />
 		<message key="nocredit" value="@cDu hast keinen Kredit aufgenommen!" />
@@ -194,7 +200,7 @@
         <message key="acc_info_welfare_true" value="@7Sozialhilfe: @cbeansprucht" />
         <message key="acc_info_welfare_false" value="@7Sozialhilfe: @anicht beansprucht" />
         <message key="acc_info_status_locked" value="@7Verfügbarkeit: @cgesperrt" />
-        <message key="acc_info_status_unlocked" value="@7Verfügbarkeit: @cnicht gesperrt" />
+        <message key="acc_info_status_unlocked" value="@7Verfügbarkeit: @anicht gesperrt" />
         <message key="acc_info_payday" value="@7PayDay: @6[c][0]" />
         <message key="acc_info_lowestbalance" value="@7Niedrigster Kontostand: @6[c][0]" />
         <message key="acc_info_highestbalance" value="@7Höchster Kontostand: @6[c][0]" />
@@ -229,7 +235,7 @@
         <message key="credit_info_date" value="@7Beantragt am: @6[0]" />
         
         <!-- WelfareCommand -->
-        <message key="welfare_apply_success" value="@aDu erhälst nun Sozialhilfe. &oSieh zu das du Arbeit kriegst!" />
+        <message key="welfare_apply_success" value="@aDu erhälst nun Sozialhilfe. @oSieh zu das du Arbeit kriegst!" />
         <message key="welfare_apply_warning" value="@cDu benötigst keine Sozialhilfe!" />
 		<message key="welfare_apply_alreadywelfare" value="@cDu bekommst bereits Unterstützung vom Staat!" />
         <message key="welfare_cancel_success" value="@aGlückwunsch, du bist nun finanziell unabhängig!" />

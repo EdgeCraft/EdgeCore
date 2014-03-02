@@ -51,7 +51,7 @@ public class ManageChatEvent implements Listener {
 				if (msg.startsWith(">")) {
 					
 					if (msg.length() <= 1) e.setCancelled(true);
-					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[" + user.getLevel().name() + "]")
+					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", user.getLevel().getColor() + "[" + user.getLevel().getName() + "]" + ChatColor.RESET)
 																											.replace("[1]", "[S]").replace("[2]", p.getName())
 																											.replace("[3]", msg.substring(1, msg.length())));
 					
@@ -66,13 +66,13 @@ public class ManageChatEvent implements Listener {
 				
 				if (Level.canUse(user, Level.ARCHITECT)) {
 					
-					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[" + user.getLevel().name() + "]")
+					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", user.getLevel().getColor() + "[" + user.getLevel().getName() + "]" + ChatColor.RESET)
 							.replace("[1]", "[S]").replace("[2]", p.getName())
 							.replace("[3]", ChatColor.translateAlternateColorCodes('&', msg)));
 					
 				} else {
 					
-					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", "[" + user.getLevel().name() + "]")
+					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", user.getLevel().getColor() + "[" + user.getLevel().getName() + "]" + ChatColor.RESET)
 							.replace("[1]", "[S]").replace("[2]", p.getName())
 							.replace("[3]", msg));
 					

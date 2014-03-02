@@ -81,9 +81,14 @@ public class CommandListener implements Listener {
 			User u = EdgeCoreAPI.userAPI().getUser( e.getSender().getName() );
 			
 			if(u == null){
+				
 				// Console
+				
+			} else if(!(u.getLevel().value() >= cmd.getLevel().value())) {
+				
+				e.getSender().sendMessage(lang.getColoredMessage(u.getLanguage(), "nopermission"));
+				
 			}
-			else if(!(u.getLevel().value() >= cmd.getLevel().value())) throw new Exception();
 			
 			boolean run = cmd.run(e.getSender(), args);
 			
