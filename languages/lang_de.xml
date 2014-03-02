@@ -39,7 +39,7 @@
         <message key="globalerror" value="@cDeine Anfrage konnte nicht bearbeitet werden!" />
         <message key="pluginexception" value="@cDas Plugin @6[0] @ckonnte nicht fehlerlos genutzt werden!" />
         <message key="numberformatexception" value="@cDer benötigte Wert muss eine Zahl sein!" />
-		<message key="commandexception" value="@cDer verwendete Befehl existiert nicht!" />
+        <message key="commandexception" value="@cDer verwendete Befehl existiert nicht!" />
         <message key="argumentexception" value="@cDie benötigten Argumente sind fehlerhaft!" />
         <message key="nopermission" value="@cDu hast für diese Aktion nicht genügend Rechte!" />
         
@@ -53,7 +53,7 @@
         <message key="unknownjob" value="@cDer Beruf @6[0] @cexistiert nicht!"/>
         <message key="unknownaccount" value="@cDas Konto @6# [0] @cexistiert nicht!" />
         <message key="unknowncuboidtype" value="@cDer Cuboid-Typ @6[0] @cexistiert nicht!" />
-		<message key="invalidcuboidtype" value="@cDer Cuboid-Typ stimmt nicht mit dem Benötigten überein!" />
+        <message key="invalidcuboidtype" value="@cDer Cuboid-Typ stimmt nicht mit dem Benötigten überein!" />
         <message key="unknownlanguage" value="@cDie Sprache @6'[0]' @cexistiert nicht!" />
 		<message key="unknowncuboid" value="@cDer Cuboid @6[0] @cexistiert nicht!" />
 		<message key="unknownhabitat" value="@cDas Habitat @6[0] @cexistiert nicht!" />
@@ -71,9 +71,10 @@
         <message key="info_tempban" value="@cDu bist temporär gesperrt![nl][nl]@cGrund: @6[0][nl]@cVerbleibende Zeit: @6[1]" />
         <message key="info_bannedip" value="@cEs wurde eine gesperrte IP erkannt:[nl]@cIP: @6[0]@c, gebannter Spieler: @6[1]" />
         <message key="info_mute" value="@cDein Chat ist gesperrt![nl]@cGrund: @6[0]" />
+        <message key="info_spam" value="@cDu kannst nur @61x pro Sekunde @cschreiben!" />
         
         <message key="userlist" value="@7Es sind @6[0]@7/@6[1] @7Spieler online:[nl][2]" />
-		<message key="chatformat" value="[0] [1] [2]: [3]" />
+        <message key="chatformat" value="[0] [1] [2]: [3]" />
 		
 		<message key="channelprefix" value="@3[@6[0]@3]" />
 		<message key="channelprefix_message" value="[0] @3@o[1]: [2]" />
@@ -93,7 +94,7 @@
         <message key="global_payday_success" value="@7[@6[0]@7] Der PayDay ist zuende! Nächster in @6[1] Minute/n!" />
 		<message key="global_payday_accountclosed" value="@cKonto gesperrt!" />
 		<message key="global_payday_noaccount" value="@cDir wurde kein PayDay ausgezahlt, da du kein Konto besitzst!" />
-                
+		                
         <message key="private_ecomonitor_title" value="@6@l Kontoauszug " />
         <message key="private_ecomonitor_payday_title" value="@7Payday:" />
         <message key="private_ecomonitor_payday_value" value="@a+ [c][0]" />
