@@ -21,7 +21,7 @@ public class TimeCommand extends AbstractCommand {
 
 	@Override
 	public Level getLevel() {
-		return Level.ADMIN;
+		return Level.ARCHITECT;
 	}
 
 	@Override

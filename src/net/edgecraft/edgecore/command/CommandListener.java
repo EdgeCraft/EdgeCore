@@ -87,6 +87,7 @@ public class CommandListener implements Listener {
 			} else if(!(u.getLevel().value() >= cmd.getLevel().value())) {
 				
 				e.getSender().sendMessage(lang.getColoredMessage(u.getLanguage(), "nopermission"));
+				return;
 				
 			}
 			

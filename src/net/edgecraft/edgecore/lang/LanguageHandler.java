@@ -1,8 +1,6 @@
 package net.edgecraft.edgecore.lang;
 
-import java.io.InputStream;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -73,9 +71,7 @@ public class LanguageHandler {
 	      DocumentBuilder builder = fac.newDocumentBuilder();
 	      fac.setNamespaceAware(false);
 	      
-	      InputStream stream = getClass().getClassLoader().getResourceAsStream("languages/lang_" + lang + ".xml");
-	      
-	      Document doc = builder.parse(stream);
+	      Document doc = builder.parse("plugins/EdgeCore/languages/lang_" + lang + ".xml");
 	      NodeList messages = doc.getElementsByTagName(element);
 
 	      for (int i = 0; i < messages.getLength(); i++) {
@@ -84,9 +80,7 @@ public class LanguageHandler {
 	        Node key = current.getAttributes().getNamedItem("key");
 
 	        if ((key != null) && (messageKey.equals(key.getNodeValue()))) {
-	          
-	          return current.getAttributes().getNamedItem("value").getNodeValue().replace("[nl]", "\n").replace("[c]", EdgeCore.getCurrency());	     
-	          
+	        	return current.getAttributes().getNamedItem("value").getNodeValue().replace("[nl]", "\n").replace("[c]", EdgeCore.getCurrency());	     
 	        }
 	      }
 	    }
@@ -105,13 +99,6 @@ public class LanguageHandler {
 	 * @return true/false
 	 */
 	public boolean exists(String language) {
-		try {
-			
-			return new JarEntry(new JarFile("EdgeCore.jar").getJarEntry("languages/lang_" + language + ".xml")) == null;
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+		return new File("plugins/EdgeCore/languages/lang_" + language + ".xml").exists();
 	}
 }

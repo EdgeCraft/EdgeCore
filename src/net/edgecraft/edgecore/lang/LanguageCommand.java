@@ -21,7 +21,7 @@ public class LanguageCommand extends AbstractCommand {
 	
 	@Override
 	public Level getLevel() {
-		return Level.ADMIN;
+		return Level.GUEST;
 	}
 	
 	@Override

@@ -1,11 +1,15 @@
 package net.edgecraft.edgecore.chat;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 import net.edgecraft.edgecore.user.UserManager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,25 +21,52 @@ public class ManageChatEvent implements Listener {
 	private final UserManager userManager = EdgeCore.getUsers();
 	private final LanguageHandler lang = EdgeCore.getLang();
 	
+	private Map<String, Boolean> canChat = new HashMap<>();
 	
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
+		
+		if (!canChat.containsKey(e.getPlayer().getName()))
+			canChat.put(e.getPlayer().getName(), true);
 		
 		if (!EdgeCore.getChat().isChatEnabled()) {
 			e.setCancelled(true);
 		}
 		
-		Player p = e.getPlayer();
-		
-		User user = userManager.getUser(p.getName());
-		
-		if(user.isMuted()){
-			e.setCancelled(true);
-		}
-		
+		final Player p = e.getPlayer();		
+		User user = userManager.getUser(p.getName());				
 		String msg = e.getMessage();
 		
+		if (user == null) {
+			e.setCancelled(true);
+			return;
+		}
+		
 		if (user != null) {
+			
+			if (!canChat.get(p.getName())) {
+				
+				p.sendMessage(lang.getColoredMessage(user.getLanguage(), "info_spam"));
+				e.setCancelled(true);
+				
+			} else {
+				
+				canChat.put(p.getName(), false);
+				
+				Bukkit.getScheduler().scheduleSyncDelayedTask(EdgeCore.getInstance(), new Runnable() {
+					
+					public void run() {
+						canChat.put(p.getName(), true);
+					}
+					
+				}, 60L);
+			}
+			
+			if(user.isMuted()){
+				p.sendMessage(lang.getColoredMessage(user.getLanguage(), "info_mute").replace("[0]", "Unknown"));
+				e.setCancelled(true);
+			}
+						
 			if (user.getChannel() != null) {
 				Channel c = user.getChannel();
 				

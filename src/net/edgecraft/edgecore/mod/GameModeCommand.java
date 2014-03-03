@@ -21,7 +21,7 @@ public class GameModeCommand extends AbstractCommand {
 
 	@Override
 	public Level getLevel() {
-		return Level.ADMIN;
+		return Level.MODERATOR;
 	}
 
 	@Override

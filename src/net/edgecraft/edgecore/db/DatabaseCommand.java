@@ -22,7 +22,7 @@ public class DatabaseCommand extends AbstractCommand {
 
 	@Override
 	public Level getLevel() {
-		return Level.ADMIN;
+		return Level.DEVELOPER;
 	}
 	
 	@Override
