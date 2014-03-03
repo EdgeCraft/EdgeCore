@@ -45,7 +45,7 @@ public class ModCommand extends AbstractCommand {
 
 	@Override
 	public void sendUsage(CommandSender sender) {
-		
+		return;
 	}
 
 	@Override
@@ -57,21 +57,6 @@ public class ModCommand extends AbstractCommand {
 			EdgeCore.log.info("Command " + args[0] + " not found!");
 			sendUsage(player);
 			return true;
-		}
-		
-		if( args.length == 2 ) {
-			if( args[1].equalsIgnoreCase( "help" )) {
-				cmd.sendUsage( player );
-				return true;
-			} else if( args[1].equalsIgnoreCase( "aliases" ) ) {
-				StringBuilder sb = new StringBuilder();
-				for( String alias : getNames() ) {
-					sb.append( alias + ", ");
-				}
-				sb.deleteCharAt(sb.length());
-				player.sendMessage( sb.toString() );
-				return true;
-			}
 		}
 		
 		cmd.run( player, args );
