@@ -22,7 +22,7 @@ public class PermissionCommand extends AbstractCommand {
 
 	@Override
 	public Level getLevel() {
-		return Level.ADMIN;
+		return Level.DEVELOPER;
 	}
 	
 	@Override
@@ -115,11 +115,10 @@ public class PermissionCommand extends AbstractCommand {
 
 	private void listranks( CommandSender sender ) {
 		
-		sender.sendMessage(ChatColor.GREEN + "Rankings:");
-		sender.sendMessage(ChatColor.GRAY + "Admin - 15");
-		sender.sendMessage(ChatColor.GRAY + "Team - 10");
-		sender.sendMessage(ChatColor.GRAY + "Architekt - 5");
-		sender.sendMessage(ChatColor.GRAY + "User - 1");
-		sender.sendMessage(ChatColor.GRAY + "Gast - 0");
+		sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Rankings:");
+		
+		for (Level level : Level.values()) {
+			sender.sendMessage(ChatColor.GRAY + level.getName() + " - Level: " + ChatColor.GREEN + level.value());
+		}
 	}
 }

@@ -19,7 +19,7 @@ public class BanCommand extends AbstractCommand {
 
 	@Override
 	public Level getLevel() {
-		return Level.TEAM; // ADMIN?
+		return Level.SUPPORTER;
 	}
 
 	@Override

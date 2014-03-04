@@ -5,6 +5,8 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import net.edgecraft.edgecore.EdgeCore;
+
 import org.bukkit.ChatColor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -68,7 +70,7 @@ public class LanguageHandler {
 	      DocumentBuilderFactory fac = DocumentBuilderFactory.newInstance();
 	      DocumentBuilder builder = fac.newDocumentBuilder();
 	      fac.setNamespaceAware(false);
-
+	      
 	      Document doc = builder.parse("plugins/EdgeCore/languages/lang_" + lang + ".xml");
 	      NodeList messages = doc.getElementsByTagName(element);
 
@@ -78,9 +80,7 @@ public class LanguageHandler {
 	        Node key = current.getAttributes().getNamedItem("key");
 
 	        if ((key != null) && (messageKey.equals(key.getNodeValue()))) {
-	          
-	          return current.getAttributes().getNamedItem("value").getNodeValue().replace("[nl]", "\n");	     
-	          
+	        	return current.getAttributes().getNamedItem("value").getNodeValue().replace("[nl]", "\n").replace("[c]", EdgeCore.getCurrency());	     
 	        }
 	      }
 	    }
@@ -99,6 +99,6 @@ public class LanguageHandler {
 	 * @return true/false
 	 */
 	public boolean exists(String language) {
-	    return new File("plugins/EdgeCore/languages/lang_" + language + ".xml").exists();		
+		return new File("plugins/EdgeCore/languages/lang_" + language + ".xml").exists();
 	}
 }

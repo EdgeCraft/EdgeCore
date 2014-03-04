@@ -48,7 +48,7 @@ public class TicketCommand extends AbstractCommand {
 			
 			sender.sendMessage( EdgeCore.usageColor + "/ticket open title msg" );
 			
-			if( !Level.canUse( u, Level.TEAM )) return;
+			if( !Level.canUse( u, Level.SUPPORTER )) return;
 		}	
 		
 		else sender.sendMessage( EdgeCore.usageColor + "/ticket open title msg");
@@ -92,7 +92,7 @@ public class TicketCommand extends AbstractCommand {
         		t.setMsg( msg.toString() );
         	
         		tickets.addTicket( t );
-        		tickets.notifyAll( Level.TEAM, t );
+        		tickets.notifyAll( Level.SUPPORTER, t );
         		
         		return true;
         	} else {
@@ -102,7 +102,7 @@ public class TicketCommand extends AbstractCommand {
         }
         
         // All followig commands are TEAM-only
-        if( !Level.canUse(user, Level.TEAM) ) {
+        if( !Level.canUse(user, Level.SUPPORTER) ) {
             player.sendMessage( lang.getColoredMessage(userLang, "nopermission") );
             return false;
         }

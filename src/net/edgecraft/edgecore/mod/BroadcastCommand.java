@@ -19,7 +19,7 @@ public class BroadcastCommand extends AbstractCommand {
 
 	@Override
 	public Level getLevel() {
-		return Level.TEAM;
+		return Level.DEVELOPER;
 	}
 
 	@Override

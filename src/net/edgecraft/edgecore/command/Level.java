@@ -1,20 +1,38 @@
 package net.edgecraft.edgecore.command;
 
+import org.bukkit.ChatColor;
+
 import net.edgecraft.edgecore.user.User;
 
 public enum Level {
-
-	GUEST(0),
-	USER(1),
-	ARCHITECT(5),
-	TEAM(10),
-	ADMIN(15);
+	
+	/*
+	 * TODO:
+	 * 
+	 * Sh!t System dynamisch machen
+	 * - Gruppen erstellen
+	 * - Gruppen löschen
+	 * - Gruppen bearbeiten
+	 * - Gruppen für User managen
+	 * 
+	 */
+	GUEST(0, "Gast", ChatColor.GRAY),
+	USER(1, "Spieler", ChatColor.WHITE),
+	SUPPORTER(5, "Supporter", ChatColor.GOLD),
+	ARCHITECT(7, "Architekt", ChatColor.DARK_GRAY),
+	MODERATOR(10, "Moderator", ChatColor.BLUE),
+	DEVELOPER(15, "Entwickler", ChatColor.DARK_AQUA),
+	ADMIN(20, "Admin", ChatColor.DARK_RED);
 	
 	private int level;
+	private String chatName;
+	private ChatColor color;
 	
-	private Level(int level) {
+	private Level(int level, String chatName, ChatColor color) {
 		
 		this.level = level;
+		this.chatName = chatName;
+		this.color = color;
 		
 	}
 	
@@ -22,9 +40,17 @@ public enum Level {
 		return this.level;
 	}
 	
+	public String getName() {
+		return this.chatName;
+	}
+	
+	public ChatColor getColor() {
+		return this.color;
+	}
+	
 	public static Level[] getLevels() {
 		
-		Level[] levels = { Level.GUEST, Level.USER, Level.ARCHITECT, Level.TEAM, Level.ADMIN };
+		Level[] levels = { Level.GUEST, Level.USER, Level.SUPPORTER, Level.ARCHITECT, Level.MODERATOR, Level.DEVELOPER, Level.ADMIN };
 		return levels;
 	}
 	

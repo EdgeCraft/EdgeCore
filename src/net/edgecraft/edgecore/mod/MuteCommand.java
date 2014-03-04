@@ -22,7 +22,7 @@ public class MuteCommand extends AbstractCommand {
 
 	@Override
 	public Level getLevel() {
-		return Level.TEAM;
+		return Level.SUPPORTER;
 	}
 
 	@Override

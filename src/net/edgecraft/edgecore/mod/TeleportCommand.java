@@ -21,7 +21,7 @@ public class TeleportCommand extends AbstractCommand {
 
 	@Override
 	public Level getLevel() {
-		return Level.TEAM;
+		return Level.SUPPORTER;
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class TeleportCommand extends AbstractCommand {
 		if( sender instanceof Player ) {
 			User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );
 			
-			if( u == null || !Level.canUse(u, Level.TEAM) ) return;
+			if( u == null || !Level.canUse(u, getLevel()) ) return;
 		}
 		
 		sender.sendMessage( EdgeCore.usageColor + "/teleport <target>" );

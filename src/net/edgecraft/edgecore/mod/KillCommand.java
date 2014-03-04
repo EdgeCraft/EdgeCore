@@ -20,7 +20,7 @@ public class KillCommand extends AbstractCommand {
 
 	@Override
 	public Level getLevel() {
-		return Level.ADMIN;
+		return Level.DEVELOPER;
 	}
 
 	@Override
