@@ -71,7 +71,6 @@ public class TicketCommand extends AbstractCommand {
         	
         	if( !Level.canUse( user, Level.USER ) ) {
         		player.sendMessage( lang.getColoredMessage( userLang,  "nopermission") );
-        		EdgeCore.log.info( user.getName() + " tried to use /ticket open title msg");
         		return false;
         	}
         	
@@ -86,7 +85,7 @@ public class TicketCommand extends AbstractCommand {
         		StringBuilder msg = new StringBuilder();
         		
         		for( int i = 3; i < args.length; i++ ) {
-        			msg.append( args[i] );
+        			msg.append( args[i] + " " );
         		}
         		
         		t.setMsg( msg.toString() );

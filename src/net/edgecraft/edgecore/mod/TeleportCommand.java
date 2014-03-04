@@ -54,6 +54,10 @@ public class TeleportCommand extends AbstractCommand {
 		
 		Player from = Bukkit.getPlayerExact( args[1] );
 		
+		if( from == null ) {
+			player.sendMessage( EdgeCoreAPI.languageAPI().getColoredMessage( user.getLanguage(), "notfound") );
+		}
+		
 		if( args.length == 2 ) {
 			
 			player.teleport( from.getLocation() );
