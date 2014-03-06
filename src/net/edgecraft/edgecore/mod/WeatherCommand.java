@@ -28,7 +28,7 @@ public class WeatherCommand extends AbstractCommand {
 
 	@Override
 	public boolean validArgsRange(String[] args) {
-		return( args.length == 2 );
+		return( args.length == 2 || args.length == 3 );
 	}
 
 	@Override
@@ -39,9 +39,9 @@ public class WeatherCommand extends AbstractCommand {
 				if( !Level.canUse(u, getLevel() ) ) return;
 			}
 			
-			sender.sendMessage( EdgeCore.usageColor + "/weather clear");
-			sender.sendMessage( EdgeCore.usageColor + "/weather rain");
-			sender.sendMessage( EdgeCore.usageColor + "/weather storm");
+			sender.sendMessage( EdgeCore.usageColor + "/weather clear [duration]");
+			sender.sendMessage( EdgeCore.usageColor + "/weather rain [duration]");
+			sender.sendMessage( EdgeCore.usageColor + "/weather storm [duration]");
 			return;
 	}
 

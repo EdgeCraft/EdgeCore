@@ -1,0 +1,1 @@
+INDEX VERSION 1.126+/home/tim/devel/EdgeCraft/EdgeCore/.metadata/.plugins/org.eclipse.jdt.core
