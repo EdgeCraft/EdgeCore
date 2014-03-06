@@ -16,8 +16,7 @@ public class DifficultyCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "difficulty" };
-		return names;
+		return new String[]{ "difficulty" };
 	}
 
 	@Override

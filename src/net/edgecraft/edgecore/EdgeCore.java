@@ -10,7 +10,8 @@ import net.edgecraft.edgecore.db.DatabaseCommand;
 import net.edgecraft.edgecore.db.DatabaseHandler;
 import net.edgecraft.edgecore.lang.LanguageCommand;
 import net.edgecraft.edgecore.lang.LanguageHandler;
-import net.edgecraft.edgecore.mod.ModCommand;
+import net.edgecraft.edgecore.mod.CommandCollection;
+import net.edgecraft.edgecore.mod.ModHandler;
 import net.edgecraft.edgecore.mod.TicketManager;
 import net.edgecraft.edgecore.other.ConfigHandler;
 import net.edgecraft.edgecore.other.ListCommand;
@@ -100,7 +101,7 @@ public class EdgeCore extends JavaPlugin {
 	    commands.registerCommand( new UserCommand() );
 	    commands.registerCommand( new ListCommand() );
 	    commands.registerCommand( new LanguageCommand() );
-	    commands.registerCommand( new ModCommand() );
+	    commands.registerCommand( new CommandCollection( ModHandler.getInstance() ) );
 	    
 	    @SuppressWarnings("unused") BukkitTask userTask = new UserSynchronizationTask().runTaskTimer(this, 0, 20L * 60 * 10);
 	}

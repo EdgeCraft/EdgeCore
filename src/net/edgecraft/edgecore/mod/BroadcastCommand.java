@@ -13,8 +13,7 @@ public class BroadcastCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "broadcast", "say" };
-		return names;
+		return new String[]{ "broadcast", "say" };
 	}
 
 	@Override

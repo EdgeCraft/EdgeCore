@@ -8,13 +8,24 @@ import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.AbstractCommand;
+import net.edgecraft.edgecore.command.CommandHandler;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
-public class ModCommand extends AbstractCommand {
+public class CommandCollection extends AbstractCommand {
 	
-	private static final ModHandler commands = ModHandler.getInstance();
+	private CommandHandler commands;
 
+	public CommandCollection( CommandHandler handler ) {
+		setCommands( handler );
+	}
+	
+	private void setCommands( CommandHandler handler ) {
+		
+		if( handler == null ) return;
+		
+		commands = handler;
+	}
 	
 	@Override
 	public String[] getNames() {

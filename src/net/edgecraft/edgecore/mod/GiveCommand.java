@@ -15,8 +15,7 @@ public class GiveCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "give" };
-		return names;
+		return new String[]{ "give" };
 	}
 
 	@Override

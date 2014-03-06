@@ -14,8 +14,7 @@ public class PunishCommand extends AbstractCommand {
 	
 	@Override
 	public String[] getNames() {
-		String[] names = { "punish" };
-		return names;
+		return new String[]{ "punish" };
 	}
 
 	@Override

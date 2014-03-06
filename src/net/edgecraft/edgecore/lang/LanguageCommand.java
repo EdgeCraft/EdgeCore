@@ -15,8 +15,7 @@ public class LanguageCommand extends AbstractCommand {
 	
 	@Override
 	public String[] getNames() {
-		String[] names = { "language", "lang" };
-		return names;
+		return new String[]{ "language", "lang" };
 	}
 	
 	@Override

@@ -14,8 +14,7 @@ public class KickCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "kick" };
-		return names;
+		return new String[]{ "kick" };
 	}
 
 	@Override

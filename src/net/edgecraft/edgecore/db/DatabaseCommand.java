@@ -16,8 +16,7 @@ public class DatabaseCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "database", "db" };
-		return names;
+		return new String[]{ "database", "db" };
 	}
 
 	@Override

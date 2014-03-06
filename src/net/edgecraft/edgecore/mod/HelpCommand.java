@@ -16,8 +16,7 @@ public class HelpCommand extends AbstractCommand {
 	
 	@Override
 	public String[] getNames() {
-		String[] aliases = { "help" };
-		return aliases;
+		return new String[]{ "help" };
 	}
 
 	@Override
