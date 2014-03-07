@@ -44,7 +44,7 @@ public class ManageChatEvent implements Listener {
 		
 		if (user != null) {
 			
-			if (!canChat.get(p.getName())) {
+			if (!canChat.get(p.getName()) && !Level.canUse(user, Level.SUPPORTER)) {
 				
 				p.sendMessage(lang.getColoredMessage(user.getLanguage(), "info_spam"));
 				e.setCancelled(true);
@@ -59,7 +59,7 @@ public class ManageChatEvent implements Listener {
 						canChat.put(p.getName(), true);
 					}
 					
-				}, 60L);
+				}, 20L);
 			}
 			
 			if(user.isMuted()){

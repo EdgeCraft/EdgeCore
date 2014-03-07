@@ -51,7 +51,7 @@ public class TeleportCommand extends AbstractCommand {
 			player.teleport( new Location( player.getWorld(), Double.valueOf( args[1]), Double.valueOf( args[2] ), Double.valueOf(args[3]) ) );
 		}
 		
-		Player from = Bukkit.getPlayerExact( args[1] );
+		Player from = Bukkit.getPlayer( args[1] );
 		
 		if( from == null ) {
 			player.sendMessage( EdgeCoreAPI.languageAPI().getColoredMessage( user.getLanguage(), "notfound") );
@@ -65,7 +65,7 @@ public class TeleportCommand extends AbstractCommand {
 		
 		if( args.length == 3 ) {
 			
-			Player to = Bukkit.getPlayerExact(args[2]);
+			Player to = Bukkit.getPlayer(args[2]);
 			
 			if (to == null) {
 				player.sendMessage(EdgeCoreAPI.languageAPI().getColoredMessage(user.getLanguage(), "notfound"));
