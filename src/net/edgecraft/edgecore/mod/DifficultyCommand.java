@@ -49,7 +49,7 @@ public class DifficultyCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
-		
+				
 		if( Bukkit.isHardcore() ) return false;
 		
 		World w = Bukkit.getWorlds().get(0);

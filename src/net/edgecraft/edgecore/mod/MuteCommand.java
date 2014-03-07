@@ -47,6 +47,7 @@ public class MuteCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
+		
 		return mute(player, args);
 	}
 

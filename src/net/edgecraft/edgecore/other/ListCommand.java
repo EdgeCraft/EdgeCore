@@ -42,7 +42,7 @@ public class ListCommand extends AbstractCommand {
 	}
 	
 	@Override
-	public boolean runImpl( Player player, User user , String[] args) throws Exception {
+	public boolean runImpl( Player player, User user , String[] args) {
 		
 		player.sendMessage(users.getUserList(user.getLanguage()));
 		

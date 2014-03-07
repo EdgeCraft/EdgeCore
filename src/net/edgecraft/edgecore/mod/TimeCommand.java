@@ -46,7 +46,7 @@ public class TimeCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args) throws Exception {
+	public boolean runImpl(Player player, User user, String[] args) {
 		
 		return time( player, args );
 		

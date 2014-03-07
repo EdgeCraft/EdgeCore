@@ -46,11 +46,13 @@ public class UserManager {
 			
 			int id = generateID();
 			
-			PreparedStatement registerUser = db.prepareUpdate("INSERT INTO " + UserManager.userTable + " (id, name, ip, level, language, banned, banreason) VALUES (?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT);");
+			PreparedStatement registerUser = db.prepareUpdate("INSERT INTO " + UserManager.userTable + " (id, name, ip, level, prefix, suffix, language, banned, banreason) VALUES (?, ?, ?, ? , ?, ?, DEFAULT, DEFAULT, DEFAULT);");
 			registerUser.setInt(1, id);
 			registerUser.setString(2, name);
 			registerUser.setString(3, ip);
 			registerUser.setInt(4, getDefaultLevel());
+			registerUser.setString(5, "");
+			registerUser.setString(6, "");
 			registerUser.executeUpdate();
 			
 			synchronizeUser(id);
@@ -126,13 +128,11 @@ public class UserManager {
 	    
 	    for (User user : users.values()) {
 	    	if (sb.length() > 0) {
-	    		sb.append(ChatColor.WHITE);
-	    		sb.append(", ");
+	    		sb.append(ChatColor.RESET + ", ");
 	    	}
 	    	
 	    	if ((user != null) && (Bukkit.getPlayerExact(user.getName()).isOnline())) {
-	    		sb.append(Bukkit.getPlayerExact(user.getName()).isOp() ? ChatColor.RED : ChatColor.WHITE);
-	    		sb.append(user.getName());
+	    		sb.append(user.getLevel().getColor() + user.getName());
 	    	}
 	    }
 	    
@@ -251,6 +251,13 @@ public class UserManager {
 						
 					} else if(entry.getKey().equals("level")) {						
 						user.setLevel( Level.getInstance(Integer.valueOf(entry.getValue().toString())) );
+						
+					} else if(entry.getKey().equals("prefix")) {
+						user.setPrefix(entry.getValue().toString());
+						
+					} else if(entry.getKey().equals("suffix")) {
+						user.setSuffix(entry.getValue().toString());
+						
 					} else if(entry.getKey().equals("language")) {
 						user.setLanguage(entry.getValue().toString());
 						

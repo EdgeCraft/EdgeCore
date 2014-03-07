@@ -42,7 +42,9 @@ public class HelpCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
 		
+
 		AbstractCommand cmd = commands.getCommand( args[1] );
+
 		
 		if( cmd instanceof CommandCollection ) {
 			cmd = ((CommandCollection) cmd).getCommand( args[1] );

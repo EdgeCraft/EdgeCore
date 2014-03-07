@@ -45,11 +45,6 @@ public class SystemCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if( !Level.canUse(user, getLevel() )) {
-			player.sendMessage( lang.getColoredMessage(userLang, "nopermission") );
-			return false;
-		}
-		
 		if (args[1].equalsIgnoreCase("overview")) {
 			
 	        player.sendMessage(lang.getColoredMessage(userLang, "system_overview"));

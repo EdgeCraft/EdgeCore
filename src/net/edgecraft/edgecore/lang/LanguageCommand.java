@@ -47,11 +47,6 @@ public class LanguageCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if( !Level.canUse(user, Level.GUEST)) {
-			player.sendMessage( lang.getColoredMessage(userLang, "nopermission") );
-			return false;
-		}
-		
 		if( args.length == 1 ) {
 			player.sendMessage(lang.getColoredMessage(userLang, "lang_info").replace("[0]", user.getLanguage()));
 			return true;

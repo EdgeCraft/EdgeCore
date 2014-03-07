@@ -44,6 +44,7 @@ public class BanCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws Exception {
 		
+		
 		if( args[0].equalsIgnoreCase("ban") ) {
 			if( args.length != 3 ) {
 				sendUsage( player );

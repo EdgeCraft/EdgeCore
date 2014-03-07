@@ -44,6 +44,7 @@ public class KillCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
+		
 		Bukkit.getPlayerExact( args[1] ).setHealth( 0 );
 		return true;
 	}

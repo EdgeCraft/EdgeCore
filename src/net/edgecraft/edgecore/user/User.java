@@ -22,6 +22,8 @@ public class User implements Serializable {
 	private String name;
 	private String ip;
 	private Level lvl;
+	private String prefix;
+	private String suffix;
 	private String language;
 	private boolean banned;
 	private String banreason;
@@ -39,6 +41,30 @@ public class User implements Serializable {
 		
 			update( "level", lvl.value() );
 			setLevel( lvl );
+	}
+	
+	/**
+	 * Updates the users' prefix
+	 * @param prefix
+	 * @throws Exception
+	 */
+	public  void updatePrefix(String prefix) throws Exception {
+		
+		update( "prefix", prefix);
+		setPrefix(prefix);
+		
+	}
+	
+	/**
+	 * Updates the users' suffix
+	 * @param suffix
+	 * @throws Exception
+	 */
+	public  void updateSuffix(String suffix) throws Exception {
+		
+		update( "suffix", suffix);
+		setSuffix(suffix);
+		
 	}
 	
 	/**
@@ -120,6 +146,22 @@ public class User implements Serializable {
 	 */
 	public Level getLevel() {
 		return lvl;
+	}
+	
+	/**
+	 * Returns the users' prefix
+	 * @return String
+	 */
+	public String getPrefix() {
+		return prefix;
+	}
+	
+	/**
+	 * Returns the users' suffix
+	 * @return String
+	 */
+	public String getSuffix() {
+		return suffix;
 	}
 
 	/**
@@ -222,6 +264,21 @@ public class User implements Serializable {
 			this.lvl = lvl;
 	}
 	
+	/**
+	 * Sets the users' prefix
+	 * @param prefix
+	 */
+	protected void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+	
+	/**
+	 * Sets the users' suffix
+	 * @param suffix
+	 */
+	protected void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
 	
 	/**
 	 * Sets the users' language

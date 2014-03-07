@@ -42,7 +42,7 @@ public class KickCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
-        
+		
 		Bukkit.getPlayerExact( args[1] ).kickPlayer("You were kicked.");
 		return true;
 	}

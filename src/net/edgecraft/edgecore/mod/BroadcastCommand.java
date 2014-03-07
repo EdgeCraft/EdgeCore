@@ -42,6 +42,7 @@ public class BroadcastCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws Exception {
+		
 		return broadcast(player, args);
 	}
 

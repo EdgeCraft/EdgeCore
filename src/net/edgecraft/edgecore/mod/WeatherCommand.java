@@ -48,6 +48,7 @@ public class WeatherCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
+				
 		return weather( player, args );
 	}
 

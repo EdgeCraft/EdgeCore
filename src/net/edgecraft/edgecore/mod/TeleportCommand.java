@@ -54,7 +54,7 @@ public class TeleportCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
-
+		
 		if( args.length == 4 ) {
 			player.teleport( new Location( player.getWorld(), Double.valueOf( args[1]), Double.valueOf( args[2] ), Double.valueOf(args[3]) ) );
 		}

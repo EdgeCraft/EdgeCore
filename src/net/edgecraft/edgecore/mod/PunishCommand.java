@@ -47,7 +47,6 @@ public class PunishCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
 		
-		
 		Player punish = Bukkit.getPlayerExact( args[1] );
 		
 		if( args.length == 2 ) {

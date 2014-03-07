@@ -56,7 +56,7 @@ public class DatabaseCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws Exception {
 			
-			String userLang = user.getLanguage();
+		String userLang = user.getLanguage();
 		
 			// TODO: DOUBLE CHECK IT BITCHES!
 			if ( args[1].equalsIgnoreCase("check") ) {

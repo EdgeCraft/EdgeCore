@@ -61,6 +61,14 @@ public class PermissionCommand extends AbstractCommand {
 	
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws NumberFormatException, Exception {
+		
+		String userLang = user.getLanguage();
+		
+		if (!users.exists(args[2])) {
+			player.sendMessage(lang.getColoredMessage(userLang, "notfound"));
+			return true;
+		}
+		
 		return permission((CommandSender) player, args);
 	}
 	
@@ -87,6 +95,7 @@ public class PermissionCommand extends AbstractCommand {
 			}
 		case 4:
 			if( args[1].equalsIgnoreCase("setlevel") || args[1].equalsIgnoreCase( "setrank" ) ){
+				users.getUser(args[2]).updatePrefix(Level.getInstance(Integer.parseInt(args[3])).getName());
 				return setrank(sender, args[2], args[3] );
 			}
 			sendUsage( sender );
