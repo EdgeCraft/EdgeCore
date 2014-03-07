@@ -55,6 +55,13 @@ public class TeleportCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
 
+		String userLang = user.getLanguage();
+		
+		if (!Level.canUse(user, getLevel())) {
+			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
+			return true;
+		}
+		
 		if( args.length == 4 ) {
 			player.teleport( new Location( player.getWorld(), Double.valueOf( args[1]), Double.valueOf( args[2] ), Double.valueOf(args[3]) ) );
 		}

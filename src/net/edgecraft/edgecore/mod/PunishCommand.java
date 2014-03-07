@@ -47,6 +47,12 @@ public class PunishCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
 		
+		String userLang = user.getLanguage();
+		
+		if (!Level.canUse(user, getLevel())) {
+			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
+			return true;
+		}
 		
 		Player punish = Bukkit.getPlayerExact( args[1] );
 		

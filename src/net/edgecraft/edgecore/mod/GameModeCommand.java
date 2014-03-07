@@ -53,6 +53,13 @@ public class GameModeCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws Exception {
 		
+		String userLang = user.getLanguage();
+		
+		if (!Level.canUse(user, getLevel())) {
+			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
+			return true;
+		}
+		
 		Player p = Bukkit.getPlayerExact( args[1] );
 		
 		if( p == null ) {

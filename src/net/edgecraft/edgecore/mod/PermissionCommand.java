@@ -63,6 +63,14 @@ public class PermissionCommand extends AbstractCommand {
 	
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws NumberFormatException, Exception {
+		
+		String userLang = user.getLanguage();
+		
+		if (!Level.canUse(user, getLevel())) {
+			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
+			return true;
+		}
+		
 		return permission((CommandSender) player, args);
 	}
 	

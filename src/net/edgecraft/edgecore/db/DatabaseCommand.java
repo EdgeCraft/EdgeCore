@@ -56,7 +56,12 @@ public class DatabaseCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws Exception {
 			
-			String userLang = user.getLanguage();
+		String userLang = user.getLanguage();
+		
+		if (!Level.canUse(user, getLevel())) {
+			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
+			return true;
+		}
 		
 			// TODO: DOUBLE CHECK IT BITCHES!
 			if ( args[1].equalsIgnoreCase("check") ) {
