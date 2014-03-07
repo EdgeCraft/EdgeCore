@@ -14,8 +14,7 @@ public class KillCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "kill" };
-		return names;
+		return new String[]{ "kill" };
 	}
 
 	@Override

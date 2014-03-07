@@ -15,8 +15,7 @@ public class TimeCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "time" };
-		return names;
+		return new String[]{ "time" };
 	}
 
 	@Override

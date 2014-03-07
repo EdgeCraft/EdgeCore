@@ -16,8 +16,7 @@ public class AliasesCommand extends AbstractCommand {
 	
 	@Override
 	public String[] getNames() {
-		String[] aliases = { "aliases" };
-		return aliases;
+		return new String[]{ "aliases" };
 	}
 
 	@Override

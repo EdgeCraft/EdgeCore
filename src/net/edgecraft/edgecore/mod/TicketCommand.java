@@ -23,8 +23,7 @@ public class TicketCommand extends AbstractCommand {
 	
 	@Override
 	public String[] getNames() {
-		String[] names = { "ticket" };
-		return names;
+		return new String[]{ "ticket" };
 	}
 	
 	@Override

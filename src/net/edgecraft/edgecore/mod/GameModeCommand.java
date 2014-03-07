@@ -15,8 +15,7 @@ public class GameModeCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "gamemode" , "gm" };
-		return names;
+		return new String[]{ "gamemode", "gm" };
 	}
 
 	@Override

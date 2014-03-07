@@ -15,9 +15,7 @@ public class MuteCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		
-		String[] names = { "mute", "unmute" };
-		return names;
+		return new String[]{ "mute", "unmute" };
 	}
 
 	@Override

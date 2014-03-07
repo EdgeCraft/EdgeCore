@@ -17,8 +17,7 @@ public class WeatherCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "weather" };
-		return names;
+		return new String[]{ "weather" };
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class WeatherCommand extends AbstractCommand {
 				if( !Level.canUse(u, getLevel() ) ) return;
 			}
 			
-			sender.sendMessage( EdgeCore.usageColor + "/weather clear [duration]");
+			sender.sendMessage( EdgeCore.usageColor + "/weather clear|sun [duration]");
 			sender.sendMessage( EdgeCore.usageColor + "/weather rain [duration]");
 			sender.sendMessage( EdgeCore.usageColor + "/weather storm [duration]");
 			return;
@@ -59,7 +58,7 @@ public class WeatherCommand extends AbstractCommand {
 		
 			World w = Bukkit.getWorlds().get(0);
 			
-			if( args[1].equalsIgnoreCase( "clear" ) ) {
+			if( args[1].equalsIgnoreCase( "clear" ) || args[1].equalsIgnoreCase( "sun" ) ) {
 
 				w.setStorm( false );
 				w.setThundering( false );

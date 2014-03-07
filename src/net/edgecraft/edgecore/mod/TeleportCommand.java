@@ -15,8 +15,7 @@ public class TeleportCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "teleport", "tp" };
-		return names;
+		return new String[]{ "teleport", "tp" };
 	}
 
 	@Override

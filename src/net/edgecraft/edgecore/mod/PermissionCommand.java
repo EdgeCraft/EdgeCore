@@ -16,8 +16,7 @@ public class PermissionCommand extends AbstractCommand {
 	
 	@Override
 	public String[] getNames() {
-		String[] names = { "permission", "perm" };
-		return names;
+		return new String[]{ "permission", "perm" };
 	}
 
 	@Override

@@ -14,8 +14,7 @@ public class MaintenanceCommand extends AbstractCommand {
 
 	@Override
 	public String[] getNames() {
-		String[] names = { "maintenance" };
-		return names;
+		return new String[]{ "maintenance" };
 	}
 
 	@Override
