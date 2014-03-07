@@ -57,11 +57,6 @@ public class TimeCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
-			return true;
-		}
-		
 		return time( player, args );
 		
 	}

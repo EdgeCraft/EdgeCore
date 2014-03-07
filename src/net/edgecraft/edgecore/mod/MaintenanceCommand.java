@@ -48,11 +48,6 @@ public class MaintenanceCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
-			return true;
-		}
-		
 		maintenance();
 		player.sendMessage(ChatColor.GREEN + "All users have been kicked due maintenance!");
 		

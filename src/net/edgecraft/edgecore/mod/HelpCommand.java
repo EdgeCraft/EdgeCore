@@ -49,11 +49,6 @@ public class HelpCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
-			return true;
-		}
-		
 		AbstractCommand cmd = cmds.getCommand( args[1] );
 		
 		if( cmd instanceof CommandCollection ) {

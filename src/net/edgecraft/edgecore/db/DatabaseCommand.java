@@ -58,11 +58,6 @@ public class DatabaseCommand extends AbstractCommand {
 			
 		String userLang = user.getLanguage();
 		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
-			return true;
-		}
-		
 			// TODO: DOUBLE CHECK IT BITCHES!
 			if ( args[1].equalsIgnoreCase("check") ) {
 				

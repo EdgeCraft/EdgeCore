@@ -66,8 +66,8 @@ public class PermissionCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
+		if (!users.exists(args[2])) {
+			player.sendMessage(lang.getColoredMessage(userLang, "notfound"));
 			return true;
 		}
 		
@@ -97,6 +97,7 @@ public class PermissionCommand extends AbstractCommand {
 			}
 		case 4:
 			if( args[1].equalsIgnoreCase("setlevel") || args[1].equalsIgnoreCase( "setrank" ) ){
+				users.getUser(args[2]).updatePrefix(Level.getInstance(Integer.parseInt(args[3])).getName());
 				return setrank(sender, args[2], args[3] );
 			}
 			sendUsage( sender );

@@ -16,13 +16,13 @@ public enum Level {
 	 * - Gruppen für User managen
 	 * 
 	 */
-	GUEST(0, "Gast", ChatColor.GRAY),
-	USER(1, "Spieler", ChatColor.WHITE),
-	SUPPORTER(5, "Supporter", ChatColor.GOLD),
-	ARCHITECT(7, "Architekt", ChatColor.DARK_GRAY),
-	MODERATOR(10, "Moderator", ChatColor.BLUE),
-	DEVELOPER(15, "Entwickler", ChatColor.DARK_AQUA),
-	ADMIN(20, "Admin", ChatColor.DARK_RED);
+	GUEST(0, "[Gast]", ChatColor.GRAY),
+	USER(1, "", ChatColor.WHITE),
+	SUPPORTER(5, "[Supporter]", ChatColor.GOLD),
+	ARCHITECT(7, "[Architekt]", ChatColor.DARK_GREEN),
+	MODERATOR(10, "[Moderator]", ChatColor.BLUE),
+	DEVELOPER(15, "[Entwickler]", ChatColor.DARK_AQUA),
+	ADMIN(20, "[Admin]", ChatColor.DARK_RED);
 	
 	private int level;
 	private String chatName;

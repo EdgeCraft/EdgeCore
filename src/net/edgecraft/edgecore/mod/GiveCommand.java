@@ -50,11 +50,6 @@ public class GiveCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
-			return true;
-		}
-		
 		Player p = Bukkit.getPlayerExact( args[1] );
 		Material m = null;
 		

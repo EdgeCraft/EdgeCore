@@ -46,11 +46,6 @@ public class ListCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
-			return true;
-		}
-		
 		player.sendMessage(users.getUserList(user.getLanguage()));
 		
 		return true;

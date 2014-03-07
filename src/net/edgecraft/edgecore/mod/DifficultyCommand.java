@@ -58,12 +58,7 @@ public class DifficultyCommand extends AbstractCommand {
 	public boolean runImpl(Player player, User user, String[] args) {
 		
 		String userLang = user.getLanguage();
-		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
-			return true;
-		}
-		
+				
 		if( Bukkit.isHardcore() ) return false;
 		
 		World w = Bukkit.getWorlds().get(0);

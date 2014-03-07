@@ -46,11 +46,6 @@ public class BanCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
-			return true;
-		}
-		
 		if( args[0].equalsIgnoreCase("ban") ) {
 			if( args.length != 3 ) {
 				sendUsage( player );

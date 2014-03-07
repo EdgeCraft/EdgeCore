@@ -31,6 +31,10 @@ public class PlayerConnectionHandler implements Listener {
 		
 		event.setJoinMessage("");
 		Player player = event.getPlayer();
+		User u = users.getUser(player.getName());
+		
+		if (u != null)
+			player.setPlayerListName(u.getLevel().getColor() + player.getName());
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			if (p.getName().equalsIgnoreCase(event.getPlayer().getName())) continue;
@@ -106,13 +110,17 @@ public class PlayerConnectionHandler implements Listener {
 	 * @param e
 	 */
 	@EventHandler
-	public void onMaintenanceLogin(PlayerLoginEvent e) {
+	public void handleLoginEvent(PlayerLoginEvent e) {
 		
 		Player player = e.getPlayer();
 		
 		if (EdgeCoreAPI.userAPI().exists(player.getName())) {
 			
 			User user = EdgeCoreAPI.userAPI().getUser(player.getName());
+			
+			if (user.isBanned()) {
+				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, lang.getColoredMessage(user.getLanguage(), "info_permban").replace("[0]", user.getBanReason()));
+			}
 			
 			if (EdgeCore.isMaintenance() && !Level.canUse(user, Level.ARCHITECT)) {
 				e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You can not join while maintenance!");

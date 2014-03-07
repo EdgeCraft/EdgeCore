@@ -53,11 +53,6 @@ public class KillCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if (!Level.canUse(user, getLevel())) {
-			player.sendMessage(lang.getColoredMessage(userLang, "nopermission"));
-			return true;
-		}
-		
 		Bukkit.getPlayerExact( args[1] ).setHealth( 0 );
 		return true;
 	}
