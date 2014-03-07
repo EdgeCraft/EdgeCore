@@ -54,7 +54,7 @@ public class GiveCommand extends AbstractCommand {
 		try {
 			m = Material.getMaterial( Integer.valueOf( args[2] ) );
 		} catch( NumberFormatException e ) {
-			m = Material.getMaterial( args[2] );
+			m = Material.getMaterial( args[2].toUpperCase() );
 		}
 		
 		int amount = 1;
