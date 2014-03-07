@@ -10,6 +10,8 @@ public class ModHandler extends CommandHandler {
 			
 				super.registerCommand( TicketCommand.getInstance() );
 				super.registerCommand( TeleportCommand.getInstance() );
+				super.registerCommand( HelpCommand.getInstance() );
+				super.registerCommand( AliasesCommand.getInstance() );
 				super.registerCommand( GiveCommand.getInstance() );
 				super.registerCommand( PunishCommand.getInstance() );
 				super.registerCommand( MuteCommand.getInstance() );

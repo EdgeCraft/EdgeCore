@@ -44,11 +44,19 @@ public class GiveCommand extends AbstractCommand {
 		
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
 		
 		Player p = Bukkit.getPlayerExact( args[1] );
-		Material m = Material.getMaterial( args[2] );
+		Material m = null;
+		
+		try {
+			m = Material.getMaterial( Integer.valueOf( args[2] ) );
+		} catch( NumberFormatException e ) {
+			m = Material.getMaterial( args[2] );
+		}
+		
 		int amount = 1;
 		short data = 0;
 		
