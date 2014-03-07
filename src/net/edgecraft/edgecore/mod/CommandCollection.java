@@ -44,6 +44,14 @@ public class CommandCollection extends AbstractCommand {
 		
 	}
 	
+	public CommandHandler getCommands() {
+		return commands;
+	}
+	
+	public AbstractCommand getCommand( String name ) {
+		return commands.getCommand( name );
+	}
+	
 	@Override
 	public Level getLevel() {
 		return Level.USER;

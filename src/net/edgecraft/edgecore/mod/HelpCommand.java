@@ -49,11 +49,16 @@ public class HelpCommand extends AbstractCommand {
 		
 		AbstractCommand cmd = cmds.getCommand( args[1] );
 		
+		if( cmd instanceof CommandCollection ) {
+			cmd = ((CommandCollection) cmd).getCommand( args[1] );
+		}
+		
 		if( cmd == null ) {
 			player.sendMessage( EdgeCore.errorColor + "Command " + args[1] + " not found!" );
 			return false;
 		}
 		
+		player.sendMessage( "Usage-Instructions of command " + args[1] + ":" );
 		cmd.sendUsage( player );
 		
 		return true;

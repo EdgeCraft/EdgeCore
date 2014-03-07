@@ -39,13 +39,17 @@ public class AliasesCommand extends AbstractCommand {
 
 	@Override
 	public void sendUsage(CommandSender sender) {
-		sender.sendMessage( EdgeCore.usageColor + "/aliases COMMAND" );
+		sender.sendMessage( EdgeCore.usageColor + "/aliases <command>" );
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args){
+	public boolean runImpl( Player player, User user, String[] args ){
 		
 		AbstractCommand cmd = commands.getCommand( args[1] );
+		
+		if( cmd instanceof CommandCollection ) {
+			cmd = ((CommandCollection) cmd).getCommand( args[1] );
+		}
 		
 		if( cmd == null ) {
 			player.sendMessage( EdgeCore.errorColor + "Command " + args[1] + " not found!" );
