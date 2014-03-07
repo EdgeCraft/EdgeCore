@@ -37,7 +37,7 @@ public class TeleportCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		
 		if( sender instanceof Player ) {
 			User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );

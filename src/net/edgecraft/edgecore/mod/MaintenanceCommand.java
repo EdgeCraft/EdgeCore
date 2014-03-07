@@ -36,7 +36,7 @@ public class MaintenanceCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		
 		sender.sendMessage(EdgeCore.usageColor + "/maintenance");
 		return;

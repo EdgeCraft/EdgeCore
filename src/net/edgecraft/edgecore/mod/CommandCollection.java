@@ -63,7 +63,7 @@ public class CommandCollection extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		return;
 	}
 

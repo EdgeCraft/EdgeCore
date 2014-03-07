@@ -35,7 +35,7 @@ public class BanCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		sender.sendMessage( EdgeCore.usageColor + "/ban <name> <reason>");
 		sender.sendMessage( EdgeCore.usageColor + "/unban <player>");
 		

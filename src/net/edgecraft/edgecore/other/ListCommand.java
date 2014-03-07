@@ -50,7 +50,7 @@ public class ListCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		sender.sendMessage( EdgeCore.usageColor + "/list");
 	}
 }

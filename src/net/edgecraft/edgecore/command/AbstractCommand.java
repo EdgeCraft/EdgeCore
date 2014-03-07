@@ -1,8 +1,10 @@
 package net.edgecraft.edgecore.command;
 
-import net.edgecraft.edgecore.EdgeCore;
+import net.edgecraft.edgecore.EdgeCoreAPI;
+import net.edgecraft.edgecore.chat.ChatHandler;
 import net.edgecraft.edgecore.db.DatabaseHandler;
 import net.edgecraft.edgecore.lang.LanguageHandler;
+import net.edgecraft.edgecore.mod.TicketManager;
 import net.edgecraft.edgecore.system.EdgeCraftSystem;
 import net.edgecraft.edgecore.user.User;
 import net.edgecraft.edgecore.user.UserManager;
@@ -14,20 +16,33 @@ import org.bukkit.entity.Player;
 public abstract class AbstractCommand {
 
 	
-	protected static final UserManager users = EdgeCore.getUsers();
-	protected static final LanguageHandler lang = EdgeCore.getLang();
-	protected static final DatabaseHandler db = EdgeCore.getDB();
-	protected static final EdgeCraftSystem system = EdgeCore.getSystem();
+	protected static final UserManager users = EdgeCoreAPI.userAPI();
+	protected static final LanguageHandler lang = EdgeCoreAPI.languageAPI();
+	protected static final DatabaseHandler db = EdgeCoreAPI.databaseAPI();
+	protected static final EdgeCraftSystem system = EdgeCoreAPI.systemAPI();
+	protected static final CommandHandler commands = EdgeCoreAPI.commandsAPI();
+	protected static final TicketManager tickets = EdgeCoreAPI.ticketAPI();
+	protected static final ChatHandler chats = EdgeCoreAPI.chatAPI();
 	
 	public abstract String[] getNames();
 	public abstract Level getLevel();
 	
 	
-	public abstract boolean validArgsRange( String[] args );	
-	public abstract void sendUsage( CommandSender sender ); // How to use the command.
+	public abstract boolean validArgsRange( String[] args );
 	public abstract boolean runImpl( Player player, User user, String[] args ) throws Exception; // Access through Player
 	public abstract boolean sysAccess( CommandSender sender, String[] args ); // Access through System.
 
+	public abstract void sendUsageImpl( CommandSender sender ); // How to use the command.
+
+	public void sendUsage( CommandSender sender ) {
+		if( sender instanceof Player ) {
+			User u = users.getUser( ((Player)sender).getName() );
+			
+			if( u == null || !Level.canUse(u, getLevel() ) ) return;
+		}
+		
+		sendUsageImpl( sender );
+	}
 	
 	public final boolean run( CommandSender sender, String[] args ) throws Exception {
 		

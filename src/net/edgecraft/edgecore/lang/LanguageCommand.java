@@ -94,7 +94,7 @@ public class LanguageCommand extends AbstractCommand {
 	}
 	
 	@Override
-	public void sendUsage( CommandSender sender ) {
+	public void sendUsageImpl( CommandSender sender ) {
 		
 		sender.sendMessage(EdgeCore.usageColor + "/language");
 		sender.sendMessage(EdgeCore.usageColor + "/language set <language>");

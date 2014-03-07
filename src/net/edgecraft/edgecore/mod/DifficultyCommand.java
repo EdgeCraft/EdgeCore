@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
-import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
@@ -38,13 +37,7 @@ public class DifficultyCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
-	
-		if( sender instanceof Player) {
-			User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );
-			
-			if( !Level.canUse(u, getLevel() ) ) return;
-		}
+	public void sendUsageImpl(CommandSender sender) {
 		
 		sender.sendMessage( EdgeCore.usageColor + "/difficulty peaceful");
 		sender.sendMessage( EdgeCore.usageColor + "/difficulty easy");

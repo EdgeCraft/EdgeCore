@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
-import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
@@ -39,12 +38,7 @@ public class WeatherCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
-			if( sender instanceof Player ) {
-				User u = EdgeCoreAPI.userAPI().getUser( sender.getName() );
-				
-				if( !Level.canUse(u, getLevel() ) ) return;
-			}
+	public void sendUsageImpl(CommandSender sender) {
 			
 			sender.sendMessage( EdgeCore.usageColor + "/weather clear|sun [duration]");
 			sender.sendMessage( EdgeCore.usageColor + "/weather rain [duration]");

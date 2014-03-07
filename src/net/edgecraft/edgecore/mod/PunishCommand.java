@@ -36,7 +36,7 @@ public class PunishCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		
 		sender.sendMessage( EdgeCore.usageColor + "/punish <player>" );
 		sender.sendMessage( EdgeCore.usageColor + "/punish <player> burn" );

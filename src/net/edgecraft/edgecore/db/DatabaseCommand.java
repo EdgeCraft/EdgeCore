@@ -166,11 +166,7 @@ public class DatabaseCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage( CommandSender sender ) {
-
-		if( !(sender instanceof Player) || EdgeCore.getUsers().getUser(((Player)sender).getName()).getLevel() != Level.ADMIN ) 
-				return;
-	
+	public void sendUsageImpl( CommandSender sender ) {	
 		
 			sender.sendMessage(EdgeCore.usageColor + "/db check <name> <table>");
 			sender.sendMessage(EdgeCore.usageColor + "/db connect <host> <user> <pw> <database>");

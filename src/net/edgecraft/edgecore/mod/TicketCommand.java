@@ -42,27 +42,22 @@ public class TicketCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		
-		if( sender instanceof Player ) {
-			
-			User u = EdgeCoreAPI.userAPI().getUser( ((Player)sender).getName() );
-			
-			if( !Level.canUse( u, Level.USER )) return;
-			
-			sender.sendMessage( EdgeCore.usageColor + "/ticket open title msg" );
-			
-			if( !Level.canUse( u, Level.SUPPORTER )) return;
-		}	
+		if( !(sender instanceof Player) ) return;
 		
-		else sender.sendMessage( EdgeCore.usageColor + "/ticket open title msg");
-
+		sender.sendMessage( EdgeCore.usageColor + "/ticket open title msg");
 		
-			sender.sendMessage( EdgeCore.usageColor + "/ticket" );        
-            sender.sendMessage( EdgeCore.usageColor + "/ticket list" );
-            sender.sendMessage( EdgeCore.usageColor + "/ticket read ID" );
-            sender.sendMessage( EdgeCore.usageColor + "/ticket close ID" );	
-            return;
+		User u = users.getUser( ((Player)sender).getName() );
+		
+		if( !Level.canUse( u, Level.SUPPORTER ) )
+			return;
+		
+		sender.sendMessage( EdgeCore.usageColor + "/ticket" );        
+        sender.sendMessage( EdgeCore.usageColor + "/ticket list" );
+        sender.sendMessage( EdgeCore.usageColor + "/ticket read ID" );
+        sender.sendMessage( EdgeCore.usageColor + "/ticket close ID" );	
+        return;
 	}
 
 	@Override

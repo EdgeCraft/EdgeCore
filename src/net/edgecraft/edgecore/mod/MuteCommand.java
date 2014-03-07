@@ -37,13 +37,7 @@ public class MuteCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
-		
-		if( sender instanceof Player ) {
-			User u = EdgeCoreAPI.userAPI().getUser( sender.getName() );
-			
-			if( !Level.canUse(u, getLevel()) ) return;
-		}
+	public void sendUsageImpl(CommandSender sender) {
 		
 		sender.sendMessage( EdgeCore.usageColor + "/mute list" );
 		sender.sendMessage( EdgeCore.usageColor + "/mute <player>" );

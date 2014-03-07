@@ -147,14 +147,12 @@ public class UserCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		
-		if( !(sender instanceof Player) || Level.canUse( users.getUser( ((Player)sender).getName()), getLevel()) ) {
-			sender.sendMessage(EdgeCore.usageColor + "/user register <name>");
-			sender.sendMessage(EdgeCore.usageColor + "/user delete <id>");
-			sender.sendMessage(EdgeCore.usageColor + "/user exists <user>");
-			sender.sendMessage(EdgeCore.usageColor + "/user reload [<user>]");
-			sender.sendMessage(EdgeCore.usageColor + "/user amount");
-		}
+		sender.sendMessage(EdgeCore.usageColor + "/user register <name>");
+		sender.sendMessage(EdgeCore.usageColor + "/user delete <id>");
+		sender.sendMessage(EdgeCore.usageColor + "/user exists <user>");
+		sender.sendMessage(EdgeCore.usageColor + "/user reload [<user>]");
+		sender.sendMessage(EdgeCore.usageColor + "/user amount");
 	}	
 }

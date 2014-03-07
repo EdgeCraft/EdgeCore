@@ -37,7 +37,7 @@ public class GiveCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		
 		sender.sendMessage( EdgeCore.usageColor + "/give <player> <item> [amount] [data]" );
 		return;

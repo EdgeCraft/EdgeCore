@@ -38,14 +38,12 @@ public class PermissionCommand extends AbstractCommand {
 	
 
 	@Override
-	public void sendUsage( CommandSender sender ) {
+	public void sendUsageImpl( CommandSender sender ) {
 		
-		if( !(sender instanceof Player) || !Level.canUse( EdgeCore.getUsers().getUser(((Player)sender).getName()), Level.ADMIN) ) {
 			sender.sendMessage( EdgeCore.usageColor + "/permission setlevel <player> <level>");
 			sender.sendMessage( EdgeCore.usageColor + "/permission getlevel <player>");
 			sender.sendMessage( EdgeCore.usageColor + "/permission listranks" );
-		}
-		return;
+			return;
 	}
 
 	@Override

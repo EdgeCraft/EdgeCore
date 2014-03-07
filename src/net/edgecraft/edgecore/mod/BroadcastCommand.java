@@ -35,7 +35,7 @@ public class BroadcastCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {
+	public void sendUsageImpl(CommandSender sender) {
 		sender.sendMessage(EdgeCore.usageColor + "/broadcast <message>");
 		sender.sendMessage(EdgeCore.usageColor + "/say <message>");
 	}
