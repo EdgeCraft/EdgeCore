@@ -13,6 +13,14 @@ import org.bukkit.entity.Player;
 
 public class MuteCommand extends AbstractCommand {
 
+	private static final MuteCommand instance = new MuteCommand();
+	
+	private MuteCommand() { /* ... */ }
+	
+	public static final MuteCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "mute", "unmute" };

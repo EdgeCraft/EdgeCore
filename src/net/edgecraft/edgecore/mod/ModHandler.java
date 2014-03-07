@@ -8,21 +8,21 @@ public class ModHandler extends CommandHandler {
 	
 		private ModHandler() { 
 			
-				super.registerCommand( new TicketCommand() );
-				super.registerCommand( new TeleportCommand() );
-				super.registerCommand( new GiveCommand() );
-				super.registerCommand( new PunishCommand() );
-				super.registerCommand( new MuteCommand() );
-				super.registerCommand( new TimeCommand() );
-				super.registerCommand( new GameModeCommand() );
-				super.registerCommand( new KillCommand() );
-				super.registerCommand( new PermissionCommand() );
-				super.registerCommand( new WeatherCommand() );
-				super.registerCommand( new KickCommand() );
-				super.registerCommand( new BanCommand() );
-				super.registerCommand( new DifficultyCommand() );
-				super.registerCommand( new MaintenanceCommand() );
-				super.registerCommand( new BroadcastCommand() );
+				super.registerCommand( TicketCommand.getInstance() );
+				super.registerCommand( TeleportCommand.getInstance() );
+				super.registerCommand( GiveCommand.getInstance() );
+				super.registerCommand( PunishCommand.getInstance() );
+				super.registerCommand( MuteCommand.getInstance() );
+				super.registerCommand( TimeCommand.getInstance() );
+				super.registerCommand( GameModeCommand.getInstance() );
+				super.registerCommand( KillCommand.getInstance() );
+				super.registerCommand( PermissionCommand.getInstance() );
+				super.registerCommand( WeatherCommand.getInstance() );
+				super.registerCommand( KickCommand.getInstance() );
+				super.registerCommand( BanCommand.getInstance() );
+				super.registerCommand( DifficultyCommand.getInstance() );
+				super.registerCommand( MaintenanceCommand.getInstance() );
+				super.registerCommand( BroadcastCommand.getInstance() );
 
 		}
 		

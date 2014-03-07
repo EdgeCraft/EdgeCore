@@ -11,6 +11,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class BroadcastCommand extends AbstractCommand {
 
+	private static final BroadcastCommand instance = new BroadcastCommand();
+	
+	private BroadcastCommand() { /* ... */ }
+	
+	public static final BroadcastCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "broadcast", "say" };

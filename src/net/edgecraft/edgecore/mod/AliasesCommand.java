@@ -14,6 +14,14 @@ public class AliasesCommand extends AbstractCommand {
 
 	private final CommandHandler commands = EdgeCoreAPI.commandsAPI();
 	
+	private static final AliasesCommand instance = new AliasesCommand();
+	
+	private AliasesCommand() { /* ... */ }
+	
+	public static final AliasesCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "aliases" };

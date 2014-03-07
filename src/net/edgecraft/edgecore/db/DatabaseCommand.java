@@ -12,7 +12,13 @@ import org.bukkit.entity.Player;
 
 public class DatabaseCommand extends AbstractCommand {
 	
-	public DatabaseCommand(){ /* ... */ }
+	private static final DatabaseCommand instance = new DatabaseCommand();
+	
+	private DatabaseCommand() { /* ... */ }
+	
+	public static final DatabaseCommand getInstance() {
+		return instance;
+	}
 
 	@Override
 	public String[] getNames() {

@@ -9,9 +9,13 @@ import org.bukkit.entity.Player;
 
 public class UserCommand extends AbstractCommand {
 
+	private static final UserCommand instance = new UserCommand();
 
-	public UserCommand(){ /* ... */ }
+	private UserCommand(){ /* ... */ }
 	
+	public static final UserCommand getInstance() {
+		return instance;
+	}
 	
 	@Override
 	public String[] getNames() {

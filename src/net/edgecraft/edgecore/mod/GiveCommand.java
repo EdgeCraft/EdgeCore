@@ -13,6 +13,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class GiveCommand extends AbstractCommand {
 
+	private static final GiveCommand instance = new GiveCommand();
+	
+	private GiveCommand() { /* ... */ }
+	
+	public static final GiveCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "give" };

@@ -13,6 +13,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class TeleportCommand extends AbstractCommand {
 
+	private static final TeleportCommand instance = new TeleportCommand();
+	
+	private TeleportCommand() { /* ... */ }
+	
+	public static final TeleportCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "teleport", "tp" };

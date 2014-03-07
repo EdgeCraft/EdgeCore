@@ -12,7 +12,15 @@ import net.edgecraft.edgecore.user.User;
 
 public class HelpCommand extends AbstractCommand {
 
+	private static final HelpCommand instance = new HelpCommand();
+	
 	private final CommandHandler cmds = EdgeCoreAPI.commandsAPI();
+	
+	private HelpCommand() { /* ... */ }
+	
+	public static final HelpCommand getInstance() {
+		return instance;
+	}
 	
 	@Override
 	public String[] getNames() {

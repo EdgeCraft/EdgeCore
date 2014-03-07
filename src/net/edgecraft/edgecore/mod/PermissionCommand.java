@@ -12,7 +12,13 @@ import org.bukkit.entity.Player;
 
 public class PermissionCommand extends AbstractCommand {
 	
-	public PermissionCommand() { /* ... */ }
+	private static final PermissionCommand instance = new PermissionCommand();
+	
+	private PermissionCommand() { /* ... */ }
+	
+	public static final PermissionCommand getInstance() {
+		return instance;
+	}
 	
 	@Override
 	public String[] getNames() {

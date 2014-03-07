@@ -11,7 +11,13 @@ import org.bukkit.entity.Player;
 
 public class LanguageCommand extends AbstractCommand {
 	
-	public LanguageCommand() { /* ... */ }
+	private static final LanguageCommand instance = new LanguageCommand();
+	
+	private LanguageCommand() { /* ... */ }
+	
+	public static final LanguageCommand getInstance() {
+		return instance;
+	}
 	
 	@Override
 	public String[] getNames() {

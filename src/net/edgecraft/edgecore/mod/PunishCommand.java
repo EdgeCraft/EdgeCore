@@ -12,6 +12,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class PunishCommand extends AbstractCommand {
 	
+	private static final PunishCommand instance = new PunishCommand();
+	
+	private PunishCommand() { /* ... */ }
+	
+	public static final PunishCommand getInstance() {
+		return instance;
+	} 
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "punish" };

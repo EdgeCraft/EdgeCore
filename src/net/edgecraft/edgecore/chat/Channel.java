@@ -3,7 +3,7 @@ package net.edgecraft.edgecore.chat;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.edgecraft.edgecore.EdgeCore;
+import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 
@@ -22,8 +22,8 @@ public class Channel {
 	private String admin;
 	private List<User> members = new ArrayList<User>();
 	
-	private final ChatHandler chatHandler = EdgeCore.getChat();
-	private final LanguageHandler lang = EdgeCore.getLang();
+	private final ChatHandler chatHandler = EdgeCoreAPI.chatAPI();
+	private final LanguageHandler lang = EdgeCoreAPI.languageAPI();
 
 	public static final String defaultAdmin = "Admin";
 	

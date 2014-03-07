@@ -11,7 +11,13 @@ import org.bukkit.entity.Player;
 
 public class SystemCommand extends AbstractCommand {
 	
-	public SystemCommand() { /* ... */ }
+	private static final SystemCommand instance = new SystemCommand();
+	
+	private SystemCommand() { /* ... */ }
+	
+	public static final SystemCommand getInstance() {
+		return instance;
+	}
 	
 	@Override
 	public String[] getNames() {

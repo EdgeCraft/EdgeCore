@@ -14,12 +14,17 @@ import net.edgecraft.edgecore.user.User;
 
 public class TicketCommand extends AbstractCommand {
 
-
+	private final static TicketCommand instance = new TicketCommand();
+	
 	TicketManager tickets = EdgeCoreAPI.ticketAPI();
 	
 	public static final int defaultAmountTickets = 10;
 	
-	public TicketCommand() { /* .... */ }
+	private TicketCommand() { /* .... */ }
+	
+	public static final TicketCommand getInstance() {
+		return instance;
+	}
 	
 	@Override
 	public String[] getNames() {

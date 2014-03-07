@@ -11,6 +11,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class BanCommand extends AbstractCommand {
 
+	private static final BanCommand instance = new BanCommand();
+	
+	private BanCommand() { /* ... */ }
+	
+	public static final BanCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "ban", "unban" };

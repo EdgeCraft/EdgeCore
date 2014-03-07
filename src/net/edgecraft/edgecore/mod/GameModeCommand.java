@@ -13,6 +13,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class GameModeCommand extends AbstractCommand {
 
+	private static final GameModeCommand instance = new GameModeCommand();
+	
+	private GameModeCommand() { /* ... */ }
+	
+	public static final GameModeCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "gamemode", "gm" };

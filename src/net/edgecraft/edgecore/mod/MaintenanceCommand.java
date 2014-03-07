@@ -12,6 +12,14 @@ import org.bukkit.entity.Player;
 
 public class MaintenanceCommand extends AbstractCommand {
 
+	private static MaintenanceCommand instance = new MaintenanceCommand();
+	
+	private MaintenanceCommand() { /* ... */ }
+	
+	public static final MaintenanceCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "maintenance" };

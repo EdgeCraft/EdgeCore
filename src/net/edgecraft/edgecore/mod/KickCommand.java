@@ -12,6 +12,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class KickCommand extends AbstractCommand {
 
+	private static final KickCommand instance = new KickCommand();
+	
+	private KickCommand() { /* ... */ }
+	
+	public static final KickCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "kick" };

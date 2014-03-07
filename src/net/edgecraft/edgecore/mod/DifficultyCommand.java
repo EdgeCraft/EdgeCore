@@ -14,6 +14,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class DifficultyCommand extends AbstractCommand {
 
+	private static final DifficultyCommand instance = new DifficultyCommand();
+	
+	private DifficultyCommand() { /* ... */ }
+	
+	public static final DifficultyCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "difficulty" };

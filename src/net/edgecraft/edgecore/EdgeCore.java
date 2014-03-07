@@ -96,11 +96,11 @@ public class EdgeCore extends JavaPlugin {
 	    getServer().getPluginManager().registerEvents(new ManageChatEvent(), this);
 	    getServer().getPluginManager().registerEvents(new CommandListener(), this);
 
-	    commands.registerCommand( new SystemCommand() );
-	    commands.registerCommand( new DatabaseCommand() );
-	    commands.registerCommand( new UserCommand() );
-	    commands.registerCommand( new ListCommand() );
-	    commands.registerCommand( new LanguageCommand() );
+	    commands.registerCommand( SystemCommand.getInstance() );
+	    commands.registerCommand( DatabaseCommand.getInstance() );
+	    commands.registerCommand( UserCommand.getInstance() );
+	    commands.registerCommand( ListCommand.getInstance() );
+	    commands.registerCommand( LanguageCommand.getInstance() );
 	    commands.registerCommand( new CommandCollection( ModHandler.getInstance() ) );
 	    
 	    @SuppressWarnings("unused") BukkitTask userTask = new UserSynchronizationTask().runTaskTimer(this, 0, 20L * 60 * 10);

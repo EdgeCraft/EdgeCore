@@ -15,6 +15,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class WeatherCommand extends AbstractCommand {
 
+	private static final WeatherCommand instance = new WeatherCommand();
+	
+	private WeatherCommand() { /* ... */ }
+	
+	public static WeatherCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "weather" };

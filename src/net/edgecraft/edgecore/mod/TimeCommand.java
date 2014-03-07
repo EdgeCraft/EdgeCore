@@ -13,6 +13,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class TimeCommand extends AbstractCommand {
 
+	private static final TimeCommand instance = new TimeCommand();
+	
+	private TimeCommand() { /* ... */ }
+	
+	public static final TimeCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "time" };

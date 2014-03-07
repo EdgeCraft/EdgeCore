@@ -12,6 +12,14 @@ import net.edgecraft.edgecore.user.User;
 
 public class KillCommand extends AbstractCommand {
 
+	private static final KillCommand instance = new KillCommand();
+	
+	private KillCommand() { /* ... */ }
+	
+	public static final KillCommand getInstance() {
+		return instance;
+	}
+	
 	@Override
 	public String[] getNames() {
 		return new String[]{ "kill" };
