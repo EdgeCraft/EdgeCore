@@ -22,7 +22,6 @@ public class ChatHandler {
 		return instance;
 	}
 	
-
 	/**
 	 * Sends a message to the server.
 	 * @param msg
@@ -31,9 +30,7 @@ public class ChatHandler {
 		if (!isChatEnabled()) return;
 		Bukkit.getServer().broadcastMessage(msg);
 	}
-	
-	
-	
+		
 	/**
 	 * Generates a temporarily used channel-id
 	 * @return Integer
@@ -59,9 +56,7 @@ public class ChatHandler {
 	public void deleteChannel(Channel c) {
 		channels.remove(c.getTempID());
 	}
-	
-
-	
+		
 	/**
 	 * Enables/disables the chat.
 	 * @param chat
@@ -101,9 +96,7 @@ public class ChatHandler {
 	public boolean isChatEnabled() {
 		return this.chat;
 	}
-	
-	
-	
+		
 	/**
 	 * Returns the with the tempID specified channel.
 	 * @param tempID
@@ -127,8 +120,7 @@ public class ChatHandler {
 		
 		return null;
 	}
-	
-	
+		
 	/**
 	 * Returns the fixed chatformat.
 	 * @param lang
@@ -152,10 +144,8 @@ public class ChatHandler {
 	 */
 	public static Map<Integer, Channel> getChannels() {
 		return ChatHandler.channels;
-	}
-	
-	
-	
+	}	
+		
 	/**
 	 * Sets the default maximum of channel-members.
 	 * @param maxChannelMembers

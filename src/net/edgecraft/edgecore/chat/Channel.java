@@ -7,6 +7,7 @@ import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 public class Channel {
@@ -117,8 +118,18 @@ public class Channel {
 	 * @param message
 	 */
 	public void send(String player, String message) {
+		
 		for (User user : getChannelMembers()) {
 			if (isMember(user)) {
+				
+				if (Bukkit.getPlayerExact(player) != null) {
+					if (Bukkit.getPlayerExact(player).getItemInHand().getType() != getRequiredItem()) {
+						
+						Bukkit.getPlayerExact(player).sendMessage(lang.getColoredMessage(user.getLanguage(), "channel_invaliditem"));
+						return;
+						
+					}
+				}
 				
 				String channelPrefix = lang.getColoredMessage(user.getLanguage(), "channelprefix").replace("[0]", getChannelName());
 				String channelMessageAdmin = lang.getColoredMessage(user.getLanguage(), "channelprefix_message_admin").replace("[0]", channelPrefix).replace("[1]", player).replace("[2]", message);
