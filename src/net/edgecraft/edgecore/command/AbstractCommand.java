@@ -38,7 +38,16 @@ public abstract class AbstractCommand {
 		if( sender instanceof Player ) {
 			User u = users.getUser( ((Player)sender).getName() );
 			
-			if( u == null || !Level.canUse(u, getLevel() ) ) return;
+			if (u == null) {
+				sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
+				return;
+			}
+			
+			if (!Level.canUse(u, getLevel())) {
+				sender.sendMessage(lang.getColoredMessage(u.getLanguage(), "nopermission"));
+				return;
+			}
+			
 		}
 		
 		sendUsageImpl( sender );

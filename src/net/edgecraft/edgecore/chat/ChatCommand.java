@@ -25,7 +25,8 @@ public class ChatCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsage(CommandSender sender) {		
+	public void sendUsageImpl(CommandSender sender) {	
+		
 	}
 
 	@Override
