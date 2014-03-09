@@ -5,12 +5,11 @@ import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.AbstractCommand;
-import net.edgecraft.edgecore.command.AbstractModCommand;
 import net.edgecraft.edgecore.command.CommandCollection;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
-public class HelpCommand extends AbstractModCommand {
+public class HelpCommand extends AbstractCommand {
 
 	private static final HelpCommand instance = new HelpCommand();
 	

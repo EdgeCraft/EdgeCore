@@ -9,7 +9,7 @@ public class CommandHandler {
 	
 	protected static final CommandHandler instance = new CommandHandler();
 	
-	public CommandHandler() { /* ... */ }
+	protected CommandHandler() { /* ... */ }
 	
 	public static CommandHandler getInstance() {
 		return instance;

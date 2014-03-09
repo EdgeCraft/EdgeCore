@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.EdgeCoreAPI;
-import net.edgecraft.edgecore.command.AbstractModCommand;
+import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
-public class TeleportCommand extends AbstractModCommand {
+public class TeleportCommand extends AbstractCommand {
 
 	private static final TeleportCommand instance = new TeleportCommand();
 	

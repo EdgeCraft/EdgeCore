@@ -101,7 +101,7 @@ public class EdgeCore extends JavaPlugin {
 	    commands.registerCommand( UserCommand.getInstance() );
 	    commands.registerCommand( ListCommand.getInstance() );
 	    commands.registerCommand( LanguageCommand.getInstance() );
-	    commands.registerCommand( new CommandCollection( ModCommands.getCommands() ) );
+	    commands.registerCommand( new CommandCollection( ModCommands.getInstance() ) );
 	    
 	    @SuppressWarnings("unused") BukkitTask userTask = new UserSynchronizationTask().runTaskTimer(this, 0, 20L * 60 * 10);
 	}

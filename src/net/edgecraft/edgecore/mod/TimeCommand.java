@@ -6,11 +6,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
-import net.edgecraft.edgecore.command.AbstractModCommand;
+import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
-public class TimeCommand extends AbstractModCommand {
+public class TimeCommand extends AbstractCommand {
 
 	private static final TimeCommand instance = new TimeCommand();
 	
