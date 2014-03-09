@@ -14,7 +14,7 @@ public class HelpCommand extends AbstractModCommand {
 
 	private static final HelpCommand instance = new HelpCommand();
 	
-	private HelpCommand() { super( instance ); }
+	private HelpCommand() { super(); }
 	
 	public static final HelpCommand getInstance() {
 		return instance;

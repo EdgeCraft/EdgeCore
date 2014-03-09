@@ -14,7 +14,7 @@ public class AliasesCommand extends AbstractModCommand {
 	
 	private static final AliasesCommand instance = new AliasesCommand();
 	
-	private AliasesCommand() { super( instance ); }
+	private AliasesCommand() { super(); }
 	
 	public static final AliasesCommand getInstance() {
 		return instance;

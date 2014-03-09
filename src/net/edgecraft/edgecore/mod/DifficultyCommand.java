@@ -15,7 +15,7 @@ public class DifficultyCommand extends AbstractModCommand {
 
 	private static final DifficultyCommand instance = new DifficultyCommand();
 	
-	private DifficultyCommand() { super( instance ); }
+	private DifficultyCommand() { super(); }
 	
 	public static final DifficultyCommand getInstance() {
 		return instance;

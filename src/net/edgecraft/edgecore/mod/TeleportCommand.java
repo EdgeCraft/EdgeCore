@@ -15,7 +15,7 @@ public class TeleportCommand extends AbstractModCommand {
 
 	private static final TeleportCommand instance = new TeleportCommand();
 	
-	private TeleportCommand() { super( instance ); }
+	private TeleportCommand() { super(); }
 	
 	public static final TeleportCommand getInstance() {
 		return instance;

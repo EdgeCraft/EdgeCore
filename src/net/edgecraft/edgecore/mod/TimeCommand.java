@@ -14,7 +14,7 @@ public class TimeCommand extends AbstractModCommand {
 
 	private static final TimeCommand instance = new TimeCommand();
 	
-	private TimeCommand() { super( instance ); }
+	private TimeCommand() { super(); }
 	
 	public static final TimeCommand getInstance() {
 		return instance;

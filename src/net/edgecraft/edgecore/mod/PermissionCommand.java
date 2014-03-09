@@ -14,7 +14,7 @@ public class PermissionCommand extends AbstractModCommand {
 	
 	private static final PermissionCommand instance = new PermissionCommand();
 	
-	private PermissionCommand() { super( instance ); }
+	private PermissionCommand() { super(); }
 	
 	public static final PermissionCommand getInstance() {
 		return instance;

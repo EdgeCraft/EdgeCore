@@ -14,7 +14,7 @@ public class GameModeCommand extends AbstractModCommand {
 
 	private static final GameModeCommand instance = new GameModeCommand();
 	
-	private GameModeCommand() { super( instance ); }
+	private GameModeCommand() { super(); }
 	
 	public static final GameModeCommand getInstance() {
 		return instance;

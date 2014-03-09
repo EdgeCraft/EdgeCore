@@ -13,7 +13,7 @@ public class BroadcastCommand extends AbstractModCommand {
 
 	private static final BroadcastCommand instance = new BroadcastCommand();
 	
-	private BroadcastCommand() { super( instance); }
+	private BroadcastCommand() { super(); }
 	
 	public static final BroadcastCommand getInstance() {
 		return instance;

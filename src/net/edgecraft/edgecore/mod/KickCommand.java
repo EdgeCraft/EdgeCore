@@ -13,7 +13,7 @@ public class KickCommand extends AbstractModCommand {
 
 	private static final KickCommand instance = new KickCommand();
 	
-	private KickCommand() { super( instance ); }
+	private KickCommand() { super(); }
 	
 	public static final KickCommand getInstance() {
 		return instance;
