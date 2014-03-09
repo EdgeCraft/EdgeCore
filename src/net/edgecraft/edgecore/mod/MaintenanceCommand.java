@@ -1,7 +1,7 @@
 package net.edgecraft.edgecore.mod;
 
 import net.edgecraft.edgecore.EdgeCore;
-import net.edgecraft.edgecore.command.AbstractCommand;
+import net.edgecraft.edgecore.command.AbstractModCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
@@ -10,7 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class MaintenanceCommand extends AbstractCommand {
+public class MaintenanceCommand extends AbstractModCommand {
 
 	private static MaintenanceCommand instance = new MaintenanceCommand();
 	

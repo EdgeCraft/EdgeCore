@@ -5,10 +5,11 @@ import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.AbstractCommand;
+import net.edgecraft.edgecore.command.AbstractModCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
-public class AliasesCommand extends AbstractCommand {
+public class AliasesCommand extends AbstractModCommand {
 	
 	private static final AliasesCommand instance = new AliasesCommand();
 	

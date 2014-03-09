@@ -7,11 +7,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import net.edgecraft.edgecore.EdgeCore;
-import net.edgecraft.edgecore.command.AbstractCommand;
+import net.edgecraft.edgecore.command.AbstractModCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
-public class GiveCommand extends AbstractCommand {
+public class GiveCommand extends AbstractModCommand {
 
 	private static final GiveCommand instance = new GiveCommand();
 	
