@@ -5,11 +5,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
-import net.edgecraft.edgecore.command.AbstractCommand;
+import net.edgecraft.edgecore.command.AbstractModCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
-public class KickCommand extends AbstractCommand {
+public class KickCommand extends AbstractModCommand {
 
 	private static final KickCommand instance = new KickCommand();
 	
