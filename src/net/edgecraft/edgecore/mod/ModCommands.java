@@ -15,4 +15,8 @@ public class ModCommands extends CommandHandler {
 			if( cmd == null ) return;
 			instance.registerCommand( cmd );
 		}
+		
+		public static ModCommands getInstance() {
+			return ModCommands.instance;
+		}
 }
