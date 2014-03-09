@@ -4,13 +4,13 @@ import java.util.logging.Logger;
 
 import net.edgecraft.edgecore.chat.ChatHandler;
 import net.edgecraft.edgecore.chat.ManageChatEvent;
+import net.edgecraft.edgecore.command.CommandCollection;
 import net.edgecraft.edgecore.command.CommandHandler;
 import net.edgecraft.edgecore.command.CommandListener;
 import net.edgecraft.edgecore.db.DatabaseCommand;
 import net.edgecraft.edgecore.db.DatabaseHandler;
 import net.edgecraft.edgecore.lang.LanguageCommand;
 import net.edgecraft.edgecore.lang.LanguageHandler;
-import net.edgecraft.edgecore.mod.CommandCollection;
 import net.edgecraft.edgecore.mod.ModCommands;
 import net.edgecraft.edgecore.mod.TicketManager;
 import net.edgecraft.edgecore.other.ConfigHandler;
@@ -101,7 +101,7 @@ public class EdgeCore extends JavaPlugin {
 	    commands.registerCommand( UserCommand.getInstance() );
 	    commands.registerCommand( ListCommand.getInstance() );
 	    commands.registerCommand( LanguageCommand.getInstance() );
-	    commands.registerCommand( new CommandCollection( ModCommands.getInstance() ) );
+	    commands.registerCommand( new CommandCollection( ModCommands.getCommands() ) );
 	    
 	    @SuppressWarnings("unused") BukkitTask userTask = new UserSynchronizationTask().runTaskTimer(this, 0, 20L * 60 * 10);
 	}

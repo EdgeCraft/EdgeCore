@@ -20,7 +20,7 @@ public class TicketCommand extends AbstractModCommand {
 	
 	public static final int defaultAmountTickets = 10;
 	
-	private TicketCommand() { /* .... */ }
+	private TicketCommand() { super( instance ); }
 	
 	public static final TicketCommand getInstance() {
 		return instance;

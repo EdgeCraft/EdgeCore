@@ -13,7 +13,7 @@ public class KillCommand extends AbstractModCommand {
 
 	private static final KillCommand instance = new KillCommand();
 	
-	private KillCommand() { /* ... */ }
+	private KillCommand() { super( instance ); }
 	
 	public static final KillCommand getInstance() {
 		return instance;

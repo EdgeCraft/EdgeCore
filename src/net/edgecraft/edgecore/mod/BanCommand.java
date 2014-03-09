@@ -13,7 +13,7 @@ public class BanCommand extends AbstractModCommand {
 
 	private static final BanCommand instance = new BanCommand();
 	
-	private BanCommand() { /* ... */ }
+	private BanCommand() { super( instance ); }
 	
 	public static final BanCommand getInstance() {
 		return instance;

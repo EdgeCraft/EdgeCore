@@ -14,7 +14,7 @@ public class MaintenanceCommand extends AbstractModCommand {
 
 	private static MaintenanceCommand instance = new MaintenanceCommand();
 	
-	private MaintenanceCommand() { /* ... */ }
+	private MaintenanceCommand() { super( instance ); }
 	
 	public static final MaintenanceCommand getInstance() {
 		return instance;

@@ -16,7 +16,7 @@ public class WeatherCommand extends AbstractModCommand {
 
 	private static final WeatherCommand instance = new WeatherCommand();
 	
-	private WeatherCommand() { /* ... */ }
+	private WeatherCommand() { super( instance ); }
 	
 	public static WeatherCommand getInstance() {
 		return instance;

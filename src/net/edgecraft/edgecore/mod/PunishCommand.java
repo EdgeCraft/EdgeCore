@@ -14,7 +14,7 @@ public class PunishCommand extends AbstractModCommand {
 	
 	private static final PunishCommand instance = new PunishCommand();
 	
-	private PunishCommand() { /* ... */ }
+	private PunishCommand() { super( instance ); }
 	
 	public static final PunishCommand getInstance() {
 		return instance;

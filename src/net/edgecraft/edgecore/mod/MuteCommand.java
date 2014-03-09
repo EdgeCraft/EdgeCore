@@ -15,7 +15,7 @@ public class MuteCommand extends AbstractModCommand {
 
 	private static final MuteCommand instance = new MuteCommand();
 	
-	private MuteCommand() { /* ... */ }
+	private MuteCommand() { super( instance ); }
 	
 	public static final MuteCommand getInstance() {
 		return instance;

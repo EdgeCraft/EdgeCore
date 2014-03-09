@@ -15,7 +15,7 @@ public class GiveCommand extends AbstractModCommand {
 
 	private static final GiveCommand instance = new GiveCommand();
 	
-	private GiveCommand() { /* ... */ }
+	private GiveCommand() { super( instance ); }
 	
 	public static final GiveCommand getInstance() {
 		return instance;
