@@ -7,9 +7,9 @@ public class CommandHandler {
 	
 	protected HashMap<String, AbstractCommand> cmdlist = new HashMap<>();
 	
-	private static final CommandHandler instance = new CommandHandler();
+	protected static final CommandHandler instance = new CommandHandler();
 	
-	protected CommandHandler() { /* ... */ }
+	public CommandHandler() { /* ... */ }
 	
 	public static CommandHandler getInstance() {
 		return instance;
@@ -19,7 +19,11 @@ public class CommandHandler {
 		
 		if( cmd == null ) return;
 		
-		if( !cmdlist.containsKey( cmd.getName() ) ) {
+		String cmdName = cmd.getName();
+		
+		if( cmdName == null ) return;
+		
+		if( !cmdlist.containsKey( cmdName ) ) {
 			cmdlist.put( cmd.getName(), cmd );
 		}
 		

@@ -3,20 +3,19 @@ package net.edgecraft.edgecore.mod;
 import net.edgecraft.edgecore.command.AbstractModCommand;
 import net.edgecraft.edgecore.command.CommandHandler;
 
-public class ModCommands extends CommandHandler {
+public class ModCommands {
 	
-		private static final ModCommands instance = new ModCommands();
-	
-		private ModCommands() { 
-
+		private final static CommandHandler cmds = new CommandHandler();
+		
+		private ModCommands() {}
+		
+		public static final CommandHandler getCommands() {
+			return cmds;
 		}
 		
-		public final void registerCommand( AbstractModCommand cmd ) {
-			if( cmd == null ) return;
-			instance.registerCommand( cmd );
+		public final static void registerCommand( AbstractModCommand cmd ) {
+			cmds.registerCommand( cmd );
 		}
 		
-		public static ModCommands getInstance() {
-			return ModCommands.instance;
-		}
+		
 }
