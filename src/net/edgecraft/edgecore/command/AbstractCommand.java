@@ -85,6 +85,11 @@ public abstract class AbstractCommand {
 	}
 	
 	public final String getName() {
+		
+		String[] names = getNames();
+		
+		if( names == null || getNames().length == 0 ) return null;
+		
 		return getNames()[0];
 	}
 	
