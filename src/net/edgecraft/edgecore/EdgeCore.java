@@ -91,10 +91,10 @@ public class EdgeCore extends JavaPlugin {
 	 * Registers data the plugin will use
 	 */
 	private void registerData() {
-	    getServer().getPluginManager().registerEvents(new RegisterUserEvent(), this);
-	    getServer().getPluginManager().registerEvents(new PlayerConnectionHandler(), this);
-	    getServer().getPluginManager().registerEvents(new ManageChatEvent(), this);
-	    getServer().getPluginManager().registerEvents(new CommandListener(), this);
+	    getServer().getPluginManager().registerEvents( new RegisterUserEvent(), this );
+	    getServer().getPluginManager().registerEvents( new PlayerConnectionHandler(), this );
+	    getServer().getPluginManager().registerEvents( new ManageChatEvent(), this );
+	    getServer().getPluginManager().registerEvents( new CommandListener(), this );
 
 	    commands.registerCommand( SystemCommand.getInstance() );
 	    commands.registerCommand( DatabaseCommand.getInstance() );
