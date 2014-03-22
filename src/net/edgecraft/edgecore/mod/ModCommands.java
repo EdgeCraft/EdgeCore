@@ -25,6 +25,9 @@ public class ModCommands extends CommandHandler {
 			super.registerCommand( DifficultyCommand.getInstance() );
 			super.registerCommand( MaintenanceCommand.getInstance() );
 			super.registerCommand( BroadcastCommand.getInstance() );
+			super.registerCommand( SetSpawnCommand.getInstance() );
+			super.registerCommand( SpawnCommand.getInstance() );
+			
 		}
 		
 		public static final ModCommands getInstance() {
