@@ -4,6 +4,7 @@ import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
+import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 
 import org.bukkit.ChatColor;
@@ -48,84 +49,127 @@ public class PermissionCommand extends AbstractCommand {
 
 	@Override
 	public boolean sysAccess( CommandSender sender, String[] args) {
-
-		try {
-			return permission(sender, args);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+		
+		return permission(sender, args, true);
+		
 	}
 	
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws NumberFormatException, Exception {
+				
+		return permission(player, args, false);
 		
-		String userLang = user.getLanguage();
+	}
+	
+	private boolean permission(CommandSender sender, String[] args, boolean console) {
 		
-		if (!users.exists(args[2])) {
-			player.sendMessage(lang.getColoredMessage(userLang, "notfound"));
+		User player = users.getUser(sender.getName());
+		
+		if (player == null) {
+			sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
 			return true;
 		}
 		
-		return permission((CommandSender) player, args);
-	}
-	
-	private boolean permission(CommandSender sender, String[] args) throws NumberFormatException, Exception{
-		
-		switch( args.length ){
-		
-		case 1:
-			return false;
-		case 2:
-			if( args[1].equalsIgnoreCase( "listranks" ) ) {
-				listranks( sender );
-				return true;
-			} else {
-				sendUsage( sender );
+		if (args[1].equalsIgnoreCase("listranks") || args[1].equalsIgnoreCase("listlevel")) {
+			if (args.length != 2) {
+				sendUsage(sender);
 				return true;
 			}
-		case 3:
-			if( args[1].equalsIgnoreCase( "getlevel" ) || args[1].equalsIgnoreCase( "getrank" )  ) {
-				return getrank(sender, args[2] );
-			} else {
-				sendUsage( sender );
-				return false;
-			}
-		case 4:
-			if( args[1].equalsIgnoreCase("setlevel") || args[1].equalsIgnoreCase( "setrank" ) ){
-				users.getUser(args[2]).updatePrefix(Level.getInstance(Integer.parseInt(args[3])).getName());
-				return setrank(sender, args[2], args[3] );
-			}
-			sendUsage( sender );
-			return false;
-		default:
-			sendUsage( sender );
-			return false;
-		
+			
+			listRanks(sender);
+			
+			return true;
 		}
 		
+		if (args[1].equalsIgnoreCase("getlevel") || args[1].equalsIgnoreCase("getrank")) {
+			if (args.length != 3) {
+				sendUsage(sender);
+				return true;
+			}
+			
+			User user = users.getUser(args[2]);
+			
+			if (console) {
+				
+				if (user == null) {
+					sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "notfound"));
+					return true;
+				}
+				
+			} else {
+				
+				if (user == null) {
+					sender.sendMessage(lang.getColoredMessage(player.getLanguage(), "notfound"));
+					return true;
+				}
+				
+			}
+			
+			return getRank(sender, user.getName());
+		}
+		
+		if (args[1].equalsIgnoreCase("setlevel") || args[1].equalsIgnoreCase("setrank")) {
+			if (args.length != 4) {
+				sendUsage(sender);
+				return true;
+			}
+			
+			try {
+				
+				User user = users.getUser(args[2]);
+				int level = Integer.parseInt(args[3]);
+			
+				if (console) {
+					
+					if (user == null) {
+						sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "notfound"));
+						return true;
+					}
+					
+				} else {
+					
+					if (user == null) {
+						sender.sendMessage(lang.getColoredMessage(player.getLanguage(), "notfound"));
+						return true;
+					}
+					
+				}
+				
+				setRank(sender, user.getName(), level);
+				
+			} catch(NumberFormatException e) {
+				sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "numberformatexception"));
+			}
+		}
+		
+		return true;
 	}
 	
-	private boolean setrank(CommandSender sender, String name, String level) throws NumberFormatException, Exception {
+	private boolean setRank(CommandSender sender, String name, int level) {
 		
-		User u = EdgeCoreAPI.userAPI().getUser( name );
+		try {
+			
+			User u = EdgeCoreAPI.userAPI().getUser( name );
+			
+			u.updateLevel( Level.getInstance(level) );
+			sender.sendMessage( ChatColor.GREEN + " Das Level wurde geändert!" );
 		
-		u.updateLevel( Level.getInstance(Integer.valueOf(level)) );
-		sender.sendMessage( ChatColor.GREEN + " Changed!" );
+		} catch(Exception e) {
+			e.printStackTrace();
+			sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
+		}
 		
 		return true;
 	}
 
-	private boolean getrank( CommandSender sender, String name ) {
+	private boolean getRank( CommandSender sender, String name ) {
 		
 		sender.sendMessage(ChatColor.GREEN + "Rank: " + ChatColor.GRAY + EdgeCoreAPI.userAPI().getUser(name).getLevel());
 		
 		return true;
 	}
 
-	private void listranks( CommandSender sender ) {
+	private void listRanks( CommandSender sender ) {
 		
 		sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Rankings:");
 		

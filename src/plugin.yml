@@ -5,6 +5,6 @@ authors: [lush,horoking,Exodevil]
 website: http://edgecraft.de
 
 load: STARTUP
-loadbefore: [EdgeConomy, EdgeCuboid]
+loadbefore: [EdgeConomy, EdgeCuboid, EdgeJobs]
 
 main: net.edgecraft.edgecore.EdgeCore
