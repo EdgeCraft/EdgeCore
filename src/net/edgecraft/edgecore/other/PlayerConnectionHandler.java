@@ -29,23 +29,30 @@ public class PlayerConnectionHandler implements Listener {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerLogin(PlayerJoinEvent event) {
 		
-		event.setJoinMessage("");
-		Player player = event.getPlayer();
-		User u = users.getUser(player.getName());
-		
-		if (u != null)
-			player.setPlayerListName(u.getLevel().getColor() + player.getName());
-		
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (p.getName().equalsIgnoreCase(event.getPlayer().getName())) continue;
+		try {
 			
-			if (this.users.exists(p.getName())) {
+			event.setJoinMessage("");
+			Player player = event.getPlayer();
+			User u = users.getUser(player.getName());
+			
+			if (u != null)
+				player.setPlayerListName(u.getLevel().getColor() + player.getName());
+			
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				if (p.getName().equalsIgnoreCase(event.getPlayer().getName())) continue;
 				
-				User user = this.users.getUser(p.getName());
-				
-				p.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "login").replace("[0]", player.getName()));
-				
+				if (this.users.exists(p.getName())) {
+					
+					User user = this.users.getUser(p.getName());
+					user.updateIP(p.getAddress().toString());
+					
+					p.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "login").replace("[0]", player.getName()));
+					
+				}
 			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

@@ -85,6 +85,18 @@ public class User implements Serializable {
 	}
 	
 	/**
+	 * Updates the users' ip
+	 * @param ip
+	 * @throws Exception
+	 */
+	public void updateIP(String ip) throws Exception {
+		
+		update("ip",  ip);
+		setIP(ip);
+		
+	}
+	
+	/**
 	 * (Un)bans the user
 	 * @param status
 	 * @throws Exception
