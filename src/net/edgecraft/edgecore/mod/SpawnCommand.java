@@ -50,7 +50,7 @@ public class SpawnCommand extends AbstractCommand
 		
 		if( args[0].equalsIgnoreCase( "spawn" ) )
 		{
-			p.addPotionEffect( new PotionEffect(PotionEffectType.CONFUSION, 20 * 3, 1 ) );
+			p.addPotionEffect( new PotionEffect(PotionEffectType.CONFUSION, 20 * 3, 10 ) );
 			
 			EdgeCore.getInstance().getServer().getScheduler().runTaskLater( EdgeCore.getInstance(), new Runnable() {
 
