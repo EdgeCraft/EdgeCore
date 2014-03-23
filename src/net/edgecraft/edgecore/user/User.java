@@ -172,6 +172,11 @@ public class User implements Serializable {
 	public String getLanguage() {
 		return language;
 	}
+	
+	public String getLang()
+	{
+		return getLanguage();
+	}
 
 	/**
 	 * Checks whether the user is banned or not

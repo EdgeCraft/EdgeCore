@@ -1,71 +1,91 @@
 package net.edgecraft.edgecore.mod;
 
-import net.edgecraft.edgecore.EdgeCore;
-import net.edgecraft.edgecore.command.AbstractCommand;
-import net.edgecraft.edgecore.command.Level;
-import net.edgecraft.edgecore.user.User;
-
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class SpawnCommand extends AbstractCommand {
+import net.edgecraft.edgecore.EdgeCore;
+import net.edgecraft.edgecore.command.AbstractCommand;
+import net.edgecraft.edgecore.command.Level;
+import net.edgecraft.edgecore.user.User;
+
+public class SpawnCommand extends AbstractCommand 
+{
+
+	private static final SpawnCommand instance = new SpawnCommand();
 	
-	private static SpawnCommand instance = new SpawnCommand();
+	private SpawnCommand() { /* ... */ }
 	
-	private SpawnCommand() { super(); }
-	
-	public static final SpawnCommand getInstance() {
+	public static final SpawnCommand getInstance()
+	{
 		return instance;
 	}
 	
 	@Override
-	public String[] getNames() {
-		return new String[] { "spawn" };
+	public String[] getNames() 
+	{
+		return new String[] { "spawn", "setspawn" };
 	}
 
 	@Override
-	public Level getLevel() {
+	public Level getLevel() 
+	{
 		return Level.GUEST;
 	}
 
 	@Override
-	public boolean validArgsRange(String[] args) {
-		return args.length == 1;
+	public boolean validArgsRange(String[] args) 
+	{
+		return ( args.length == 1 );
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args) throws Exception {
+	public boolean runImpl(Player player, User user, String[] args) 
+	{
 		
 		final Player p = player;
-		final String userLang = user.getLanguage();
+		final String userLang = user.getLang();
 		
-		p.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 20 * 3, 1));
-		
-		EdgeCore.getInstance().getServer().getScheduler().runTaskLater(EdgeCore.getInstance(), new Runnable() {
+		if( args[0].equalsIgnoreCase( "spawn" ) )
+		{
+			p.addPotionEffect( new PotionEffect(PotionEffectType.CONFUSION, 20 * 3, 1 ) );
 			
-			public void run() {
+			EdgeCore.getInstance().getServer().getScheduler().runTaskLater( EdgeCore.getInstance(), new Runnable() {
+
+				@Override
+				public void run() 
+				{
+					p.teleport( p.getWorld().getSpawnLocation() );
+					p.sendMessage( lang.getColoredMessage( userLang, "mod_spawn_success" ) );
+				}
 				
-				p.teleport(p.getWorld().getSpawnLocation());
-				p.sendMessage(lang.getColoredMessage(userLang, "mod_spawn_success"));
-				
+			}, 20L * 3 );
+		}
+		
+		if( args[0].equalsIgnoreCase( "setspawn" ) )
+		{
+			
+			if( !Level.canUse( user, Level.DEVELOPER ) )
+			{
+				player.sendMessage( lang.getColoredMessage( userLang, "nopermission" ) );
 			}
 			
-		}, 20L * 3);
+			final Location loc = player.getLocation();
+			player.getWorld().setSpawnLocation(  loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() );
+			player.sendMessage(lang.getColoredMessage( userLang, "mod_setspawn_success").replace("[0]", player.getWorld().getName()));
+			return true;
+		}
 		
 		return true;
 	}
 
 	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) {
-		return true;
+	public void sendUsageImpl(CommandSender sender) 
+	{
+		sender.sendMessage( EdgeCore.usageColor + "/spawn" );
+		sender.sendMessage( EdgeCore.usageColor + "/setspawn" );
 	}
 
-	@Override
-	public void sendUsageImpl(CommandSender sender) {
-		
-		sender.sendMessage(EdgeCore.usageColor + "/spawn");
-		
-	}	
 }

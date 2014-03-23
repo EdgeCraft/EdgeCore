@@ -11,9 +11,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
+import org.bukkit.Bukkit;
+
+import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
@@ -25,7 +26,7 @@ public class TicketManager {
 	
 	private static final TicketManager instance = new TicketManager();
 	
-	private TicketManager() { autoSave(); }
+	private TicketManager() { saveTickets(); }
 	
 	
 	public static final TicketManager getInstance() {
@@ -95,19 +96,26 @@ public class TicketManager {
 	
 	private void saveTickets() {
 		
-		try {
+		Bukkit.getScheduler().runTaskTimer( EdgeCore.getInstance(), new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					
+					ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream( "tickets.tmp" ) );
+					
+					out.writeObject( tickets );
+					
+					out.close();
+					
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			
-			ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream( "tickets.tmp" ) );
-			
-			out.writeObject( tickets );
-			
-			out.close();
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		}, 20L, 20L * 60 * 10 );
 		
 	}
 	
@@ -132,24 +140,6 @@ public class TicketManager {
 		}
 	
 		return tickets;
-	}
-	
-	private void autoSave() {
-		
-		Timer timer = new Timer();
-		
-		timer.schedule( new TimerTask() {
-
-			@Override
-			public void run() {
-				
-				saveTickets();
-				
-				autoSave();
-			}
-			
-		}, 5 * 60000 );
-		
 	}
 	
 	public boolean exists( Ticket t ) {
