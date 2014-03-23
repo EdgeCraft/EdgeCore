@@ -30,7 +30,13 @@ public abstract class AbstractCommand {
 	
 	public abstract boolean validArgsRange( String[] args );
 	public abstract boolean runImpl( Player player, User user, String[] args ) throws Exception; // Access through Player
-	public abstract boolean sysAccess( CommandSender sender, String[] args ); // Access through System.
+
+	// Overrideable if needed
+	public boolean sysAccess( CommandSender sender, String[] args ) {
+		
+		sender.sendMessage( lang.getColoredMessage( "de" , "noconsole" ) );
+		return true;
+	}
 
 	public abstract void sendUsageImpl( CommandSender sender ); // How to use the command.
 
