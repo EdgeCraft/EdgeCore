@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.edgecraft.edgecore.EdgeCore;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -40,8 +41,8 @@ public class LanguageHandler {
 	 * @param defaultLanguage
 	 */
 	public static void setDefaultLanguage( String defaultLanguage ) {
-		if( defaultLanguage != null )	
-			LanguageHandler.defaultLanguage = defaultLanguage;
+		Validate.notNull(defaultLanguage);
+		LanguageHandler.defaultLanguage = defaultLanguage;
 	}
 
 	/**

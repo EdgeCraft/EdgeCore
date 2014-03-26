@@ -3,8 +3,8 @@ package net.edgecraft.edgecore;
 import java.util.logging.Logger;
 
 import net.edgecraft.edgecore.chat.ChatHandler;
-import net.edgecraft.edgecore.chat.ManageChatEvent;
-import net.edgecraft.edgecore.command.CommandCollection;
+import net.edgecraft.edgecore.chat.ManageChatListener;
+import net.edgecraft.edgecore.command.CommandsCollectionCommand;
 import net.edgecraft.edgecore.command.CommandHandler;
 import net.edgecraft.edgecore.command.CommandListener;
 import net.edgecraft.edgecore.db.DatabaseCommand;
@@ -15,10 +15,10 @@ import net.edgecraft.edgecore.mod.ModCommands;
 import net.edgecraft.edgecore.mod.TicketManager;
 import net.edgecraft.edgecore.other.ConfigHandler;
 import net.edgecraft.edgecore.other.ListCommand;
-import net.edgecraft.edgecore.other.PlayerConnectionHandler;
+import net.edgecraft.edgecore.other.PlayerConnectionListener;
 import net.edgecraft.edgecore.system.EdgeCraftSystem;
 import net.edgecraft.edgecore.system.SystemCommand;
-import net.edgecraft.edgecore.user.RegisterUserEvent;
+import net.edgecraft.edgecore.user.RegisterUserListener;
 import net.edgecraft.edgecore.user.UserCommand;
 import net.edgecraft.edgecore.user.UserManager;
 import net.edgecraft.edgecore.user.UserSynchronizationTask;
@@ -91,9 +91,9 @@ public class EdgeCore extends JavaPlugin {
 	 * Registers data the plugin will use
 	 */
 	private void registerData() {
-	    getServer().getPluginManager().registerEvents( new RegisterUserEvent(), this );
-	    getServer().getPluginManager().registerEvents( new PlayerConnectionHandler(), this );
-	    getServer().getPluginManager().registerEvents( new ManageChatEvent(), this );
+	    getServer().getPluginManager().registerEvents( new RegisterUserListener(), this );
+	    getServer().getPluginManager().registerEvents( new PlayerConnectionListener(), this );
+	    getServer().getPluginManager().registerEvents( new ManageChatListener(), this );
 	    getServer().getPluginManager().registerEvents( new CommandListener(), this );
 
 	    commands.registerCommand( SystemCommand.getInstance() );
@@ -101,7 +101,7 @@ public class EdgeCore extends JavaPlugin {
 	    commands.registerCommand( UserCommand.getInstance() );
 	    commands.registerCommand( ListCommand.getInstance() );
 	    commands.registerCommand( LanguageCommand.getInstance() );
-	    commands.registerCommand( new CommandCollection( ModCommands.getInstance() ) );
+	    commands.registerCommand( new CommandsCollectionCommand( ModCommands.getInstance() ) );
 	    
 	    @SuppressWarnings("unused") BukkitTask userTask = new UserSynchronizationTask().runTaskTimer(this, 0, 20L * 60 * 10);
 	}

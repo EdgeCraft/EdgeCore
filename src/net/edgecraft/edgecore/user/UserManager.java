@@ -10,6 +10,7 @@ import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.db.DatabaseHandler;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -311,8 +312,8 @@ public class UserManager {
 	 * @param defaultLevel
 	 */
 	public static void setDefaultLevel( int defaultLevel ) {
-		if( defaultLevel >= 0 )
-			UserManager.defaultLevel = defaultLevel;
+	    Validate.isTrue(defaultLevel >= 0, "The value must be greater or equal than zero: %s", defaultLevel);
+		UserManager.defaultLevel = defaultLevel;
 	}
 	
 	public boolean exists( User u ) {

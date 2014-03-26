@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.AbstractCommand;
-import net.edgecraft.edgecore.command.CommandCollection;
+import net.edgecraft.edgecore.command.CommandsCollectionCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
@@ -44,8 +44,8 @@ public class AliasesCommand extends AbstractCommand {
 		
 		AbstractCommand cmd = commands.getCommand( args[1] );
 		
-		if( cmd instanceof CommandCollection ) {
-			cmd = ((CommandCollection) cmd).getCommand( args[1] );
+		if( cmd instanceof CommandsCollectionCommand ) {
+			cmd = ((CommandsCollectionCommand) cmd).getCommand( args[1] );
 		}
 		
 		if( cmd == null ) {

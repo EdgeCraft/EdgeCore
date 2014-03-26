@@ -1,22 +1,16 @@
 package net.edgecraft.edgecore.user;
 
-import java.io.Serializable;
-
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.chat.Channel;
 import net.edgecraft.edgecore.chat.ChatHandler;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.db.DatabaseHandler;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class User implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class User {
 	
 	private int id;
 	private String name;
@@ -118,10 +112,10 @@ public class User implements Serializable {
 	 * @throws Exception
 	 */
 	public void updateBanReason(String reason) throws Exception {
-		if( reason != null ) {
-			setBanReason( reason );
-			update("banreason", reason);
-		}
+		Validate.notNull(reason);
+		
+		setBanReason( reason );
+		update("banreason", reason);
 	}
 	
 	/**
@@ -260,8 +254,8 @@ public class User implements Serializable {
 	 * @param name
 	 */
 	protected void setName(String name) {
-		if( name != null )
-			this.name = name;
+		Validate.notNull(name);
+		this.name = name;
 	}
 
 	/**
@@ -269,8 +263,8 @@ public class User implements Serializable {
 	 * @param ip
 	 */
 	protected void setIP(String ip) {
-		if( ip != null ) 
-			this.ip = ip;
+	    Validate.notNull(ip);
+		this.ip = ip;
 	}
 
 	/**
@@ -302,8 +296,8 @@ public class User implements Serializable {
 	 * @param language
 	 */
 	protected void setLanguage(String language) {
-		if( language != null )
-			this.language = language;
+		Validate.notNull(language);
+		this.language = language;
 	}
 	
 	/**
@@ -319,8 +313,8 @@ public class User implements Serializable {
 	 * @param reason
 	 */
 	protected void setBanReason(String reason) {
-		if( reason != null )
-			this.banreason = reason;
+		Validate.notNull(reason);
+		this.banreason = reason;
 	}
 	
 	@Override

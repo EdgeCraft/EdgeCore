@@ -9,11 +9,11 @@ import org.bukkit.entity.Player;
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.user.User;
 
-public class CommandCollection extends AbstractCommand {
+public class CommandsCollectionCommand extends AbstractCommand {
 	
 	private CommandHandler commands;
 
-	public CommandCollection( CommandHandler handler ) {
+	public CommandsCollectionCommand( CommandHandler handler ) {
 		setCommands( handler );
 	}
 	
