@@ -7,8 +7,11 @@ import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.util.StringUtil;
 
 public class Channel {
 	
@@ -78,22 +81,16 @@ public class Channel {
 	 * Adds a new member to the channel.
 	 * @param member
 	 */
-	public void addMember(User member) {
-		if (!isMember(member)) {
-			this.members.add(member);
-			
-		} else return;
+	public boolean addMember(User member) {
+		return this.members.add(member);
 	}
 	
 	/**
 	 * Removes an existing User from the channel.
 	 * @param member
 	 */
-	public void removeMember(User member) {
-		if (isMember(member)) {
-			this.members.remove(member);
-			
-		} else return;
+	public boolean removeMember(User member) {
+	    return this.members.remove(member);
 	}
 	
 	/**
@@ -102,13 +99,10 @@ public class Channel {
 	 */
 	public void broadcast(String message) {
 		for (User user : getChannelMembers()) {
-			if (isMember(user)) {
-				String channelPrefix = lang.getColoredMessage(user.getLanguage(), "channelprefix").replace("[0]", getChannelName());
-				String channelBroadcast = lang.getColoredMessage(user.getLanguage(), "channelprefix_broadcast").replace("[0]", channelPrefix).replace("[1]", message);
-				
-				user.getPlayer().sendMessage(channelBroadcast);
-				
-			} else return;
+			String channelPrefix = lang.getColoredMessage(user.getLanguage(), "channelprefix").replace("[0]", getChannelName());
+			String channelBroadcast = lang.getColoredMessage(user.getLanguage(), "channelprefix_broadcast").replace("[0]", channelPrefix).replace("[1]", message);
+			
+			user.getPlayer().sendMessage(channelBroadcast);
 		}
 	}
 	
@@ -120,28 +114,24 @@ public class Channel {
 	public void send(String player, String message) {
 		
 		for (User user : getChannelMembers()) {
-			if (isMember(user)) {
-				
-				if (Bukkit.getPlayerExact(player) != null) {
-					if (Bukkit.getPlayerExact(player).getItemInHand().getType() != getRequiredItem()) {
-						
-						Bukkit.getPlayerExact(player).sendMessage(lang.getColoredMessage(user.getLanguage(), "channel_invaliditem"));
-						return;
-						
-					}
+			if (Bukkit.getPlayerExact(player) != null) {
+				if (Bukkit.getPlayerExact(player).getItemInHand().getType() != getRequiredItem()) {
+					
+					Bukkit.getPlayerExact(player).sendMessage(lang.getColoredMessage(user.getLanguage(), "channel_invaliditem"));
+					return;
+					
 				}
-				
-				String channelPrefix = lang.getColoredMessage(user.getLanguage(), "channelprefix").replace("[0]", getChannelName());
-				String channelMessageAdmin = lang.getColoredMessage(user.getLanguage(), "channelprefix_message_admin").replace("[0]", channelPrefix).replace("[1]", player).replace("[2]", message);
-				String channelMessage = lang.getColoredMessage(user.getLanguage(), "channelprefix_message").replace("[0]", channelPrefix).replace("[1]", player).replace("[2]", message);
-				
-				if (this.isChannelAdmin(player)) {
-					user.getPlayer().sendMessage(channelMessageAdmin);					
-				} else {
-					user.getPlayer().sendMessage(channelMessage);
-				}
-				
-			} else return;
+			}
+			
+			String channelPrefix = lang.getColoredMessage(user.getLanguage(), "channelprefix").replace("[0]", getChannelName());
+			String channelMessageAdmin = lang.getColoredMessage(user.getLanguage(), "channelprefix_message_admin").replace("[0]", channelPrefix).replace("[1]", player).replace("[2]", message);
+			String channelMessage = lang.getColoredMessage(user.getLanguage(), "channelprefix_message").replace("[0]", channelPrefix).replace("[1]", player).replace("[2]", message);
+			
+			if (this.isChannelAdmin(player)) {
+				user.getPlayer().sendMessage(channelMessageAdmin);					
+			} else {
+				user.getPlayer().sendMessage(channelMessage);
+			}
 		}
 	}
 	
@@ -242,15 +232,8 @@ public class Channel {
 	 * @return String
 	 */
 	public String getMemberList() {
-		
-		StringBuilder sb = new StringBuilder();
-		
-		for (User user : members) {
-			if (sb.length() > 0) sb.append(", ");
-			if (members.contains(user)) sb.append(user.getName());
-		}
-		
-		return sb.toString();
+	    
+	    return StringUtils.join(members, ", ");
 	}
 	
 	/**
@@ -270,8 +253,9 @@ public class Channel {
 	 * @param name
 	 */
 	public void setName(String name) {
-		if( name != null )
-			this.name = name;
+		Validate.notNull(name);
+		
+		this.name = name;
 	}
 	
 	/**
@@ -279,8 +263,9 @@ public class Channel {
 	 * @param password
 	 */
 	public void setPassword(String password) {
-		if( password != null )
-			this.password = password;
+	    Validate.notNull(password);
+	    
+		this.password = password;
 	}
 	
 	/**
@@ -288,8 +273,8 @@ public class Channel {
 	 * @param admin
 	 */
 	public void setAdmin(String admin) {
-		if( admin != null )
-			this.admin = admin;
+	    Validate.notNull(admin);
+		this.admin = admin;
 	}
 	
 	/**
@@ -297,8 +282,8 @@ public class Channel {
 	 * @param maxMembers
 	 */
 	public void setMaxMembers(int maxMembers) {
-		if( maxMembers > 0 )
-			this.maxMembers = maxMembers;
+	    Validate.isTrue(maxMembers > 0, "The value must be greater than zero: %s", maxMembers);
+		this.maxMembers = maxMembers;
 	}
 	
 	/**
@@ -322,8 +307,8 @@ public class Channel {
 	 * @param tempID
 	 */
 	public void setTempID( int tempID ) {
-		if( tempID >= 0 )
-			this.tempID = tempID;
+	    Validate.isTrue(tempID >= 0, "The value must be greater or equal than zero: %s", tempID);
+		this.tempID = tempID;
 	}
 
 	/**
@@ -331,7 +316,7 @@ public class Channel {
 	 * @param members
 	 */
 	public void setMembers( List<User> members ) {
-		if( members != null )
-			this.members = members;
+		Validate.notNull(members);
+		this.members = members;
 	}
 }

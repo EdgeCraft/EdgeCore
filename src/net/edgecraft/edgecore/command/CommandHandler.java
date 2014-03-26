@@ -3,6 +3,8 @@ package net.edgecraft.edgecore.command;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.Validate;
+
 public class CommandHandler {
 	
 	protected HashMap<String, AbstractCommand> cmdlist = new HashMap<>();
@@ -15,35 +17,29 @@ public class CommandHandler {
 		return instance;
 	}
 	
-	public void registerCommand( AbstractCommand cmd ){
+	public boolean registerCommand( AbstractCommand cmd ){
 		
-		if( cmd == null ) return;
-		
-		String cmdName = cmd.getName();
-		
-		if( cmdName == null ) return;
-		
-		if( !cmdlist.containsKey( cmdName ) ) {
-			cmdlist.put( cmd.getName(), cmd );
-		}
+		Validate.notNull(cmd);
+		Validate.notNull(cmd.getName());
 		
 		for( Map.Entry<String, AbstractCommand> entry : cmdlist.entrySet() ) {
 			for( String alias : entry.getValue().getNames() ) {
 				for( String cmdAlias : cmd.getNames() ) {
 					if( alias.equalsIgnoreCase(cmdAlias)) {
-						return;
+						return false;
 					}
 				}
 			}
 		}
 		
 		cmdlist.put(cmd.getName(), cmd);
+		return true;
 		
 	}
 	
-	public void deleteCommand( AbstractCommand cmd ) {
+	public Object deleteCommand( AbstractCommand cmd ) {
 		
-		cmdlist.remove( cmd.getName() );	
+		return cmdlist.remove( cmd.getName() );	
 	}
 	
 	public HashMap<String, AbstractCommand> getCmdList() {

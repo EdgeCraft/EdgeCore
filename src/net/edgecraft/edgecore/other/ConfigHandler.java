@@ -7,6 +7,7 @@ import net.edgecraft.edgecore.db.DatabaseHandler;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.UserManager;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class ConfigHandler {
@@ -99,8 +100,8 @@ public class ConfigHandler {
 	 * @param instance
 	 */
 	protected void setPlugin( EdgeCore instance ) {
-		if( instance != null )
-			plugin = instance;
+		Validate.notNull(instance);
+		plugin = instance;
 	}
 
 	/**
@@ -109,8 +110,8 @@ public class ConfigHandler {
 	 * @param config
 	 */
 	protected void setConfig( FileConfiguration config ) {
-		if( config != null )
-			this.config = config;
+	    Validate.notNull(config);
+		this.config = config;
 	}
 	
 }

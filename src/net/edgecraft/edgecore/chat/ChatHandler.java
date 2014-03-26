@@ -3,6 +3,7 @@ package net.edgecraft.edgecore.chat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 
 import net.edgecraft.edgecore.EdgeCore;
@@ -44,17 +45,16 @@ public class ChatHandler {
 	 * @param c
 	 */
 	public void addChannel(Channel c) {
-		if( c != null ) {
-			channels.put(c.getTempID(), c);
-		}
+		Validate.notNull(c);
+		channels.put(c.getTempID(), c);
 	}
 	
 	/**
 	 * Deletes the given channel.
 	 * @param c
 	 */
-	public void deleteChannel(Channel c) {
-		channels.remove(c.getTempID());
+	public Channel deleteChannel(Channel c) {
+		return channels.remove(c.getTempID());
 	}
 		
 	/**
@@ -151,7 +151,7 @@ public class ChatHandler {
 	 * @param maxChannelMembers
 	 */
 	public static void setDefaultMaxChannelMembers( int maxChannelMembers ) {
-		if( maxChannelMembers > 0 )
+	    Validate.isTrue(maxChannelMembers > 0, "The value must be greater than zero: %s", maxChannelMembers);
 			ChatHandler.defaultMaxChannelMembers = maxChannelMembers;
 	}
 }

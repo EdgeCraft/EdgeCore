@@ -7,6 +7,7 @@ import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
+// TODO add code
 public class ChatCommand extends AbstractCommand {
 
 	@Override
