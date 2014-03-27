@@ -1,13 +1,16 @@
 package net.edgecraft.edgecore.mod;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 
 import net.edgecraft.edgecore.user.User;
 
-public class Ticket {
+public class Ticket implements Serializable {
 	
-	private User author;
+    private static final long serialVersionUID = 1L;
+    
+    private User author;
     private String title;
     private String msg;
     private int id;
