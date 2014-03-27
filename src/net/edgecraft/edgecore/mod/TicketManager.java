@@ -26,7 +26,7 @@ public class TicketManager {
 	
 	private static final TicketManager instance = new TicketManager();
 	
-	private TicketManager() { saveTickets(); }
+	private TicketManager() { }
 	
 	
 	public static final TicketManager getInstance() {
@@ -94,7 +94,7 @@ public class TicketManager {
         return getTicket(id);
 	}
 	
-	private void saveTickets() {
+	public void saveTickets() {
 		
 		Bukkit.getScheduler().runTaskTimer( EdgeCore.getInstance(), new Runnable() {
 
