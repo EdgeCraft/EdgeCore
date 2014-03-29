@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import net.edgecraft.edgecore.chat.ChatHandler;
 import net.edgecraft.edgecore.chat.ManageChatListener;
-import net.edgecraft.edgecore.command.CommandsCollectionCommand;
+import net.edgecraft.edgecore.command.CommandContainer;
 import net.edgecraft.edgecore.command.CommandHandler;
 import net.edgecraft.edgecore.command.CommandListener;
 import net.edgecraft.edgecore.db.DatabaseCommand;
@@ -101,7 +101,7 @@ public class EdgeCore extends JavaPlugin {
 	    commands.registerCommand( UserCommand.getInstance() );
 	    commands.registerCommand( ListCommand.getInstance() );
 	    commands.registerCommand( LanguageCommand.getInstance() );
-	    commands.registerCommand( new CommandsCollectionCommand( ModCommands.getInstance() ) );
+	    commands.registerCommand( new CommandContainer( ModCommands.getInstance() ) );
 	    
 	    tickets.saveTickets();
 	    @SuppressWarnings("unused") BukkitTask userTask = new UserSynchronizationTask().runTaskTimer(this, 0, 20L * 60 * 10);

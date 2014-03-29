@@ -25,7 +25,7 @@ public class CommandHandler {
 		for( Map.Entry<String, AbstractCommand> entry : cmdlist.entrySet() ) {
 			for( String alias : entry.getValue().getNames() ) {
 				for( String cmdAlias : cmd.getNames() ) {
-					if( alias.equalsIgnoreCase(cmdAlias)) {
+					if( alias.equalsIgnoreCase( cmdAlias ) ) {
 						return false;
 					}
 				}
