@@ -45,8 +45,8 @@ public class TeleportCommand extends AbstractCommand {
 			if( u == null || !Level.canUse(u, getLevel()) ) return;
 		}
 		
-		sender.sendMessage( EdgeCore.usageColor + "/teleport <target>" );
-		sender.sendMessage( EdgeCore.usageColor + "/teleport <x> <y> <z>");
+		sender.sendMessage(EdgeCore.usageColor + "/teleport <target>");
+		sender.sendMessage(EdgeCore.usageColor + "/teleport <x> <y> <z>");
 		sender.sendMessage(EdgeCore.usageColor + "/teleport <player> <target>");
 		sender.sendMessage(EdgeCore.usageColor + "/teleport <player> <x> <y> <z>");
 		
@@ -54,47 +54,86 @@ public class TeleportCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
-		
-		if( args.length == 4 ) {
-			player.teleport( new Location( player.getWorld(), Double.valueOf( args[1]), Double.valueOf( args[2] ), Double.valueOf(args[3]) ) );
-		}
-		
-		Player from = Bukkit.getPlayer( args[1] );
-		
-		if( from == null ) {
-			player.sendMessage( EdgeCoreAPI.languageAPI().getColoredMessage( user.getLanguage(), "notfound") );
-		}
-		
-		if( args.length == 2 ) {
-			
-			player.teleport( from.getLocation() );
+		if (!validArgsRange(args)) {
+			sendUsage(player);
 			return true;
 		}
 		
-		if( args.length == 3 ) {
+		Player tp = Bukkit.getPlayer(args[1]);
+		
+		if (args.length == 2) {
+			
+			if (tp == null) {
+				if (!users.exists(args[1])) {
+					player.sendMessage(lang.getColoredMessage(user.getLanguage(), "notfound"));
+					return true;
+				}
+				
+				player.teleport(users.getUser(args[1]).getLastLocation());
+				player.sendMessage(lang.getColoredMessage(user.getLanguage(), "mod_teleport_lastlocation").replace("[0]", args[1]));
+				
+				return true;
+			}
+			
+			player.teleport(tp.getLocation());
+			// TODO: Add language key @horoking
+			
+			return true;
+		}
+		
+		if (args.length == 3) {
 			
 			Player to = Bukkit.getPlayer(args[2]);
 			
-			if (to == null) {
-				player.sendMessage(EdgeCoreAPI.languageAPI().getColoredMessage(user.getLanguage(), "notfound"));
-				return false;
+			if (tp == null) {
+				player.sendMessage(lang.getColoredMessage(user.getLanguage(), "notfound"));
+				return true;
 			}
 			
-			from.teleport( to.getLocation() );
+			if (to == null) {
+				if (!users.exists(args[2])) {
+					player.sendMessage(lang.getColoredMessage(user.getLanguage(), "notfound"));
+					return true;
+				}
+				
+				tp.teleport(users.getUser(args[2]).getLastLocation());
+				player.sendMessage(lang.getColoredMessage(user.getLanguage(), "mod_teleport_lastlocation_other").replace("[0]", tp.getName()).replace("[1]", args[2]));
+				
+				return true;
+			}
+			
+			tp.teleport(to);
+			// TODO: Add language key @horoking
 			
 			return true;
 		}
 		
-
-		
-		if( args.length == 5 ) {
+		try { 
 			
-			from.teleport( new Location( from.getWorld(), Double.valueOf( args[2] ), Double.valueOf( args[3] ), Double.valueOf( args[4] )));
+			if (args.length == 4) {
+				
+				player.teleport(new Location(player.getWorld(), Double.parseDouble(args[1]), Double.parseDouble(args[2]), Double.parseDouble(args[3])));
+				// TODO: Add language key @horoking
+				
+				return true;
+			}
 			
-			return true;
+			if (args.length == 5) {
+				
+				if (tp == null) {
+					player.sendMessage(lang.getColoredMessage(user.getLanguage(), "notfound"));
+					return true;
+				}
+				
+				tp.teleport(new Location(tp.getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]), Double.parseDouble(args[4])));
+				// TODO: Add language key @horoking
+				
+				return true;
+			}
+			
+		} catch(NumberFormatException e) {
+			player.sendMessage(lang.getColoredMessage(user.getLanguage(), "numberformatexception"));
 		}
-		
-		sendUsage( player );
 		
 		return true;	
 	}

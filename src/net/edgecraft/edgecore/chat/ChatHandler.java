@@ -10,6 +10,9 @@ import net.edgecraft.edgecore.EdgeCore;
 
 public class ChatHandler {
 	
+	public static int chatMessagesSent;
+	public static int channelMessagesSent;
+	
 	private static int defaultMaxChannelMembers;
 	public boolean chat;
 	

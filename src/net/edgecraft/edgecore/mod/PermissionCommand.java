@@ -7,6 +7,7 @@ import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -149,10 +150,14 @@ public class PermissionCommand extends AbstractCommand {
 		
 		try {
 			
-			User u = EdgeCoreAPI.userAPI().getUser( name );
-			
+			User u = EdgeCoreAPI.userAPI().getUser( name );			
 			u.updateLevel( Level.getInstance(level) );
-			sender.sendMessage( ChatColor.GREEN + " Das Level wurde ge‰ndert!" );
+			u.updatePrefix(u.getLevel().getName());
+			
+			if (Bukkit.getPlayer(name) != null)
+				Bukkit.getPlayer(name).setPlayerListName(u.getLevel().getColor() + name);
+			
+			sender.sendMessage( ChatColor.GREEN + " Das Level wurde geändert!" );
 		
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -8,6 +8,7 @@ import net.edgecraft.edgecore.db.DatabaseHandler;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class User {
@@ -15,10 +16,14 @@ public class User {
 	private int id;
 	private String name;
 	private String ip;
+	
 	private Level lvl;
+	private Location lastLocation;
+	
 	private String prefix;
 	private String suffix;
 	private String language;
+	
 	private boolean banned;
 	private String banreason;
 	
@@ -35,6 +40,11 @@ public class User {
 		
 			update( "level", lvl.value() );
 			setLevel( lvl );
+	}
+	
+	public void updateLastLocation(Location loc) throws Exception {
+		
+		update( "lastlocation", loc.getWorld().getName() + "," + loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ() + "," + loc.getYaw() + "," + loc.getPitch());
 	}
 	
 	/**
@@ -155,6 +165,15 @@ public class User {
 	}
 	
 	/**
+	 * Returns the last location the user was seen at
+	 * 
+	 * @return Location
+	 */
+	public Location getLastLocation() {
+		return lastLocation;
+	}
+	
+	/**
 	 * Returns the users' prefix
 	 * @return String
 	 */
@@ -272,7 +291,16 @@ public class User {
 	 * @param level
 	 */
 	protected void setLevel(Level lvl) {
-			this.lvl = lvl;
+		this.lvl = lvl;
+	}
+	
+	/**
+	 * Sets the users' last location
+	 * @param loc
+	 */
+	protected void setLastLocation(Location loc) {
+		Validate.notNull(loc);
+		this.lastLocation = loc;
 	}
 	
 	/**
@@ -348,6 +376,5 @@ public class User {
 	
 	public void setMuted(boolean mute){
 		muted = mute;
-	}
-	
+	}	
 }

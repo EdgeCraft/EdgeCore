@@ -85,7 +85,18 @@ public class SpawnCommand extends AbstractCommand
 	public void sendUsageImpl(CommandSender sender) 
 	{
 		sender.sendMessage( EdgeCore.usageColor + "/spawn" );
-		sender.sendMessage( EdgeCore.usageColor + "/setspawn" );
+		
+		if (sender instanceof Player) {
+			
+			if (!users.exists(sender.getName()))
+				return;
+			
+			if (Level.canUse(users.getUser(sender.getName()), Level.DEVELOPER)) {
+				
+				sender.sendMessage(EdgeCore.usageColor + "/setspawn");
+				
+			}
+		}
 	}
 
 }

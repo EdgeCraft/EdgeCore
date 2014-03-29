@@ -53,8 +53,10 @@ public class LanguageCommand extends AbstractCommand {
 		}
 		
 		if( args[1].equalsIgnoreCase("set") ) {
-			if( args.length != 3 )
-					sendUsage(player);
+			if( args.length != 3 ) {
+				sendUsage(player);
+				return true;
+			}
 			
 			if( args[2].equalsIgnoreCase("default")) {
 				user.updateLanguage(LanguageHandler.getDefaultLanguage());
@@ -80,11 +82,6 @@ public class LanguageCommand extends AbstractCommand {
 			
 		}
 		
-		if (args[1].equalsIgnoreCase("help")) {
-			sendUsage(player);
-			return true;
-		}
-		
 		return false;
 	}
 	
@@ -95,6 +92,6 @@ public class LanguageCommand extends AbstractCommand {
 		sender.sendMessage(EdgeCore.usageColor + "/language set <language>");
 		sender.sendMessage(EdgeCore.usageColor + "/language set default");
 		sender.sendMessage(EdgeCore.usageColor + "/language list");
-		sender.sendMessage(EdgeCore.usageColor + "/language help");
+		
 	}
 }
