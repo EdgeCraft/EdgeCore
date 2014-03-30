@@ -44,29 +44,27 @@ public class PermissionCommand extends AbstractCommand {
 			sender.sendMessage( EdgeCore.usageColor + "/permission setlevel <player> <level>");
 			sender.sendMessage( EdgeCore.usageColor + "/permission getlevel <player>");
 			sender.sendMessage( EdgeCore.usageColor + "/permission listranks" );
+			sender.sendMessage( EdgeCore.usageColor + "/permission getcmdlevel <cmd>");
 			return;
 	}
 
 	@Override
 	public boolean sysAccess( CommandSender sender, String[] args) {
-		
 		return permission(sender, args, true);
-		
 	}
 	
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws NumberFormatException, Exception {
-				
 		return permission(player, args, false);
 		
 	}
 	
-	private boolean permission(CommandSender sender, String[] args, boolean console) {
-		
-		User player = users.getUser(sender.getName());
+	private boolean permission( CommandSender sender, String[] args, boolean console ) 
+	{
+		final User player = users.getUser( sender.getName() );
 		
 		if (player == null) {
-			sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "globalerror"));
+			sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "notfound"));
 			return true;
 		}
 		
@@ -81,31 +79,31 @@ public class PermissionCommand extends AbstractCommand {
 			return true;
 		}
 		
+		if( args[1].equalsIgnoreCase( "getcmdlevel" ) )
+		{
+			if( args.length != 3 )
+			{
+				sendUsage( sender );
+				return true;
+			}
+			
+			return getCmdRank( sender, args[2] );
+		}
+		
 		if (args[1].equalsIgnoreCase("getlevel") || args[1].equalsIgnoreCase("getrank")) {
 			if (args.length != 3) {
 				sendUsage(sender);
 				return true;
 			}
 			
-			User user = users.getUser(args[2]);
-			
-			if (console) {
+			final User user = users.getUser(args[2]);
 				
-				if (user == null) {
-					sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "notfound"));
-					return true;
-				}
-				
-			} else {
-				
-				if (user == null) {
-					sender.sendMessage(lang.getColoredMessage(player.getLanguage(), "notfound"));
-					return true;
-				}
-				
+			if (user == null) {
+				sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "notfound"));
+				return true;
 			}
 			
-			return getRank(sender, user.getName());
+			return getRank(sender, user.getName() );
 		}
 		
 		if (args[1].equalsIgnoreCase("setlevel") || args[1].equalsIgnoreCase("setrank")) {
@@ -116,26 +114,15 @@ public class PermissionCommand extends AbstractCommand {
 			
 			try {
 				
-				User user = users.getUser(args[2]);
+				final User user = users.getUser(args[2]);
 				int level = Integer.parseInt(args[3]);
 			
-				if (console) {
-					
-					if (user == null) {
-						sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "notfound"));
-						return true;
-					}
-					
-				} else {
-					
-					if (user == null) {
-						sender.sendMessage(lang.getColoredMessage(player.getLanguage(), "notfound"));
-						return true;
-					}
-					
+				if( user == null )
+				{
+					sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName() ).getLang(), "notfound" ) );
 				}
 				
-				setRank(sender, user.getName(), level);
+				setRank( sender, user.getName(), level );
 				
 			} catch(NumberFormatException e) {
 				sender.sendMessage(lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "numberformatexception"));
@@ -149,10 +136,10 @@ public class PermissionCommand extends AbstractCommand {
 		
 		try {
 			
-			User u = EdgeCoreAPI.userAPI().getUser( name );
+			final User u = EdgeCoreAPI.userAPI().getUser( name );
 			
 			u.updateLevel( Level.getInstance(level) );
-			sender.sendMessage( ChatColor.GREEN + " Das Level wurde geändert!" );
+			sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName() ).getLang(), "level_update_succes" ) );
 		
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -164,8 +151,20 @@ public class PermissionCommand extends AbstractCommand {
 
 	private boolean getRank( CommandSender sender, String name ) {
 		
-		sender.sendMessage(ChatColor.GREEN + "Rank: " + ChatColor.GRAY + EdgeCoreAPI.userAPI().getUser(name).getLevel());
+		sender.sendMessage(ChatColor.GREEN + "Rank: " + ChatColor.GRAY + users.getUser(name).getLevel() );
 		
+		return true;
+	}
+	
+	private boolean getCmdRank( CommandSender sender, String cmdName )
+	{
+		final AbstractCommand cmd = commands.getCommand( cmdName );
+		if( cmd == null )
+		{
+			sender.sendMessage( lang.getColoredMessage( users.getUser(sender.getName()).getLang(), "cmd_not_found" ) );
+			return false;
+		}
+		sender.sendMessage( ChatColor.GREEN + "Rank: " + cmd.getLevel().toString() );
 		return true;
 	}
 

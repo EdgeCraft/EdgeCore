@@ -10,51 +10,66 @@ import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
-public class GameModeCommand extends AbstractCommand {
-
+public class GameModeCommand extends AbstractCommand 
+{
 	private static final GameModeCommand instance = new GameModeCommand();
 	
-	private GameModeCommand() { super(); }
+	private GameModeCommand() { /* ... */ }
 	
-	public static final GameModeCommand getInstance() {
+	public static final GameModeCommand getInstance() 
+	{
 		return instance;
 	}
 	
 	@Override
-	public String[] getNames() {
+	public String[] getNames() 
+	{
 		return new String[]{ "gamemode", "gm" };
 	}
 
 	@Override
-	public Level getLevel() {
+	public Level getLevel() 
+	{
 		return Level.MODERATOR;
 	}
 
 	@Override
-	public boolean validArgsRange(String[] args) {
-		
+	public boolean validArgsRange( String[] args ) 
+	{
 		return ( args.length == 2 || args.length == 3 );
 	}
 
 	@Override
-	public void sendUsageImpl(CommandSender sender) {
-		
+	public void sendUsageImpl( CommandSender sender ) 
+	{
 		sender.sendMessage( EdgeCore.usageColor + "/gamemode <player> [mode]");
+		sender.sendMessage( EdgeCore.usageColor + "/gamemode list");
 		return;
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args) throws Exception {
+	public boolean runImpl( Player player, User user, String[] args ) throws Exception {
 		
 		Player p = Bukkit.getPlayerExact( args[1] );
 		
 		if( p == null ) {
 			player.sendMessage( args[1] + " not found!" );
+			return false;
 		}
 		
-		if( args.length == 2 ) {
-			player.sendMessage( p.getGameMode().toString() );
-			return true;
+		if( args.length == 2 )
+		{
+			
+			if( args[1].equalsIgnoreCase( "list" ) )
+			{
+				player.sendMessage( EdgeCore.usageColor + "Available modes: creative (c) - adventure (a) - survival (s)" );
+				return true;
+			}
+			else
+			{
+				player.sendMessage( p.getGameMode().toString() );
+				return true;
+			}
 		}
 		
 		if( args[2].equalsIgnoreCase( "creative") || args[2].equals( "1" ) || args[2].equalsIgnoreCase( "c" )) {
@@ -78,7 +93,8 @@ public class GameModeCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) {
+	public boolean sysAccess(CommandSender sender, String[] args) 
+	{
 		sendUsage(sender);
 		return true;
 	}

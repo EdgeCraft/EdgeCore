@@ -13,7 +13,7 @@ public class HelpCommand extends AbstractCommand {
 
 	private static final HelpCommand instance = new HelpCommand();
 	
-	private HelpCommand() { super(); }
+	private HelpCommand() { /* ... */ }
 	
 	public static final HelpCommand getInstance() {
 		return instance;
@@ -21,7 +21,7 @@ public class HelpCommand extends AbstractCommand {
 	
 	@Override
 	public String[] getNames() {
-		return new String[]{ "help" };
+		return new String[]{ "help", "usage" };
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class HelpCommand extends AbstractCommand {
 	@Override
 	public void sendUsageImpl(CommandSender sender) {
 		
-		sender.sendMessage(EdgeCore.usageColor + "/help <command>");
+		sender.sendMessage(EdgeCore.usageColor + "/usage <command>");
 	}
 
 	@Override
@@ -52,11 +52,16 @@ public class HelpCommand extends AbstractCommand {
 		}
 		
 		if( cmd == null ) {
-			player.sendMessage( EdgeCore.errorColor + "Command " + args[1] + " not found!" );
+			player.sendMessage( lang.getColoredMessage( user.getLang(), "cmd_not_found" ) );
 			return false;
 		}
 		
-		player.sendMessage( "Usage-Instructions of command " + args[1] + ":" );
+		if( !Level.canUse( user, cmd.getLevel() ) )
+		{
+			player.sendMessage( lang.getColoredMessage( user.getLang(), "nopermission" ) );
+		}
+		
+		player.sendMessage( "Usage-Instructions for command " + args[1] + ":" );
 		cmd.sendUsage( player );
 		
 		return true;
