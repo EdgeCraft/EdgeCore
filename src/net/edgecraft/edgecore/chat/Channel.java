@@ -127,10 +127,16 @@ public class Channel {
 			String channelMessage = lang.getColoredMessage(user.getLanguage(), "channelprefix_message").replace("[0]", channelPrefix).replace("[1]", player).replace("[2]", message);
 			
 			if (this.isChannelAdmin(player)) {
-				user.getPlayer().sendMessage(channelMessageAdmin);					
+				
+				user.getPlayer().sendMessage(channelMessageAdmin);	
+				
 			} else {
+				
 				user.getPlayer().sendMessage(channelMessage);
+				
 			}
+			
+			ChatHandler.channelMessagesSent++;
 		}
 	}
 	

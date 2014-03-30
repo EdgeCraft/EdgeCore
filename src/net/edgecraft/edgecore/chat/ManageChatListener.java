@@ -76,9 +76,25 @@ public class ManageChatListener implements Listener {
 			if (msg.startsWith(">")) {
 					
 				if (msg.length() <= 1) e.setCancelled(true);
-				e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", user.getLevel().getColor() + user.getPrefix() + ChatColor.RESET)
-																											.replace("[1]", user.getSuffix() + ChatColor.RESET).replace("[2]", p.getName())
-																											.replace("[3]", msg.substring(1, msg.length())));
+				
+				if (Level.canUse(user, Level.ARCHITECT)) {
+					
+					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", user.getLevel().getColor() + user.getPrefix() + ChatColor.RESET)
+							.replace("[1]", user.getLevel().getColor() + user.getSuffix() + ChatColor.RESET).replace("[2]", p.getName())
+							.replace("[3]", ChatColor.translateAlternateColorCodes('&', msg.substring(1, msg.length()))));
+					
+				} else if (user.getLevel() == Level.USER) {
+					
+					e.setFormat(p.getName() + ": " + msg.substring(1, msg.length()));
+					
+				} else {
+					
+					e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", user.getLevel().getColor() + user.getPrefix() + ChatColor.RESET)
+							.replace("[1]", user.getLevel().getColor() + user.getSuffix() + ChatColor.RESET).replace("[2]", p.getName())
+							.replace("[3]", msg.substring(1, msg.length())));
+					
+				}
+				
 			} else {
 					
 				c.send(user.getName(), msg);
@@ -92,12 +108,22 @@ public class ManageChatListener implements Listener {
 				e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", user.getLevel().getColor() + user.getPrefix() + ChatColor.RESET)
 						.replace("[1]", user.getLevel().getColor() + user.getSuffix() + ChatColor.RESET).replace("[2]", p.getName())
 						.replace("[3]", ChatColor.translateAlternateColorCodes('&', msg)));
+				
+			} else if(user.getLevel() == Level.USER) {
+				
+				e.setFormat(p.getName() + ": " + msg);
+				
 			} else {
 					
 				e.setFormat(lang.getRawMessage(LanguageHandler.getDefaultLanguage(), "message", "chatformat").replace("[0]", user.getLevel().getColor() + user.getPrefix() + ChatColor.RESET)
 						.replace("[1]", user.getLevel().getColor() + user.getSuffix() + ChatColor.RESET).replace("[2]", p.getName())
 						.replace("[3]", msg));
+				
 			}
+			
+			ChatHandler.chatMessagesSent++;
+			
 		}
+		
 	}
 }

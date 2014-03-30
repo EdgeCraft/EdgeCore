@@ -2,6 +2,7 @@ package net.edgecraft.edgecore;
 
 import java.util.logging.Logger;
 
+import net.edgecraft.edgecore.chat.ChatCommand;
 import net.edgecraft.edgecore.chat.ChatHandler;
 import net.edgecraft.edgecore.chat.ManageChatListener;
 import net.edgecraft.edgecore.command.CommandContainer;
@@ -101,6 +102,7 @@ public class EdgeCore extends JavaPlugin {
 	    commands.registerCommand( UserCommand.getInstance() );
 	    commands.registerCommand( ListCommand.getInstance() );
 	    commands.registerCommand( LanguageCommand.getInstance() );
+	    commands.registerCommand( ChatCommand.getInstance() );
 	    commands.registerCommand( new CommandContainer( ModCommands.getInstance() ) );
 	    
 	    tickets.saveTickets();

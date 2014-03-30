@@ -62,19 +62,29 @@ public class PlayerConnectionListener implements Listener {
 	 * @param event
 	 */
 	@EventHandler(priority = EventPriority.LOW)
-	public void onPlayerLogout(PlayerQuitEvent event) {
-		
-		event.setQuitMessage("");
-		Player player = event.getPlayer();
-		
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			if (p.getName().equalsIgnoreCase(event.getPlayer().getName())) continue;
+	public void onPlayerLogout(PlayerQuitEvent event) {		
+		try {
 			
-			if (this.users.exists(p.getName())) {
+			event.setQuitMessage("");
+			Player player = event.getPlayer();
+			
+			if (!users.exists(player.getName()))
+				return;
+			
+			users.getUser(player.getName()).updateLastLocation(player.getLocation());
+			
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				if (p.getName().equalsIgnoreCase(event.getPlayer().getName())) continue;
 				
-				User user = this.users.getUser(p.getName());
-				p.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "logout").replace("[0]", player.getName()));
+				if (this.users.exists(p.getName())) {
+					
+					User user = this.users.getUser(p.getName());
+					p.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "logout").replace("[0]", player.getName()));
+				}
 			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

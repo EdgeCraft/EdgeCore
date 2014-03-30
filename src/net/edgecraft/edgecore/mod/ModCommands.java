@@ -26,6 +26,7 @@ public class ModCommands extends CommandHandler {
 			super.registerCommand( MaintenanceCommand.getInstance() );
 			super.registerCommand( BroadcastCommand.getInstance() );
 			super.registerCommand( SpawnCommand.getInstance() );
+			super.registerCommand( AFKCommand.getInstance() );
 			
 		}
 		

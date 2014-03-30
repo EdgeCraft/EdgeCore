@@ -13,6 +13,7 @@ import net.edgecraft.edgecore.db.DatabaseHandler;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class UserManager {
@@ -252,6 +253,17 @@ public class UserManager {
 						
 					} else if(entry.getKey().equals("level")) {						
 						user.setLevel( Level.getInstance(Integer.valueOf(entry.getValue().toString())) );
+						
+					} else if(entry.getKey().equals("lastlocation")) {
+						String locString = entry.getValue().toString();
+						String[] split = locString.split(",");
+						
+						user.setLastLocation(new Location(Bukkit.getWorld(split[0]), 
+											Double.parseDouble(split[1]), 
+											Double.parseDouble(split[2]), 
+											Double.parseDouble(split[3]), 
+											Float.parseFloat(split[4]), 
+											Float.parseFloat(split[5])));
 						
 					} else if(entry.getKey().equals("prefix")) {
 						user.setPrefix(entry.getValue().toString());

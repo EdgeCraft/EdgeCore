@@ -1,12 +1,12 @@
 package net.edgecraft.edgecore.mod;
 
 import net.edgecraft.edgecore.EdgeCore;
-import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -136,9 +136,20 @@ public class PermissionCommand extends AbstractCommand {
 		
 		try {
 			
-			final User u = EdgeCoreAPI.userAPI().getUser( name );
+			final User u = users.getUser( name );
+			
+			if( u == null )
+			{
+				sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName()).getLang(), "notfound" ) );
+				return false;
+			}
 			
 			u.updateLevel( Level.getInstance(level) );
+			u.updatePrefix(u.getLevel().getName());
+			
+			if (Bukkit.getPlayer(name) != null)
+				Bukkit.getPlayer(name).setPlayerListName(u.getLevel().getColor() + name);
+			
 			sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName() ).getLang(), "level_update_succes" ) );
 		
 		} catch(Exception e) {
