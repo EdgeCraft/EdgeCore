@@ -62,7 +62,7 @@ public class BroadcastCommand extends AbstractCommand {
 			msg.append(args[i]);
 		}
 		
-		EdgeCore.getChat().broadcast(ChatColor.GREEN + "[Internal Radio Broadcast] " + ChatColor.GOLD + msg.toString() );
+		EdgeCore.getChat().broadcast(ChatColor.GREEN + "[Radio Broadcast] " + ChatColor.GOLD + msg.toString() );
 		
 		return true;
 	}

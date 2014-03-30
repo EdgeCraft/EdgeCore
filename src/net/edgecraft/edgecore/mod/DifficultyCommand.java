@@ -49,32 +49,54 @@ public class DifficultyCommand extends AbstractCommand {
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
+		if (!validArgsRange(args)) {
+			sendUsage(player);
+			return true;
+		}
 				
-		if( Bukkit.isHardcore() ) return false;
+		if( Bukkit.isHardcore() ) {
+			player.sendMessage("§cYour world's difficulty is §6Hardcore!");
+			return true;
+		}
 		
-		World w = Bukkit.getWorlds().get(0);
+		World w = player.getWorld();
 		
 		if( args[1].equalsIgnoreCase( "peaceful" ) ) {
-			w.setDifficulty( Difficulty.PEACEFUL );
+			
+			w.setDifficulty( Difficulty.PEACEFUL );			
+			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  "§ais §6PEACEFUL");
+			
 			return true;
 		}
 		
 		if( args[1].equalsIgnoreCase( "easy" ) ) {
+			
 			w.setDifficulty( Difficulty.EASY );
+			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  "§ais §6EASY");
+			
 			return true;
 		}
 		
 		if( args[1].equalsIgnoreCase( "normal" ) ) {
+			
 			w.setDifficulty( Difficulty.NORMAL );
+			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  "§ais §6NORMAL");
+			
 			return true;
 		}
 		
 		if( args[1].equalsIgnoreCase( "hard" ) ) {
+			
 			w.setDifficulty( Difficulty.HARD );
+			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  "§ais §6HARD");
+			
 			return true;
 		}
 		
-		sendUsage( player );
+		/*
+		 * TODO: Add useful language keys @horoking
+		 */
+		
 		return true;
 		
 	}

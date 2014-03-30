@@ -1,13 +1,14 @@
 package net.edgecraft.edgecore.mod;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class BanCommand extends AbstractCommand {
 
@@ -52,8 +53,12 @@ public class BanCommand extends AbstractCommand {
 			}
 			
 			User ban = EdgeCoreAPI.userAPI().getUser( args[1] );
+			
 			ban.setBanned(true);
 			ban.updateBanReason( args[2] );
+			
+			if (Bukkit.getPlayer(args[1]) != null)
+				Bukkit.getPlayer(args[1]).kickPlayer("§c" + args[2]);
 			
 			return true;
 		}

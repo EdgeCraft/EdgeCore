@@ -1,102 +1,94 @@
 package net.edgecraft.edgecore.mod;
 
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import java.util.Arrays;
 
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
-public class GameModeCommand extends AbstractCommand 
-{
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public class GameModeCommand extends AbstractCommand {
+
 	private static final GameModeCommand instance = new GameModeCommand();
 	
-	private GameModeCommand() { /* ... */ }
+	private GameModeCommand() { super(); }
 	
-	public static final GameModeCommand getInstance() 
-	{
+	public static final GameModeCommand getInstance() {
 		return instance;
 	}
 	
 	@Override
-	public String[] getNames() 
-	{
+	public String[] getNames() {
 		return new String[]{ "gamemode", "gm" };
 	}
 
 	@Override
-	public Level getLevel() 
-	{
+	public Level getLevel() {
 		return Level.MODERATOR;
 	}
 
 	@Override
-	public boolean validArgsRange( String[] args ) 
-	{
+	public boolean validArgsRange(String[] args) {
+		
 		return ( args.length == 2 || args.length == 3 );
 	}
 
 	@Override
-	public void sendUsageImpl( CommandSender sender ) 
-	{
-		sender.sendMessage( EdgeCore.usageColor + "/gamemode <player> [mode]");
-		sender.sendMessage( EdgeCore.usageColor + "/gamemode list");
-		return;
+	public void sendUsageImpl(CommandSender sender) {
+		
+		sender.sendMessage( EdgeCore.usageColor + "/gamemode [player] <mode>");
+		
 	}
 
 	@Override
-	public boolean runImpl( Player player, User user, String[] args ) throws Exception {
-		
-		Player p = Bukkit.getPlayerExact( args[1] );
-		
-		if( p == null ) {
-			player.sendMessage( args[1] + " not found!" );
-			return false;
+	public boolean runImpl(Player player, User user, String[] args) throws Exception {
+		if (!validArgsRange(args)) {
+			sendUsage(player);
+			return true;
 		}
 		
-		if( args.length == 2 )
-		{
+		if (args.length == 2) {
 			
-			if( args[1].equalsIgnoreCase( "list" ) )
-			{
-				player.sendMessage( EdgeCore.usageColor + "Available modes: creative (c) - adventure (a) - survival (s)" );
+			setGameMode(player, args[1]);
+			
+			return true;
+		}
+		
+		if (args.length == 3) {
+			
+			Player target = Bukkit.getPlayer(args[1]);
+			
+			if (target == null) {
+				player.sendMessage(lang.getColoredMessage(user.getLanguage(), "notfound"));
 				return true;
 			}
-			else
-			{
-				player.sendMessage( p.getGameMode().toString() );
-				return true;
-			}
-		}
-		
-		if( args[2].equalsIgnoreCase( "creative") || args[2].equals( "1" ) || args[2].equalsIgnoreCase( "c" )) {
-			p.setGameMode( GameMode.CREATIVE );
+			
+			setGameMode(target, args[2]);
+			
 			return true;
 		}
 		
-		if( args[2].equalsIgnoreCase( "adventure") || args[2].equals( "2" ) || args[2].equalsIgnoreCase( "a" )) {
-			p.setGameMode( GameMode.ADVENTURE );
-			return true;
-		}
-		
-		if( args[2].equalsIgnoreCase( "survival") || args[2].equals( "0" ) || args[2].equalsIgnoreCase( "s" )) {
-			p.setGameMode( GameMode.SURVIVAL );
-			return true;
-		}
-		
-		sendUsage( player );
 		return true;
-		
 	}
 
 	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) 
-	{
+	public boolean sysAccess(CommandSender sender, String[] args) {
 		sendUsage(sender);
 		return true;
 	}
-
+	
+	private void setGameMode(Player p, String mode) {
+		if (p == null || mode == null) return;
+		
+		String[] validInput = new String[] { "survival", "s", "0", "creative", "c", "1", "adventure", "a", "2" };
+		
+		if (!Arrays.asList(validInput).contains(mode))
+			return;
+		
+		
+	}
 }
