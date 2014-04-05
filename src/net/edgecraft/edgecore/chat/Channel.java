@@ -8,7 +8,6 @@ import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
@@ -258,9 +257,10 @@ public class Channel {
 	 * @param name
 	 */
 	public void setName(String name) {
-		Validate.notNull(name);
-		
-		this.name = name;
+		if (name == null)
+			this.name = "C_" + getTempID();
+		else
+			this.name = name;
 	}
 	
 	/**
@@ -268,9 +268,10 @@ public class Channel {
 	 * @param password
 	 */
 	public void setPassword(String password) {
-	    Validate.notNull(password);
-	    
-		this.password = password;
+	    if (password == null)
+	    	this.password = "";
+	    else
+	    	this.password = password;
 	}
 	
 	/**
@@ -278,8 +279,10 @@ public class Channel {
 	 * @param admin
 	 */
 	public void setAdmin(String admin) {
-	    Validate.notNull(admin);
-		this.admin = admin;
+	    if (admin == null)
+	    	this.admin = "";
+	    else
+	    	this.admin = admin;
 	}
 	
 	/**
@@ -287,8 +290,10 @@ public class Channel {
 	 * @param maxMembers
 	 */
 	public void setMaxMembers(int maxMembers) {
-	    Validate.isTrue(maxMembers > 0, "The value must be greater than zero: %s", maxMembers);
-		this.maxMembers = maxMembers;
+	    if (maxMembers <= 0)
+	    	this.maxMembers = 1;
+	    else
+	    	this.maxMembers = maxMembers;
 	}
 	
 	/**
@@ -304,7 +309,10 @@ public class Channel {
 	 * @param material
 	 */
 	public void setRequiredItem(Material material) {
-		this.requiredItem = material;
+		if (material == null)
+			this.requiredItem = Material.AIR;
+		else
+			this.requiredItem = material;
 	}
 	
 	/**
@@ -312,8 +320,10 @@ public class Channel {
 	 * @param tempID
 	 */
 	public void setTempID( int tempID ) {
-	    Validate.isTrue(tempID >= 0, "The value must be greater or equal than zero: %s", tempID);
-		this.tempID = tempID;
+	    if (tempID <= 0)
+	    	this.tempID = ChatHandler.getChannels().size() + 1;
+	    else
+	    	this.tempID = tempID;
 	}
 
 	/**
@@ -321,7 +331,9 @@ public class Channel {
 	 * @param members
 	 */
 	public void setMembers( List<User> members ) {
-		Validate.notNull(members);
-		this.members = members;
+		if (members == null)
+			this.members = new ArrayList<User>();
+		else
+			this.members = members;
 	}
 }

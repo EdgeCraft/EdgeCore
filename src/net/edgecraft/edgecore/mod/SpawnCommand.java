@@ -18,39 +18,34 @@ public class SpawnCommand extends AbstractCommand
 	
 	private SpawnCommand() { /* ... */ }
 	
-	public static final SpawnCommand getInstance()
-	{
+	public static final SpawnCommand getInstance() {
 		return instance;
 	}
 	
 	@Override
-	public String[] getNames() 
-	{
+	public String[] getNames() {
 		return new String[] { "spawn", "setspawn" };
 	}
 
 	@Override
-	public Level getLevel() 
-	{
+	public Level getLevel()	{
 		return Level.GUEST;
 	}
 
 	@Override
-	public boolean validArgsRange(String[] args) 
-	{
+	public boolean validArgsRange(String[] args) {
 		return ( args.length == 1 );
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args) 
-	{
+	public boolean runImpl(Player player, User user, String[] args) {
 		
 		final Player p = player;
 		final String userLang = user.getLang();
 		
-		if( args[0].equalsIgnoreCase( "spawn" ) )
-		{
-			p.addPotionEffect( new PotionEffect(PotionEffectType.CONFUSION, 20 * 3, 10 ) );
+		if( args[0].equalsIgnoreCase( "spawn" ) ) {
+			
+			p.addPotionEffect( new PotionEffect(PotionEffectType.CONFUSION, 20 * 6, 1 ) );
 			
 			EdgeCore.getInstance().getServer().getScheduler().runTaskLater( EdgeCore.getInstance(), new Runnable() {
 
@@ -64,17 +59,18 @@ public class SpawnCommand extends AbstractCommand
 			}, 20L * 3 );
 		}
 		
-		if( args[0].equalsIgnoreCase( "setspawn" ) )
-		{
+		if( args[0].equalsIgnoreCase( "setspawn" ) ) {
 			
-			if( !Level.canUse( user, Level.DEVELOPER ) )
-			{
+			if( !Level.canUse( user, Level.DEVELOPER ) ) {
 				player.sendMessage( lang.getColoredMessage( userLang, "nopermission" ) );
+				return true;
 			}
 			
 			final Location loc = player.getLocation();
+			
 			player.getWorld().setSpawnLocation(  loc.getBlockX(), loc.getBlockY(), loc.getBlockZ() );
 			player.sendMessage(lang.getColoredMessage( userLang, "mod_setspawn_success").replace("[0]", player.getWorld().getName()));
+			
 			return true;
 		}
 		
@@ -82,21 +78,17 @@ public class SpawnCommand extends AbstractCommand
 	}
 
 	@Override
-	public void sendUsageImpl(CommandSender sender) 
-	{
-		sender.sendMessage( EdgeCore.usageColor + "/spawn" );
+	public void sendUsageImpl(CommandSender sender) {
+		if (!(sender instanceof Player)) return;
 		
-		if (sender instanceof Player) {
-			
-			if (!users.exists(sender.getName()))
-				return;
-			
-			if (Level.canUse(users.getUser(sender.getName()), Level.DEVELOPER)) {
-				
-				sender.sendMessage(EdgeCore.usageColor + "/setspawn");
-				
-			}
-		}
+		sender.sendMessage(EdgeCore.usageColor + "/spawn");
+		
+		User u = users.getUser(sender.getName());
+		
+		if (!Level.canUse(u, Level.DEVELOPER))
+			return;
+		
+		sender.sendMessage(EdgeCore.usageColor + "/setspawn");
 	}
 
 }

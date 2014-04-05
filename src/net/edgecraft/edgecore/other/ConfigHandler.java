@@ -32,7 +32,10 @@ public class ConfigHandler {
 			
 			// Config-itself.
 			setConfig( getPlugin().getConfig() );
-		
+			
+			// MOTD
+			getConfig().addDefault("General.MOTD", "&7Willkommen zur &6EdgeCraft.de Betaphase&7!");
+			
 			// Database
 	    	getConfig().addDefault( DatabaseHandler.DatabaseHost, DatabaseHandler.unset);
 	    	getConfig().addDefault( DatabaseHandler.DatabaseUser, DatabaseHandler.unset);

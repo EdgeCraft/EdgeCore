@@ -1,13 +1,14 @@
 package net.edgecraft.edgecore.mod;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.CommandContainer;
+import net.edgecraft.edgecore.command.CommandHandler;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class HelpCommand extends AbstractCommand {
 
@@ -31,44 +32,63 @@ public class HelpCommand extends AbstractCommand {
 
 	@Override
 	public boolean validArgsRange(String[] args) {
-		return ( args.length == 2 );
+		return ( args.length == 1 || args.length == 2 );
 	}
 
 	@Override
 	public void sendUsageImpl(CommandSender sender) {
 		
-		sender.sendMessage(EdgeCore.usageColor + "/usage <command>");
+		sender.sendMessage(EdgeCore.usageColor + "/help [<command>]");
 	}
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
-		
-
-		AbstractCommand cmd = commands.getCommand( args[1] );
-
-		
-		if( cmd instanceof CommandContainer ) {
-			cmd = ((CommandContainer) cmd).getCommand( args[1] );
+		if (!validArgsRange(args)) {
+			sendUsage(player);
+			return true;
 		}
 		
-		if( cmd == null ) {
-			player.sendMessage( lang.getColoredMessage( user.getLang(), "cmd_not_found" ) );
-			return false;
+		if (args.length == 1) {
+			
+			player.sendMessage("§cCommand Usage: §6/help <command>\n");
+			
+			StringBuilder sb = new StringBuilder();
+			
+			for (String string : CommandHandler.getInstance().getCmdList().keySet()) {
+				if (sb.length() > 0)
+					sb.append("§7, ");
+				
+				sb.append("§6/" + string);
+			}
+			
+			player.sendMessage(sb.toString());
+			
+			return true;
 		}
 		
-		if( !Level.canUse( user, cmd.getLevel() ) )
-		{
-			player.sendMessage( lang.getColoredMessage( user.getLang(), "nopermission" ) );
+		if (args.length == 2) {
+			
+			AbstractCommand cmd = commands.getCommand(args[1]);
+			
+			if (cmd instanceof CommandContainer)
+				cmd = ((CommandContainer) cmd).getCommand(args[1]);
+			
+			if (cmd == null) {
+				player.sendMessage(lang.getColoredMessage(user.getLang(), "cmd_not_found"));
+				return true;
+			}
+			
+			if (!Level.canUse(user, cmd.getLevel())) {
+				player.sendMessage(lang.getColoredMessage(user.getLang(), "nopermission"));
+				return true;
+			}
+			
+			player.sendMessage("§7Usage instructions for command §6" + args[1] + "§7:");
+			cmd.sendUsage(player);
+						
+			return true;
 		}
 		
-		player.sendMessage( "Usage-Instructions for command " + args[1] + ":" );
-		cmd.sendUsage( player );
-		
-		return true;
-	}
-
-	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) {
 		return true;
 	}
 }

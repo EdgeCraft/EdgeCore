@@ -47,8 +47,7 @@ public class WeatherCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args) {
-				
+	public boolean runImpl(Player player, User user, String[] args) {				
 		return weather( player, args );
 	}
 
@@ -59,7 +58,7 @@ public class WeatherCommand extends AbstractCommand {
 	
 	private boolean weather( CommandSender sender, String[] args ) {
 		
-			World w = Bukkit.getWorlds().get(0);
+			World w = sender instanceof Player ? ((Player) sender).getWorld() : Bukkit.getWorlds().get(0);
 			
 			if( args[1].equalsIgnoreCase( "clear" ) || args[1].equalsIgnoreCase( "sun" ) ) {
 

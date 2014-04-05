@@ -47,14 +47,21 @@ public class UserManager {
 			if (exists(name)) return;
 			
 			int id = generateID();
+			String lastloc = Bukkit.getWorlds().get(0).getName() + "," +
+					Bukkit.getWorlds().get(0).getSpawnLocation().getBlockX() + "," +
+					Bukkit.getWorlds().get(0).getSpawnLocation().getBlockY() + "," +
+					Bukkit.getWorlds().get(0).getSpawnLocation().getBlockZ() + "," +
+					Bukkit.getWorlds().get(0).getSpawnLocation().getYaw() + "," +
+					Bukkit.getWorlds().get(0).getSpawnLocation().getPitch();
 			
-			PreparedStatement registerUser = db.prepareUpdate("INSERT INTO " + UserManager.userTable + " (id, name, ip, level, prefix, suffix, language, banned, banreason) VALUES (?, ?, ?, ? , ?, ?, DEFAULT, DEFAULT, DEFAULT);");
+			PreparedStatement registerUser = db.prepareStatement("INSERT INTO " + UserManager.userTable + " (id, name, ip, level, lastlocation, prefix, suffix, language, banned, banreason) VALUES (?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT);");
 			registerUser.setInt(1, id);
 			registerUser.setString(2, name);
 			registerUser.setString(3, ip);
 			registerUser.setInt(4, getDefaultLevel());
-			registerUser.setString(5, "");
+			registerUser.setString(5, lastloc);
 			registerUser.setString(6, "");
+			registerUser.setString(7, "");
 			registerUser.executeUpdate();
 			
 			synchronizeUser(id);
@@ -65,6 +72,16 @@ public class UserManager {
 	}
 	
 	/**
+	 * Redirects the given player parameter to @link{registerUser(String name, String ip)}
+	 * @param p
+	 */
+	public void registerUser(Player p) {
+		if (p == null) return;
+		
+		registerUser(p.getName(), p.getAddress().toString());
+	}
+	
+	/**
 	 * Deletes an existing user.
 	 * (local + db)
 	 * @param id
@@ -72,7 +89,7 @@ public class UserManager {
 	public void deleteUser(int id) {
 		try {
 			
-			PreparedStatement deleteUser = db.prepareUpdate("DELETE FROM " + UserManager.userTable + " WHERE id = '" + id + "';");
+			PreparedStatement deleteUser = db.prepareStatement("DELETE FROM " + UserManager.userTable + " WHERE id = '" + id + "';");
 			deleteUser.executeUpdate();
 			
 			users.remove(id);
@@ -128,14 +145,16 @@ public class UserManager {
 	    
 	    StringBuilder sb = new StringBuilder();
 	    
-	    for (User user : users.values()) {
-	    	if (sb.length() > 0) {
-	    		sb.append(ChatColor.RESET + ", ");
-	    	}
+	    for (Player p : Bukkit.getOnlinePlayers()) {
+	    	if (!exists(p.getName()))
+	    		continue;
 	    	
-	    	if ((user != null) && (Bukkit.getPlayerExact(user.getName()).isOnline())) {
-	    		sb.append(user.getLevel().getColor() + user.getName());
-	    	}
+	    	if (sb.length() > 0)
+	    		sb.append(ChatColor.RESET + ", ");
+	    	
+	    	User u = getUser(p.getName());
+	    	
+	    	sb.append(u.getLevel().getColor() + u.getName());
 	    }
 	    
 	    return EdgeCore.getLang().getColoredMessage(language, "userlist").replace("[0]", Bukkit.getOnlinePlayers().length + "").replace("[1]", Bukkit.getMaxPlayers() + "").replace("[2]", sb.toString());

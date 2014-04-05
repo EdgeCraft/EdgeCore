@@ -8,6 +8,7 @@ import net.edgecraft.edgecore.user.User;
 import net.edgecraft.edgecore.user.UserManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -34,6 +35,8 @@ public class PlayerConnectionListener implements Listener {
 			event.setJoinMessage("");
 			Player player = event.getPlayer();
 			User u = users.getUser(player.getName());
+			
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', EdgeCore.getInstance().getConfig().getString("General.MOTD")));
 			
 			if (u != null)
 				player.setPlayerListName(u.getLevel().getColor() + player.getName());
@@ -108,15 +111,13 @@ public class PlayerConnectionListener implements Listener {
 		}
 		
 		if (UserManager.getBannedIPs().contains(joinIP)) {
-			for (Player p : Bukkit.getOnlinePlayers()) {				
-				if (p.hasPermission("edgecraft.ipwarning")) {
-					
-					User user = users.getUser(p.getName());
-					User banned = users.getUserByIP(joinIP);
-					
-					if (user != null && banned != null) {
-						p.sendMessage(lang.getColoredMessage(user.getLanguage(), "info_bannedip").replace("[0]", joinIP).replace("[1]", banned.getName()));
-					}
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				
+				User user = users.getUser(p.getName());
+				User banned = users.getUserByIP(joinIP);
+				
+				if (user != null && banned != null && Level.canUse(user, Level.SUPPORTER)) {
+					p.sendMessage(lang.getColoredMessage(user.getLanguage(), "info_bannedip").replace("[0]", joinIP).replace("[1]", banned.getName()));
 				}
 			}
 		}
@@ -136,11 +137,11 @@ public class PlayerConnectionListener implements Listener {
 			User user = EdgeCoreAPI.userAPI().getUser(player.getName());
 			
 			if (user.isBanned()) {
-				e.disallow(PlayerLoginEvent.Result.KICK_BANNED, lang.getColoredMessage(user.getLanguage(), "info_permban").replace("[0]", user.getBanReason()));
+				e.disallow(null, lang.getColoredMessage(user.getLanguage(), "info_permban").replace("[0]", user.getBanReason()));
 			}
 			
-			if (EdgeCore.isMaintenance() && !Level.canUse(user, Level.ARCHITECT)) {
-				e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You can not join while maintenance!");
+			if (EdgeCore.isMaintenance() && (!Level.canUse(user, Level.SUPPORTER) || !EdgeCore.getInvitedPlayers().contains(player.getName()))) {
+				e.disallow(null, ChatColor.RED + "Der Server befindet sich im Wartungsmodus!");
 			}
 		}
 	}

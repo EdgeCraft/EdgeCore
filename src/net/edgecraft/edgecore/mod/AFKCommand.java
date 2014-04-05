@@ -26,7 +26,7 @@ public class AFKCommand extends AbstractCommand {
 	
 	@Override
 	public String[] getNames() {
-		return new String[] { "afk", "back" };
+		return new String[] { "afk" };
 	}
 
 	@Override
@@ -42,25 +42,8 @@ public class AFKCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args)	throws Exception {
 		
-		if( args[0].equalsIgnoreCase( "afk" ) ) 
-		{
-			if ( afk.contains(player.getName() ) )
-				setBack( player.getName() );
-			else
-				setAfk(player.getName());
-
-			return true;
-		}
+		setAfk(player.getName());
 		
-		if( args[0].equalsIgnoreCase( "back" ) ) {
-			
-			if( afk.contains( player.getName() ) )
-				setBack(player.getName());
-
-			return true;
-		}
-		
-		sendUsage( player );
 		return true;
 	}
 
@@ -70,28 +53,31 @@ public class AFKCommand extends AbstractCommand {
 		sender.sendMessage(EdgeCore.usageColor + "/back");
 	}
 
-	private void setAfk( String user ) 
-	{
-		for( Player player : Bukkit.getOnlinePlayers() ) 
-		{
-			if ( !users.exists( player.getName() ) )
-				continue;
+	private void setAfk( String user ) {
+		
+		boolean isAfk = false;
+		
+		if (afk.contains(user)) {
 			
-			final User u = users.getUser( player.getName() );
-			player.sendMessage( lang.getColoredMessage( u.getLanguage(), "mod_afk").replace( "[0]", user ) );
+			afk.remove(user);
+			
+		} else {
+			
+			afk.add(user);
+			isAfk = true;
+			
 		}
 		
-	}
-	
-	private void setBack(String user) 
-	{
-		for( Player player : Bukkit.getOnlinePlayers() ) {
-			if (!users.exists(player.getName()))
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			if (!users.exists(p.getName()))
 				continue;
 			
-			final User u = users.getUser(player.getName());
-			player.sendMessage(lang.getColoredMessage(u.getLanguage(), "mod_afk_back").replace("[0]", user));
+			User u = users.getUser(p.getName());
+			
+			if (isAfk)
+				p.sendMessage(lang.getColoredMessage(u.getLang(), "mod_afk").replace("[0]", user));
+			else
+				p.sendMessage(lang.getColoredMessage(u.getLang(), "mod_afk_back").replace("[0]", user));
 		}
-		
 	}
 }

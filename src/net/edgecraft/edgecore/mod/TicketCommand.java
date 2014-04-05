@@ -46,7 +46,7 @@ public class TicketCommand extends AbstractCommand {
 		
 		if( !(sender instanceof Player) ) return;
 		
-		sender.sendMessage( EdgeCore.usageColor + "/ticket open title msg");
+		sender.sendMessage( EdgeCore.usageColor + "/ticket open <title> <message>");
 		
 		User u = users.getUser( ((Player)sender).getName() );
 		
@@ -55,8 +55,8 @@ public class TicketCommand extends AbstractCommand {
 		
 		sender.sendMessage( EdgeCore.usageColor + "/ticket" );        
         sender.sendMessage( EdgeCore.usageColor + "/ticket list" );
-        sender.sendMessage( EdgeCore.usageColor + "/ticket read ID" );
-        sender.sendMessage( EdgeCore.usageColor + "/ticket close ID" );	
+        sender.sendMessage( EdgeCore.usageColor + "/ticket read <ticket>" );
+        sender.sendMessage( EdgeCore.usageColor + "/ticket close <ticket>" );	
         return;
 	}
 
@@ -98,34 +98,38 @@ public class TicketCommand extends AbstractCommand {
         		return true;
         	}	
         }
+        		
+        // '/ticket'
+        if( args.length == 1 ) {
+        	if (!Level.canUse(user, Level.SUPPORTER)) {
+        		sendUsage(player);
+        		return true;
+        	}
+        	
+            try {
+                
+                int greatestID = tickets.amountOfTickets();
+                int amount = 0;
+                
+                for( int i = greatestID; i > 0; i-- ) {
+
+                        if( amount == TicketCommand.defaultAmountTickets ) return true;
+                        
+                        ++amount;
+                        player.sendMessage( tickets.getTicket(i).getGist() );
+                        
+                }
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+        
+        return true; 
+        }
         
         // All followig commands are TEAM-only
         if( !Level.canUse(user, Level.SUPPORTER) ) {
             player.sendMessage( lang.getColoredMessage(userLang, "nopermission") );
             return false;
-        }
-		
-        // '/ticket'
-        if( args.length == 1 ) {
-        	
-                try {
-                        
-                        int greatestID = tickets.amountOfTickets();
-                        int amount = 0;
-                        
-                        for( int i = greatestID; i > 0; i-- ) {
-
-                                if( amount == TicketCommand.defaultAmountTickets ) return true;
-                                
-                                ++amount;
-                                player.sendMessage( tickets.getTicket(i).getGist() );
-                                
-                        }
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
-                
-                return true; 
         }
         
         // '/ticket list'

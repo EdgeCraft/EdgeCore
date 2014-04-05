@@ -1,5 +1,7 @@
 package net.edgecraft.edgecore;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import net.edgecraft.edgecore.chat.ChatCommand;
@@ -51,6 +53,7 @@ public class EdgeCore extends JavaPlugin {
 	
 	private static String currency;
 	private static boolean maintenance;
+	private static List<String> invitedPlayers = new ArrayList<>();
 	
 	/**
 	 * Is used when the plugin is going to shut down
@@ -216,5 +219,25 @@ public class EdgeCore extends JavaPlugin {
 	 */
 	public void setMaintenance(boolean var) {
 		EdgeCore.maintenance = var;
+	}
+	
+	/**
+	 * Returns a list of all invited players
+	 * @return List<String>
+	 */
+	public static List<String> getInvitedPlayers() {
+		return EdgeCore.invitedPlayers;
+	}
+	
+	/**
+	 * Allows/Invites a player to join while maintenance
+	 * @param user
+	 * @param var
+	 */
+	public void invite(String user, boolean var) {
+		if (var)
+			invitedPlayers.add(user);
+		else
+			invitedPlayers.remove(user);
 	}
 }

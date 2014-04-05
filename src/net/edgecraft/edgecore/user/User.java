@@ -84,7 +84,7 @@ public class User {
 	
 	private void update( String var, Object obj ) throws Exception {
 		if( var != null && obj != null ) {
-			this.db.prepareUpdate("UPDATE " + UserManager.userTable + " SET " + var + " = '" + obj.toString() + "' WHERE id = '" + this.id + "';").executeUpdate();
+			this.db.prepareStatement("UPDATE " + UserManager.userTable + " SET " + var + " = '" + obj.toString() + "' WHERE id = '" + this.id + "';").executeUpdate();
 		}
 	}
 	

@@ -28,10 +28,7 @@ public class ManageChatListener implements Listener {
 		
 		if (!canChat.containsKey(e.getPlayer().getName()))
 			canChat.put(e.getPlayer().getName(), true);
-		
-		if (!EdgeCore.getChat().isChatEnabled())
-			e.setCancelled(true);
-		
+				
 		final Player p = e.getPlayer();		
 		final User user = userManager.getUser(p.getName());				
 		final String msg = e.getMessage();
@@ -40,7 +37,10 @@ public class ManageChatListener implements Listener {
 			e.setCancelled(true);
 			return;
 		}
-			
+		
+		if (!EdgeCore.getChat().isChatEnabled() && !Level.canUse(user, Level.SUPPORTER))
+			e.setCancelled(true);
+		
 		if (!canChat.get(p.getName()) && !Level.canUse(user, Level.SUPPORTER)) {
 				
 			p.sendMessage(lang.getColoredMessage(user.getLanguage(), "info_spam"));
@@ -119,11 +119,9 @@ public class ManageChatListener implements Listener {
 						.replace("[1]", user.getLevel().getColor() + user.getSuffix() + ChatColor.RESET).replace("[2]", p.getName())
 						.replace("[3]", msg));
 				
-			}
-			
-			ChatHandler.chatMessagesSent++;
-			
+			}			
 		}
 		
+		ChatHandler.chatMessagesSent = ChatHandler.getInstance().isChatEnabled() ? ChatHandler.chatMessagesSent++ : ChatHandler.chatMessagesSent + 0;
 	}
 }

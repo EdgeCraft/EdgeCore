@@ -38,15 +38,6 @@ public class DatabaseHandler {
 		return instance;
 	}
 	
-//	protected DatabaseHandler( String host, String user, String pw, String db ) {
-//
-//		setHost( host );
-//		setUser( user );
-//		setPW( pw );
-//		setDB( db );
-//	}
-
-	
 	/**
 	 * Establishes a database-connection with the given config.
 	 * 
@@ -74,8 +65,7 @@ public class DatabaseHandler {
 			e.printStackTrace();
 		}		
 	}
-	
-	
+		
 	/**
 	 * Establishes a database-connection with the local config.
 	 * 
@@ -83,9 +73,7 @@ public class DatabaseHandler {
 	public synchronized void loadConnection() {
 		loadConnection( getHost(), getUser(), getPW(), getDB() );
 	}
-	
-
-	
+		
 	/**
 	 * Closes the database-connection.
 	 * 
@@ -113,6 +101,7 @@ public class DatabaseHandler {
 	 * @param sql
 	 * @throws Exception
 	 */
+	@Deprecated
 	public synchronized PreparedStatement prepareQuery( String sql ) throws Exception {
 		return getConnection().prepareStatement(sql);
 	}
@@ -123,10 +112,21 @@ public class DatabaseHandler {
 	 * @param sql
 	 * @throws Exception
 	 */
+	@Deprecated
 	public synchronized PreparedStatement prepareUpdate( String sql ) throws Exception {
 		return getConnection().prepareStatement(sql);
 	}
 	
+	/**
+	 * Prepares a statement for the given command
+	 * 
+	 * @param sql
+	 * @return
+	 * @throws Exception
+	 */
+	public synchronized PreparedStatement prepareStatement( String sql ) throws Exception {
+		return getConnection().prepareStatement(sql);
+	}
 
 	/**
 	 * Returns all databases of the host.

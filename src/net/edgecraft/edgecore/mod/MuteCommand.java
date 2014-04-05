@@ -1,11 +1,9 @@
 package net.edgecraft.edgecore.mod;
 
-import java.util.Map;
-
 import net.edgecraft.edgecore.EdgeCore;
-import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
+import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
 
 import org.bukkit.command.CommandSender;
@@ -46,53 +44,74 @@ public class MuteCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args) {
-		
+	public boolean runImpl(Player player, User user, String[] args) {		
 		return mute(player, args);
 	}
-
+	
 	@Override
 	public boolean sysAccess(CommandSender sender, String[] args) {
 		return mute(sender, args);
 	}
 
 	private boolean mute(CommandSender sender, String[] args){
+		if (!validArgsRange(args)) {
+			sendUsage(sender);
+			return true;
+		}
 		
-		if( args[0].equalsIgnoreCase("mute") && args[1].equalsIgnoreCase("list") ) {
+		if (args[0].equalsIgnoreCase("mute")) {
 			
-			for( Map.Entry<Integer, User> entry : EdgeCoreAPI.userAPI().getUsers().entrySet() ) {
-				User cur = entry.getValue();
+			if (args[1].equalsIgnoreCase("list")) {
 				
-				if( cur.isMuted() )
-						sender.sendMessage( cur.getName() );
+				StringBuilder sb = new StringBuilder();
+				
+				for (User user : users.getUsers().values()) {
+					if (!user.isMuted())
+						continue;
+					
+					if (sb.length() > 0)
+						sb.append(", ");
+					
+					sb.append("¤6" + user.getName());
+				}
+				
+				sender.sendMessage("¤7Muted players:");
+				sender.sendMessage(sb.toString());
+				
+			} else {
+				
+				User target = users.getUser(args[1]);
+				
+				if (target == null) {
+					sender.sendMessage((sender instanceof Player ? lang.getColoredMessage(users.getUser(sender.getName()).getLang(), "notfound") 
+							: lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "notfound")));
+					
+					return true;
+				}
+				
+				target.setMuted(true);
+				sender.sendMessage("¤7Der Spieler ¤6" + args[1] + " ¤7wurde gemuted!");
 			}
 			
 			return true;
-		}
-		
-		User target = EdgeCoreAPI.userAPI().getUser( args[1] );
-		
-		if(target == null){
 			
-			sender.sendMessage(EdgeCore.errorColor + "Spieler ist nicht online!");
+		} else if(args[0].equalsIgnoreCase("unmute")) {
+			
+			User target = users.getUser(args[1]);
+			
+			if (target == null) {
+				sender.sendMessage((sender instanceof Player ? lang.getColoredMessage(users.getUser(sender.getName()).getLang(), "notfound") 
+						: lang.getColoredMessage(LanguageHandler.getDefaultLanguage(), "notfound")));
+				
+				return true;
+			}
+			
+			target.setMuted(false);
+			sender.sendMessage("¤7Der Spieler ¤6" + args[1] + " ¤7wurde entmuted!");
+			
 			return true;
 		}
 		
-		
-		if( args[0].equalsIgnoreCase("mute") ) { 
-			target.setMuted( true );
-			sender.sendMessage("Muted " + args[1] );
-			return true;
-		}
-		
-		else if( args[0].equalsIgnoreCase("unmute") ) {
-			target.setMuted( false );
-			sender.sendMessage("Unmuted " + args[1] );
-			return true;
-		}
-		
-		sendUsage( sender );
-		return true;
-	}
-	
+		return false;
+	}	
 }

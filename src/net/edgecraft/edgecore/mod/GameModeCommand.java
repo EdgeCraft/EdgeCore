@@ -8,6 +8,7 @@ import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -38,10 +39,8 @@ public class GameModeCommand extends AbstractCommand {
 	}
 
 	@Override
-	public void sendUsageImpl(CommandSender sender) {
-		
-		sender.sendMessage( EdgeCore.usageColor + "/gamemode [player] <mode>");
-		
+	public void sendUsageImpl(CommandSender sender) {		
+		sender.sendMessage( EdgeCore.usageColor + "/gamemode [player] <mode>");		
 	}
 
 	@Override
@@ -74,12 +73,6 @@ public class GameModeCommand extends AbstractCommand {
 		
 		return true;
 	}
-
-	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) {
-		sendUsage(sender);
-		return true;
-	}
 	
 	private void setGameMode(Player p, String mode) {
 		if (p == null || mode == null) return;
@@ -89,6 +82,21 @@ public class GameModeCommand extends AbstractCommand {
 		if (!Arrays.asList(validInput).contains(mode))
 			return;
 		
-		
+		if (mode.equals("survival") || mode.equals("s") || mode.equals("0")) {
+			
+			p.setGameMode(GameMode.SURVIVAL);
+			p.sendMessage("§aGameMode has been set to §6Survival");
+			
+		} else if(mode.equals("creative") || mode.equals("c") || mode.equals("1")) {
+			
+			p.setGameMode(GameMode.CREATIVE);
+			p.sendMessage("§aGameMode has been set to §6Creative");
+			
+		} else if(mode.equals("adventure") || mode.equals("a") || mode.equals("2")) {
+			
+			p.setGameMode(GameMode.ADVENTURE);
+			p.sendMessage("§aGameMode has been set to §6Adventure");
+			
+		}
 	}
 }

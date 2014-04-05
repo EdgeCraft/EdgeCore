@@ -64,7 +64,7 @@ public class DifficultyCommand extends AbstractCommand {
 		if( args[1].equalsIgnoreCase( "peaceful" ) ) {
 			
 			w.setDifficulty( Difficulty.PEACEFUL );			
-			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  "§ais §6PEACEFUL");
+			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  " §ais §6PEACEFUL");
 			
 			return true;
 		}
@@ -72,7 +72,7 @@ public class DifficultyCommand extends AbstractCommand {
 		if( args[1].equalsIgnoreCase( "easy" ) ) {
 			
 			w.setDifficulty( Difficulty.EASY );
-			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  "§ais §6EASY");
+			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  " §ais §6EASY");
 			
 			return true;
 		}
@@ -80,7 +80,7 @@ public class DifficultyCommand extends AbstractCommand {
 		if( args[1].equalsIgnoreCase( "normal" ) ) {
 			
 			w.setDifficulty( Difficulty.NORMAL );
-			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  "§ais §6NORMAL");
+			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  " §ais §6NORMAL");
 			
 			return true;
 		}
@@ -88,7 +88,7 @@ public class DifficultyCommand extends AbstractCommand {
 		if( args[1].equalsIgnoreCase( "hard" ) ) {
 			
 			w.setDifficulty( Difficulty.HARD );
-			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  "§ais §6HARD");
+			player.sendMessage("§aNew Difficulty of world §6" + w.getName() +  " §ais §6HARD");
 			
 			return true;
 		}

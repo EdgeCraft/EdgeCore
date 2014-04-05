@@ -58,7 +58,7 @@ public class BanCommand extends AbstractCommand {
 			ban.updateBanReason( args[2] );
 			
 			if (Bukkit.getPlayer(args[1]) != null)
-				Bukkit.getPlayer(args[1]).kickPlayer("§c" + args[2]);
+				Bukkit.getPlayer(args[1]).kickPlayer("¤c" + args[2]);
 			
 			return true;
 		}

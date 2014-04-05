@@ -1,7 +1,7 @@
 name: EdgeCore
-version: beta_3.7
+version: beta_4.1
 author: Panjab
-authors: [lush,horoking,Exodevil]
+authors: [lush,horoking,Exodevil, ase34]
 website: http://edgecraft.de
 
 load: STARTUP
