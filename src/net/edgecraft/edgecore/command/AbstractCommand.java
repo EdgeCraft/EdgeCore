@@ -12,9 +12,7 @@ import net.edgecraft.edgecore.user.UserManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-
 public abstract class AbstractCommand {
-
 	
 	protected static final UserManager users = EdgeCoreAPI.userAPI();
 	protected static final LanguageHandler lang = EdgeCoreAPI.languageAPI();
@@ -25,8 +23,8 @@ public abstract class AbstractCommand {
 	protected static final ChatHandler chats = EdgeCoreAPI.chatAPI();
 	
 	public abstract String[] getNames();
-	public abstract Level getLevel();
-	
+//	public abstract String[] getArguments();
+	public abstract Level getLevel();	
 	
 	public abstract boolean validArgsRange( String[] args );
 	public abstract boolean runImpl( Player player, User user, String[] args ) throws Exception; // Access through Player
@@ -70,7 +68,6 @@ public abstract class AbstractCommand {
 			return sysAccess(sender, args);
 		}
 		
-		
 		Player player = (Player) sender;
 		User user = users.getUser(player.getName());
 		
@@ -80,6 +77,11 @@ public abstract class AbstractCommand {
 			sender.sendMessage( lang.getColoredMessage(user.getLanguage(), "nopermission"));
 			return false;
 		}
+		
+//		for (String s : args) {
+//			if (!Arrays.asList(getArguments()).contains(s))
+//				sender.sendMessage(lang.getColoredMessage(user.getLanguage(), "commandexception"));
+//		}
 		
 		return runImpl( player, user, args );
 			
