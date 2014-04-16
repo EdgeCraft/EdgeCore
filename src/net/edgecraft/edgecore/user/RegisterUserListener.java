@@ -25,8 +25,8 @@ public class RegisterUserListener implements Listener {
 		if (!this.userManager.exists(player.getName())) {
 			try {
 				
-				this.userManager.registerUser(player.getName(), player.getAddress().toString());
-				User user = this.userManager.getUser(player.getName());
+				this.userManager.registerUser(player);
+				User user = this.userManager.getUser(player.getUniqueId());
 				
 		        player.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "registration_success"));
 		        player.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "registration_help"));				

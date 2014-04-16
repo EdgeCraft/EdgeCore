@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.Level;
@@ -20,7 +21,7 @@ public class UserManager {
 	
 	public final static String userTable = "edgecore_users";
 	
-	private static Map<Integer, User> users = new LinkedHashMap<>();
+	private static Map<UUID, User> users = new LinkedHashMap<>();
 	private static List<String> bannedIPs = new ArrayList<>();
 	
 	private static int defaultLevel;
@@ -41,12 +42,12 @@ public class UserManager {
 	 * @param name
 	 * @param ip
 	 */
-	public void registerUser(String name, String ip) {
+	public void registerUser(Player p) {
 		try {
 			
-			if (exists(name)) return;
+			if (exists(p.getName()) || exists(p.getUniqueId())) return;
 			
-			int id = generateID();
+			String uuid = p.getUniqueId().toString();
 			String lastloc = Bukkit.getWorlds().get(0).getName() + "," +
 					Bukkit.getWorlds().get(0).getSpawnLocation().getBlockX() + "," +
 					Bukkit.getWorlds().get(0).getSpawnLocation().getBlockY() + "," +
@@ -54,31 +55,23 @@ public class UserManager {
 					Bukkit.getWorlds().get(0).getSpawnLocation().getYaw() + "," +
 					Bukkit.getWorlds().get(0).getSpawnLocation().getPitch();
 			
-			PreparedStatement registerUser = db.prepareStatement("INSERT INTO " + UserManager.userTable + " (id, name, ip, level, lastlocation, prefix, suffix, language, banned, banreason) VALUES (?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT);");
-			registerUser.setInt(1, id);
-			registerUser.setString(2, name);
-			registerUser.setString(3, ip);
+			PreparedStatement registerUser = db.prepareStatement("INSERT INTO " + UserManager.userTable + " (uuid, name, ip, level, lastlocation, prefix, suffix, banned, banreason, muted, mutereason) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT, DEFAULT);");
+			
+			registerUser.setString(1, uuid);
+			registerUser.setString(2, p.getName());
+			registerUser.setString(3, p.getAddress().getAddress().getHostAddress());
 			registerUser.setInt(4, getDefaultLevel());
 			registerUser.setString(5, lastloc);
 			registerUser.setString(6, "");
 			registerUser.setString(7, "");
 			registerUser.executeUpdate();
 			
-			synchronizeUser(id);
+			synchronizeUser(p.getUniqueId());
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Redirects the given player parameter to @link{registerUser(String name, String ip)}
-	 * @param p
-	 */
-	public void registerUser(Player p) {
-		if (p == null) return;
-		
-		registerUser(p.getName(), p.getAddress().toString());
 	}
 	
 	/**
@@ -86,44 +79,23 @@ public class UserManager {
 	 * (local + db)
 	 * @param id
 	 */
-	public void deleteUser(int id) {
+	public void deleteUser(UUID uuid) {
 		try {
 			
-			PreparedStatement deleteUser = db.prepareStatement("DELETE FROM " + UserManager.userTable + " WHERE id = '" + id + "';");
+			PreparedStatement deleteUser = db.prepareStatement("DELETE FROM " + UserManager.userTable + " WHERE uuid = '" + uuid.toString() + "';");
 			deleteUser.executeUpdate();
 			
-			users.remove(id);
+			users.remove(uuid);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	/**
-	 * Generates a possible user-id.
-	 * @return
-	 * @throws Exception
-	 */
-	public int generateID() throws Exception {
-		if (amountOfUsers() <= 0) return 1;
-		
-		return greatestID() + 1;
+	public void deleteUser(String name) {
+		deleteUser(getUser(name).getUUID());
 	}
-	
-	/**
-	 * Returns the greatest user-id.
-	 * @return
-	 * @throws Exception
-	 */
-	public int greatestID() throws Exception {
-		List<Map<String, Object>> tempVar = db.getResults("SELECT COUNT(id) AS amount FROM " + UserManager.userTable);
-		int tempID = Integer.parseInt(String.valueOf(tempVar.get(0).get("amount")));
 		
-		if (tempID <= 0) return 1;
-
-		return tempID;
-	}
-	
 	/**
 	 * Returns the current amount of users.
 	 * @return
@@ -146,7 +118,7 @@ public class UserManager {
 	    StringBuilder sb = new StringBuilder();
 	    
 	    for (Player p : Bukkit.getOnlinePlayers()) {
-	    	if (!exists(p.getName()))
+	    	if (!exists(p.getUniqueId()))
 	    		continue;
 	    	
 	    	if (sb.length() > 0)
@@ -161,73 +133,70 @@ public class UserManager {
 	}
 	
 	/**
+	 * Checks whether the given user in already in use
+	 * @param user
+	 * @return true/false
+	 */
+	public boolean exists(User user) {
+		return users.containsValue(user);
+	}
+	
+	/**
 	 * Checks whether the given id is already in use. 
 	 * @param id
 	 * @return true/false
 	 */
-	public boolean exists(int id) {
-		return users.containsKey(id);
+	public boolean exists(UUID uuid) {
+		return users.containsKey(uuid);
 	}
 	
 	
 	/**
 	 * Checks whether the given name is already in use.
 	 * @param name
-	 * @return
+	 * @return true/false
 	 */
 	public boolean exists(String name) {
 		return getUser(name) != null;
 	}
 	
 	/**
-	 * Returns the user registered with the given id.
-	 * @param id
-	 * @return
+	 * Returns the user connected with the given UUID
+	 * @param uuid
+	 * @return User
 	 */
-	public User getUser(int id) {
-		return users.get(id);
+	public User getUser(UUID uuid) {
+		return users.get(uuid);
 	}
 	
 	/**
 	 * Return the user registered with the given name.
 	 * @param name
-	 * @return
+	 * @return User
 	 */
 	public User getUser(String name) {
 		
-		int id = 0;
-		
-		for (Map.Entry<Integer, User> entry : users.entrySet()) {
-			User searchFor = entry.getValue();
-			
-			if (searchFor.getName().equals(name)) {
-				id = searchFor.getID();
-				break;
-			}
+		for (User user : users.values()) {
+			if (user.getName().equals(name))
+				return user;
 		}
 		
-		return users.get(id);
+		return null;
 	}
 	
 	/**
 	 * Returns the user registered with the given IP-Token.
 	 * @param ip
-	 * @return
+	 * @return User
 	 */
 	public User getUserByIP(String ip) {
 		
-		int id = 0;
-		
-		for (Map.Entry<Integer, User> entry : users.entrySet()) {
-			User searchFor = entry.getValue();
-			
-			if (searchFor.getIP().equals(ip)) {
-				id = searchFor.getID();
-				break;
-			}
+		for (User user : users.values())  {
+			if (user.getIP().equals(ip))
+				return user;
 		}
 		
-		return users.get(id);
+		return null;
 	}
 	
 	/**
@@ -236,8 +205,8 @@ public class UserManager {
 	public void synchronizeUsers() {
 		try {
 			
-			for (int i = 1; i <= greatestID(); i++) {
-				synchronizeUser(i);
+			for (UUID uuid : users.keySet()) {
+				synchronizeUser(uuid);
 			}
 			
 		} catch(Exception e) {
@@ -246,14 +215,13 @@ public class UserManager {
 	}
 	
 	/**
-	 * Synchronizes the user given through his id.
-	 * ( db --> local )
-	 * @param id
+	 * Synchronizes the user connected with the given UUID
+	 * @param uuid
 	 */
-	public void synchronizeUser(int id) {
+	public void synchronizeUser(UUID uuid) {
 		try {
 			
-			List<Map<String, Object>> results = db.getResults("SELECT * FROM " + UserManager.userTable + " WHERE id = '" + id + "';");
+			List<Map<String, Object>> results = db.getResults("SELECT * FROM " + UserManager.userTable + " WHERE uuid = '" + uuid.toString() + "';");
 			
 			for (int i = 0; i < results.size(); i++) {
 				
@@ -261,8 +229,8 @@ public class UserManager {
 				
 				for (Map.Entry<String, Object> entry : results.get(i).entrySet()) {
 					
-					if (entry.getKey().equals("id")) {
-						user.setID(Integer.valueOf(entry.getValue().toString()));
+					if (entry.getKey().equals("uuid")) {
+						user.setUUID(UUID.fromString(entry.getValue().toString()));
 						
 					} else if(entry.getKey().equals("name")) {
 						user.setName(entry.getValue().toString());
@@ -270,8 +238,8 @@ public class UserManager {
 					} else if(entry.getKey().equals("ip")) {
 						user.setIP(entry.getValue().toString());
 						
-					} else if(entry.getKey().equals("level")) {						
-						user.setLevel( Level.getInstance(Integer.valueOf(entry.getValue().toString())) );
+					} else if(entry.getKey().equals("level")) {
+						user.setLevel(Level.getInstance(Integer.valueOf(entry.getValue().toString())));
 						
 					} else if(entry.getKey().equals("lastlocation")) {
 						String locString = entry.getValue().toString();
@@ -301,10 +269,18 @@ public class UserManager {
 						
 					} else if(entry.getKey().equals("banreason")) {
 						user.setBanReason(entry.getValue().toString());
-					}
+						
+					} else if(entry.getKey().equals("muted")) {
+						boolean b = ((Boolean) entry.getValue()).booleanValue();
+						user.setMuted(b);
+						
+					}  else if(entry.getKey().equals("mutereason")) {
+						user.setMuteReason(entry.getValue().toString());
+						
+					}					
 				}
 				
-				users.put(user.getID(), user);
+				users.put(user.getUUID(), user);
 			}
 			
 		} catch(Exception e) {
@@ -317,7 +293,7 @@ public class UserManager {
 	 * (local)
 	 * @return
 	 */
-	public Map<Integer, User> getUsers() {
+	public Map<UUID, User> getUsers() {
 		return users;
 	}
 
@@ -347,10 +323,6 @@ public class UserManager {
 		UserManager.defaultLevel = defaultLevel;
 	}
 	
-	public boolean exists( User u ) {
-		return users.containsValue( u );
-	}
-	
 	public void notify( User u, String msg ) {
 		
 		if( u == null || msg == null ) return;
@@ -364,23 +336,19 @@ public class UserManager {
 		
 	}
 	
-	public void notifyAll( Level level, String msg ) {
-		
+	public void notifyAll( Level level, String msg ) {		
 		if( level == null || msg == null ) return;
 		
-		for( Map.Entry<Integer, User> entry : users.entrySet() ) {
+		for (User user : users.values()) {
 			
-			User cur = entry.getValue();
-			Player p = cur.getPlayer();
+			Player p = user.getPlayer();
 			
-			if( p == null ) return;
+			if (p == null) continue;
 			
-			if( Level.canUse( cur, level) ) {
+			if (Level.canUse(user, level)) {
 				p.sendMessage( msg );
 			}
-			
 		}
-		
 	}
 	
 }

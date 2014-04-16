@@ -44,16 +44,11 @@ public class MuteCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean runImpl(Player player, User user, String[] args) {		
+	public boolean runImpl(Player player, User user, String[] args) throws Exception {		
 		return mute(player, args);
 	}
-	
-	@Override
-	public boolean sysAccess(CommandSender sender, String[] args) {
-		return mute(sender, args);
-	}
 
-	private boolean mute(CommandSender sender, String[] args){
+	private boolean mute(CommandSender sender, String[] args) throws Exception {
 		if (!validArgsRange(args)) {
 			sendUsage(sender);
 			return true;
@@ -72,10 +67,10 @@ public class MuteCommand extends AbstractCommand {
 					if (sb.length() > 0)
 						sb.append(", ");
 					
-					sb.append("¤6" + user.getName());
+					sb.append("§6" + user.getName());
 				}
 				
-				sender.sendMessage("¤7Muted players:");
+				sender.sendMessage("§7Muted players:");
 				sender.sendMessage(sb.toString());
 				
 			} else {
@@ -89,8 +84,8 @@ public class MuteCommand extends AbstractCommand {
 					return true;
 				}
 				
-				target.setMuted(true);
-				sender.sendMessage("¤7Der Spieler ¤6" + args[1] + " ¤7wurde gemuted!");
+				target.mute(true);
+				sender.sendMessage("§7Der Spieler §6" + args[1] + " §7wurde gemuted!");
 			}
 			
 			return true;
@@ -106,8 +101,8 @@ public class MuteCommand extends AbstractCommand {
 				return true;
 			}
 			
-			target.setMuted(false);
-			sender.sendMessage("¤7Der Spieler ¤6" + args[1] + " ¤7wurde entmuted!");
+			target.mute(false);
+			sender.sendMessage("§7Der Spieler §6" + args[1] + " §7wurde entmuted!");
 			
 			return true;
 		}

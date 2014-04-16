@@ -6,6 +6,7 @@ import java.util.List;
 import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.lang.LanguageHandler;
 import net.edgecraft.edgecore.user.User;
+import net.edgecraft.edgecore.user.UserManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -26,6 +27,7 @@ public class Channel {
 	
 	private final ChatHandler chatHandler = EdgeCoreAPI.chatAPI();
 	private final LanguageHandler lang = EdgeCoreAPI.languageAPI();
+	private final UserManager users = EdgeCoreAPI.userAPI();
 
 	public static final String defaultAdmin = "Admin";
 	
@@ -112,10 +114,10 @@ public class Channel {
 	public void send(String player, String message) {
 		
 		for (User user : getChannelMembers()) {
-			if (Bukkit.getPlayerExact(player) != null) {
-				if (Bukkit.getPlayerExact(player).getItemInHand().getType() != getRequiredItem()) {
+			if (Bukkit.getPlayer(users.getUser(player).getUUID()) != null) {
+				if (Bukkit.getPlayer(users.getUser(player).getUUID()).getItemInHand().getType() != getRequiredItem()) {
 					
-					Bukkit.getPlayerExact(player).sendMessage(lang.getColoredMessage(user.getLanguage(), "channel_invaliditem"));
+					Bukkit.getPlayer(users.getUser(player).getUUID()).sendMessage(lang.getColoredMessage(user.getLanguage(), "channel_invaliditem"));
 					return;
 					
 				}

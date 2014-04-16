@@ -44,49 +44,19 @@ public class UserCommand extends AbstractCommand {
 		
 		String userLang = user.getLanguage();
 		
-		if (args[1].equalsIgnoreCase("register")) {
-			
-			if ( args.length != 3 ) {
-				player.sendMessage(lang.getColoredMessage(userLang, "argumentexception"));
-				return false;
-			}
-
-			if (users.exists(args[2])) {
-				player.sendMessage(lang.getColoredMessage(userLang, "user_register_alreadyexists").replace("[0]", args[2]));
-				return false;
-			}
-
-			users.registerUser(args[2], args[3]);
-			User user_ = users.getUser(args[2]);
-
-			player.sendMessage(lang.getColoredMessage(userLang, "user_register_success").replace("[0]", user_.getID() + "").replace("[1]", user_.getName()).replace("[2]", user_.getIP()));
-
-			return true;
-		}
-		
 		if (args[1].equalsIgnoreCase("delete")) {
 			if ( args.length != 3) {
 				player.sendMessage(lang.getColoredMessage(userLang, "argumentexception"));
 				return false;
 			}
 
-			try {
-				
-				int id = Integer.parseInt(args[2]);
-
-				if (!users.exists(id)) {
-					player.sendMessage(lang.getColoredMessage(userLang, "notfound"));
-					return false;
-				}
-				
-				String name = users.getUser(id).getName();
-
-				users.deleteUser(id);
-				player.sendMessage(lang.getColoredMessage(userLang, "user_delete_success").replace("[0]", name));
-				
-			} catch (NumberFormatException e) {
-				player.sendMessage(lang.getColoredMessage(userLang, "numberformatexception"));
+			if (!users.exists(args[2])) {
+				player.sendMessage(lang.getColoredMessage(userLang, "notfound"));
+				return false;
 			}
+
+			users.deleteUser(users.getUser(args[2]).getUUID());
+			player.sendMessage(lang.getColoredMessage(userLang, "user_delete_success").replace("[0]", args[2]));
 
 			return true;
 		}
@@ -97,7 +67,7 @@ public class UserCommand extends AbstractCommand {
 				player.sendMessage(lang.getColoredMessage(userLang, "argumentexception"));
 				return false;
 			}
-
+			
 			if (!users.exists(args[2])) {
 				player.sendMessage(lang.getColoredMessage(userLang, "user_exists_false").replace("[0]", args[2]));
 				return false;
@@ -120,12 +90,12 @@ public class UserCommand extends AbstractCommand {
 			if( args.length != 3 ) return true;
 			
 				
-			if (!users.exists(args[1])) {
+			if (!users.exists(args[2])) {
 				player.sendMessage(lang.getColoredMessage(userLang, "notfound"));
 				return false;
 			}
 
-			users.synchronizeUser(users.getUser(args[2]).getID());
+			users.synchronizeUser(users.getUser(args[1]).getUUID());
 			player.sendMessage(lang.getColoredMessage(userLang, "user_reload_success").replace("[0]", args[2]));
 
 			return true;
@@ -149,8 +119,7 @@ public class UserCommand extends AbstractCommand {
 	@Override
 	public void sendUsageImpl(CommandSender sender) {
 		
-		sender.sendMessage(EdgeCore.usageColor + "/user register <name>");
-		sender.sendMessage(EdgeCore.usageColor + "/user delete <id>");
+		sender.sendMessage(EdgeCore.usageColor + "/user delete <user>");
 		sender.sendMessage(EdgeCore.usageColor + "/user exists <user>");
 		sender.sendMessage(EdgeCore.usageColor + "/user reload [<user>]");
 		sender.sendMessage(EdgeCore.usageColor + "/user amount");

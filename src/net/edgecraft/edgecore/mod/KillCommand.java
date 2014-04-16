@@ -45,7 +45,13 @@ public class KillCommand extends AbstractCommand {
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
 		
-		Bukkit.getPlayerExact( args[1] ).setHealth( 0 );
+		if (Bukkit.getPlayer(users.getUser(args[1]).getUUID()) == null) {
+			player.sendMessage(lang.getColoredMessage(user.getLang(), "notfound"));
+			return true;
+		}
+		
+		Bukkit.getPlayer(users.getUser(args[1]).getUUID()).setHealth(0);
+		
 		return true;
 	}
 

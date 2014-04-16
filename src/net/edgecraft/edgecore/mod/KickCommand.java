@@ -37,13 +37,19 @@ public class KickCommand extends AbstractCommand {
 	@Override
 	public void sendUsageImpl(CommandSender sender) {	
 		
-		sender.sendMessage( EdgeCore.usageColor + "/kick <name>");
+		sender.sendMessage( EdgeCore.usageColor + "/kick <name> [<reason>]");
 	}
 
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) {
 		
-		Bukkit.getPlayerExact( args[1] ).kickPlayer("You were kicked.");
+		if (Bukkit.getPlayer(users.getUser(args[1]).getUUID()) == null) {
+			player.sendMessage(lang.getColoredMessage(user.getLang(), "notfound"));
+			return true;
+		}
+		
+		Bukkit.getPlayer(users.getUser(args[1]).getUUID()).kickPlayer("§cDu wurdest gekickt!");
+		
 		return true;
 	}
 

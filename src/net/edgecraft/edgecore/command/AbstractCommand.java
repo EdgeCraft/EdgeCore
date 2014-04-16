@@ -59,7 +59,7 @@ public abstract class AbstractCommand {
 		sendUsageImpl( sender );
 	}
 	
-	public final boolean run( CommandSender sender, String[] args ) throws Exception {
+	public boolean run( CommandSender sender, String[] args ) throws Exception {
 		
 		if( !validArgsRange( args ) ) {
 			sendUsage(sender);

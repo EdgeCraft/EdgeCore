@@ -82,7 +82,7 @@ public class MaintenanceCommand extends AbstractCommand {
 				return true;
 			}
 			
-			if (EdgeCore.getInvitedPlayers().contains(args[1])) {
+			if (!EdgeCore.getInvitedPlayers().contains(args[1])) {
 				
 				EdgeCore.getInstance().invite(args[1], true);
 				player.sendMessage(EdgeCore.sysColor + "Der Spieler " + ChatColor.GOLD + args[1] + ChatColor.GREEN + " wurde eingeladen!");
@@ -92,8 +92,8 @@ public class MaintenanceCommand extends AbstractCommand {
 				EdgeCore.getInstance().invite(args[1], false);
 				player.sendMessage(EdgeCore.sysColor + "Der Spieler " + ChatColor.GOLD + args[1] + ChatColor.GREEN + " wurde ausgeladen!");
 				
-				if (Bukkit.getPlayer(args[1]) != null)
-					Bukkit.getPlayer(args[1]).kickPlayer(ChatColor.RED + "Du wurdest ausgeladen!");
+				if (Bukkit.getPlayer(users.getUser(args[1]).getUUID()) != null)
+					Bukkit.getPlayer(users.getUser(args[1]).getUUID()).kickPlayer(ChatColor.RED + "Du wurdest ausgeladen!");
 			}
 			
 			return true;
@@ -147,8 +147,8 @@ public class MaintenanceCommand extends AbstractCommand {
 				EdgeCore.getInstance().invite(args[1], false);
 				sender.sendMessage(EdgeCore.sysColor + "Der Spieler " + ChatColor.GOLD + args[1] + ChatColor.GREEN + " wurde ausgeladen!");
 				
-				if (Bukkit.getPlayer(args[1]) != null)
-					Bukkit.getPlayer(args[1]).kickPlayer(ChatColor.RED + "Du wurdest ausgeladen!");
+				if (Bukkit.getPlayer(users.getUser(args[1]).getUUID()) != null)
+					Bukkit.getPlayer(users.getUser(args[1]).getUUID()).kickPlayer(ChatColor.RED + "Du wurdest ausgeladen!");
 			}
 			
 			return true;

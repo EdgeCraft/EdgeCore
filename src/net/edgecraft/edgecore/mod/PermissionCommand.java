@@ -79,10 +79,8 @@ public class PermissionCommand extends AbstractCommand {
 			return true;
 		}
 		
-		if( args[1].equalsIgnoreCase( "getcmdlevel" ) )
-		{
-			if( args.length != 3 )
-			{
+		if( args[1].equalsIgnoreCase( "getcmdlevel" ) ) {
+			if( args.length != 3 ) {
 				sendUsage( sender );
 				return true;
 			}
@@ -117,8 +115,7 @@ public class PermissionCommand extends AbstractCommand {
 				final User user = users.getUser(args[2]);
 				int level = Integer.parseInt(args[3]);
 			
-				if( user == null )
-				{
+				if( user == null ) {
 					sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName() ).getLang(), "notfound" ) );
 				}
 				
@@ -138,19 +135,18 @@ public class PermissionCommand extends AbstractCommand {
 			
 			final User u = users.getUser( name );
 			
-			if( u == null )
-			{
+			if( u == null ) {
 				sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName()).getLang(), "notfound" ) );
-				return false;
+				return true;
 			}
 			
 			u.updateLevel( Level.getInstance(level) );
 			u.updatePrefix(u.getLevel().getName());
 			
-			if (Bukkit.getPlayer(name) != null)
-				Bukkit.getPlayer(name).setPlayerListName(u.getLevel().getColor() + name);
+			if (Bukkit.getPlayer(users.getUser(name).getUUID()) != null)
+				Bukkit.getPlayer(users.getUser(name).getUUID()).setPlayerListName(u.getLevel().getColor() + name);
 			
-			sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName() ).getLang(), "level_update_succes" ) );
+			sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName() ).getLang(), "mod_permission_setlevel_success" ) );
 		
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -167,14 +163,15 @@ public class PermissionCommand extends AbstractCommand {
 		return true;
 	}
 	
-	private boolean getCmdRank( CommandSender sender, String cmdName )
-	{
+	private boolean getCmdRank( CommandSender sender, String cmdName ) {
+		
 		final AbstractCommand cmd = commands.getCommand( cmdName );
-		if( cmd == null )
-		{
+		
+		if( cmd == null ) {
 			sender.sendMessage( lang.getColoredMessage( users.getUser(sender.getName()).getLang(), "cmd_not_found" ) );
-			return false;
+			return true;
 		}
+		
 		sender.sendMessage( ChatColor.GREEN + "Rank: " + cmd.getLevel().toString() );
 		return true;
 	}

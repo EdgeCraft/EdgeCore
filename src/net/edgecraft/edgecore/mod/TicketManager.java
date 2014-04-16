@@ -160,15 +160,12 @@ public class TicketManager {
 	
 	public void notifyAll( Level level, Ticket t ) {
 		
-		for( Map.Entry<Integer, User> entry : EdgeCoreAPI.userAPI().getUsers().entrySet() ) {
+		for (User user : EdgeCoreAPI.userAPI().getUsers().values()) {
 			
-			User cur = entry.getValue();
+			if (dontNotify.contains(user)) continue;
 			
-			if( dontNotify.contains( cur ) ) continue;
-			
-			if( Level.canUse( cur , level) ) {
-				notify( cur, t);
-			}
+			if (Level.canUse(user, level))
+				notify(user, t);
 		}
 		
 	}

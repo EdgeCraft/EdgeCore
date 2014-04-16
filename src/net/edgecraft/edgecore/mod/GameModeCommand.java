@@ -59,7 +59,7 @@ public class GameModeCommand extends AbstractCommand {
 		
 		if (args.length == 3) {
 			
-			Player target = Bukkit.getPlayer(args[1]);
+			Player target = Bukkit.getPlayer(users.getUser(args[1]).getUUID());
 			
 			if (target == null) {
 				player.sendMessage(lang.getColoredMessage(user.getLanguage(), "notfound"));

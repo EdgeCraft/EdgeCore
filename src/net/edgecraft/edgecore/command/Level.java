@@ -18,10 +18,11 @@ public enum Level {
 	 */
 	GUEST(0, "[Gast]", ChatColor.GRAY),
 	USER(1, "", ChatColor.WHITE),
+	BETA(2, "[Beta]", ChatColor.ITALIC),
 	SUPPORTER(5, "[Supporter]", ChatColor.GOLD),
 	ARCHITECT(7, "[Architekt]", ChatColor.DARK_GREEN),
 	MODERATOR(10, "[Moderator]", ChatColor.BLUE),
-	DEVELOPER(15, "[Entwickler]", ChatColor.DARK_AQUA),
+	DEVELOPER(15, "[Dev]", ChatColor.DARK_AQUA),
 	ADMIN(20, "[Admin]", ChatColor.DARK_RED);
 	
 	private int level;

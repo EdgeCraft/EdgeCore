@@ -30,15 +30,16 @@ public class PlayerConnectionListener implements Listener {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerLogin(PlayerJoinEvent event) {
 		
+		event.setJoinMessage("");
+		
 		try {
 			
-			event.setJoinMessage("");
 			Player player = event.getPlayer();
 			User u = users.getUser(player.getName());
 			
 			player.sendMessage(ChatColor.translateAlternateColorCodes('&', EdgeCore.getInstance().getConfig().getString("General.MOTD")));
 			
-			if (u != null)
+			if( u != null)
 				player.setPlayerListName(u.getLevel().getColor() + player.getName());
 			
 			for (Player p : Bukkit.getOnlinePlayers()) {
@@ -143,6 +144,11 @@ public class PlayerConnectionListener implements Listener {
 			if (EdgeCore.isMaintenance() && (!Level.canUse(user, Level.SUPPORTER) || !EdgeCore.getInvitedPlayers().contains(player.getName()))) {
 				e.disallow(null, ChatColor.RED + "Der Server befindet sich im Wartungsmodus!");
 			}
+			
+		} else {
+			
+			e.disallow(null, ChatColor.RED + "Fatal Error while registering user in database.\nPlease contact an administrator!");
+			
 		}
 	}
 }
