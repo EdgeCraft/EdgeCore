@@ -48,7 +48,7 @@ public class PlayerConnectionListener implements Listener {
 				if (this.users.exists(p.getName())) {
 					
 					User user = this.users.getUser(p.getName());
-					user.updateIP(p.getAddress().toString());
+					user.updateIP(p.getAddress().getAddress().getHostAddress());
 					
 					p.sendMessage(this.lang.getColoredMessage(user.getLanguage(), "login").replace("[0]", player.getName()));
 					
@@ -103,7 +103,7 @@ public class PlayerConnectionListener implements Listener {
 		
 		if (!users.exists(e.getPlayer().getName())) {
 			
-			joinIP = e.getPlayer().getAddress().toString();
+			joinIP = e.getPlayer().getAddress().getAddress().getHostAddress();
 			
 		} else {
 			
@@ -144,10 +144,6 @@ public class PlayerConnectionListener implements Listener {
 			if (EdgeCore.isMaintenance() && (!Level.canUse(user, Level.SUPPORTER) || !EdgeCore.getInvitedPlayers().contains(player.getName()))) {
 				e.disallow(null, ChatColor.RED + "Der Server befindet sich im Wartungsmodus!");
 			}
-			
-		} else {
-			
-			e.disallow(null, ChatColor.RED + "Fatal Error while registering user in database.\nPlease contact an administrator!");
 			
 		}
 	}

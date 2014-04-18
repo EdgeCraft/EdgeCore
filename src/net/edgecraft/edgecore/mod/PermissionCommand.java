@@ -47,19 +47,14 @@ public class PermissionCommand extends AbstractCommand {
 			sender.sendMessage( EdgeCore.usageColor + "/permission getcmdlevel <cmd>");
 			return;
 	}
-
-	@Override
-	public boolean sysAccess( CommandSender sender, String[] args) {
-		return permission(sender, args, true);
-	}
 	
 	@Override
 	public boolean runImpl(Player player, User user, String[] args) throws NumberFormatException, Exception {
-		return permission(player, args, false);
+		return permission(player, args);
 		
 	}
 	
-	private boolean permission( CommandSender sender, String[] args, boolean console ) 
+	private boolean permission( CommandSender sender, String[] args) 
 	{
 		final User player = users.getUser( sender.getName() );
 		
@@ -114,9 +109,15 @@ public class PermissionCommand extends AbstractCommand {
 				
 				final User user = users.getUser(args[2]);
 				int level = Integer.parseInt(args[3]);
-			
+				
 				if( user == null ) {
 					sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName() ).getLang(), "notfound" ) );
+					return false;
+				}
+				
+				if ( Level.getInstance(level) == null) {
+					sender.sendMessage(lang.getColoredMessage(users.getUser( sender.getName() ).getLang(), "mod_permission_setlevel_nolevel"));
+					return false;
 				}
 				
 				setRank( sender, user.getName(), level );
@@ -146,7 +147,7 @@ public class PermissionCommand extends AbstractCommand {
 			if (Bukkit.getPlayer(users.getUser(name).getUUID()) != null)
 				Bukkit.getPlayer(users.getUser(name).getUUID()).setPlayerListName(u.getLevel().getColor() + name);
 			
-			sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName() ).getLang(), "mod_permission_setlevel_success" ) );
+			sender.sendMessage( lang.getColoredMessage( users.getUser( sender.getName() ).getLang(), "mod_permission_setlevel_success" ).replace("[0]", name).replace("[1]", Level.getInstance(level).getRawName()) );
 		
 		} catch(Exception e) {
 			e.printStackTrace();

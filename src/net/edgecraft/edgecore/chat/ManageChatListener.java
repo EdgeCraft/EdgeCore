@@ -6,6 +6,7 @@ import java.util.Map;
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.lang.LanguageHandler;
+import net.edgecraft.edgecore.mod.AFKCommand;
 import net.edgecraft.edgecore.user.User;
 import net.edgecraft.edgecore.user.UserManager;
 
@@ -41,10 +42,14 @@ public class ManageChatListener implements Listener {
 		if (!EdgeCore.getChat().isChatEnabled() && !Level.canUse(user, Level.SUPPORTER))
 			e.setCancelled(true);
 		
+		if (AFKCommand.afk.contains(user.getName()))
+			AFKCommand.getInstance().setAfk(user.getName());
+		
 		if (!canChat.get(p.getName()) && !Level.canUse(user, Level.SUPPORTER)) {
 				
 			p.sendMessage(lang.getColoredMessage(user.getLanguage(), "info_spam"));
 			e.setCancelled(true);
+			
 		} else {
 			
 			canChat.put(p.getName(), false);
@@ -54,7 +59,8 @@ public class ManageChatListener implements Listener {
 					canChat.put(p.getName(), true);
 				}
 				
-			}, 20L);
+			}, 10L);
+			
 		}
 			
 		if(user.isMuted()){
@@ -85,7 +91,14 @@ public class ManageChatListener implements Listener {
 					
 				} else if (user.getLevel() == Level.USER) {
 					
-					e.setFormat(p.getName() + ": " + msg.substring(1, msg.length()));
+					if (user.getPrefix().equals("") && !user.getSuffix().equals(""))
+						e.setFormat(user.getSuffix() + " " + p.getName() + ": " + msg.substring(1, msg.length()));
+					else if(!user.getPrefix().equals("") && user.getSuffix().equals(""))
+						e.setFormat(user.getPrefix() + " " + p.getName() + ": " + msg.substring(1, msg.length()));
+					else if(user.getPrefix().equals("") && user.getSuffix().equals(""))
+						e.setFormat(p.getName() + ": " + msg.substring(1, msg.length()));
+					else
+						e.setFormat(user.getPrefix() + " " + user.getSuffix() + " " + p.getName() + ": " + msg.substring(1, msg.length()));
 					
 				} else {
 					
@@ -111,7 +124,14 @@ public class ManageChatListener implements Listener {
 				
 			} else if(user.getLevel() == Level.USER) {
 				
-				e.setFormat(p.getName() + ": " + msg);
+				if (user.getPrefix().equals("") && !user.getSuffix().equals(""))
+					e.setFormat(user.getSuffix() + " " + p.getName() + ": " + msg.substring(1, msg.length()));
+				else if(!user.getPrefix().equals("") && user.getSuffix().equals(""))
+					e.setFormat(user.getPrefix() + " " + p.getName() + ": " + msg.substring(1, msg.length()));
+				else if(user.getPrefix().equals("") && user.getSuffix().equals(""))
+					e.setFormat(p.getName() + ": " + msg.substring(1, msg.length()));
+				else
+					e.setFormat(user.getPrefix() + " " + user.getSuffix() + " " + p.getName() + ": " + msg.substring(1, msg.length()));
 				
 			} else {
 					
@@ -122,6 +142,6 @@ public class ManageChatListener implements Listener {
 			}			
 		}
 		
-		ChatHandler.chatMessagesSent = ChatHandler.getInstance().isChatEnabled() ? ChatHandler.chatMessagesSent++ : ChatHandler.chatMessagesSent + 0;
+		ChatHandler.chatMessagesSent++;
 	}
 }

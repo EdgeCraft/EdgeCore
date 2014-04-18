@@ -95,7 +95,7 @@ public class UserCommand extends AbstractCommand {
 				return false;
 			}
 
-			users.synchronizeUser(users.getUser(args[1]).getUUID());
+			users.synchronizeUser(users.getUser(args[1]).getId());
 			player.sendMessage(lang.getColoredMessage(userLang, "user_reload_success").replace("[0]", args[2]));
 
 			return true;

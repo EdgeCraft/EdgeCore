@@ -109,7 +109,7 @@ public class EdgeCore extends JavaPlugin {
 	    commands.registerCommand( new CommandContainer( ModCommands.getInstance() ) );
 	    
 	    tickets.saveTickets();
-	    @SuppressWarnings("unused") BukkitTask userTask = new UserSynchronizationTask().runTaskTimer(this, 0, 20L * 60 * 10);
+	    @SuppressWarnings("unused") BukkitTask userTask = new UserSynchronizationTask().runTaskTimer(this, 0, 20L * 60 * 25);
 	}
 	
 	/**

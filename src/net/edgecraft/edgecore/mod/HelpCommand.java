@@ -3,7 +3,6 @@ package net.edgecraft.edgecore.mod;
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.CommandContainer;
-import net.edgecraft.edgecore.command.CommandHandler;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
 
@@ -51,17 +50,7 @@ public class HelpCommand extends AbstractCommand {
 		if (args.length == 1) {
 			
 			player.sendMessage("§cCommand Usage: §6/help <command>\n");
-			
-			StringBuilder sb = new StringBuilder();
-			
-			for (String string : CommandHandler.getInstance().getCmdList().keySet()) {
-				if (sb.length() > 0)
-					sb.append("§7, ");
-				
-				sb.append("§6/" + string);
-			}
-			
-			player.sendMessage(sb.toString());
+			player.sendMessage("§cEine Übersicht aller Befehle gibt es §6im Forum!");
 			
 			return true;
 		}

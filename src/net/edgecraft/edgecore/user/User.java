@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 
 public class User {
 	
-	@Deprecated
 	private int id;
 	
 	private UUID uuid;
@@ -37,8 +36,7 @@ public class User {
 	
 	protected User() { /* ... */ }
 	
-	@Deprecated
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 	
@@ -175,6 +173,10 @@ public class User {
 		update("mutereason", reason);
 	}
 	
+	protected void setId(int id) {
+		this.id = id;
+	}
+	
 	protected void setUUID(UUID uuid) {
 		if (uuid != null)
 			this.uuid = uuid;
@@ -229,12 +231,13 @@ public class User {
 	}
 	
 	protected void setMuteReason(String reason) {
-		this.muteReason = reason;
+		if (reason != null)
+			this.muteReason = reason;
 	}
 	
 	@Override
 	public String toString() {
-		return "User {" + getUUID() + " ; " + getName() + " ; " + getIP() + " ; " + getPrefix() + " ; " + getSuffix();
+		return "User {" + getId() + " ; " + getUUID() + " ; " + getName() + " ; " + getIP() + " ; " + getPrefix() + " ; " + getSuffix();
 	}
 	
 	@Override

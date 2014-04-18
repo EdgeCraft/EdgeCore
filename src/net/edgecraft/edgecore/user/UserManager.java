@@ -42,7 +42,7 @@ public class UserManager {
 	 * @param name
 	 * @param ip
 	 */
-	public void registerUser(Player p) {
+	public synchronized void registerUser(Player p) {
 		try {
 			
 			if (exists(p.getName()) || exists(p.getUniqueId())) return;
@@ -55,8 +55,8 @@ public class UserManager {
 					Bukkit.getWorlds().get(0).getSpawnLocation().getYaw() + "," +
 					Bukkit.getWorlds().get(0).getSpawnLocation().getPitch();
 			
-			PreparedStatement registerUser = db.prepareStatement("INSERT INTO " + UserManager.userTable + " (uuid, name, ip, level, lastlocation, prefix, suffix, banned, banreason, muted, mutereason) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT, DEFAULT);");
+			PreparedStatement registerUser = db.prepareStatement("INSERT INTO " + UserManager.userTable + " (uuid, name, ip, level, language, lastlocation, prefix, suffix, banned, banreason, muted, mutereason) "
+					+ "VALUES (?, ?, ?, ?, DEFAULT, ?, ?, ?, DEFAULT, ?, DEFAULT, ?);");
 			
 			registerUser.setString(1, uuid);
 			registerUser.setString(2, p.getName());
@@ -65,9 +65,12 @@ public class UserManager {
 			registerUser.setString(5, lastloc);
 			registerUser.setString(6, "");
 			registerUser.setString(7, "");
+			registerUser.setString(8, "");
+			registerUser.setString(9, "");
+			
 			registerUser.executeUpdate();
 			
-			synchronizeUser(p.getUniqueId());
+			synchronizeUser(getGreatestId());
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -92,8 +95,26 @@ public class UserManager {
 		}
 	}
 	
+	/**
+	 * Deletes an user found by the given name
+	 * @param name
+	 */
 	public void deleteUser(String name) {
 		deleteUser(getUser(name).getUUID());
+	}
+	
+	/**
+	 * Gets the greatest id of users registered
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int getGreatestId() throws Exception {
+		List<Map<String, Object>> tempVar = db.getResults("SELECT COUNT(id) AS amount FROM " + UserManager.userTable + ";");
+ 		int tempID = Integer.parseInt(String.valueOf(tempVar.get(0).get("amount")));
+		
+		if (tempID <= 0) return 1;
+		
+		return tempID;
 	}
 		
 	/**
@@ -205,8 +226,8 @@ public class UserManager {
 	public void synchronizeUsers() {
 		try {
 			
-			for (UUID uuid : users.keySet()) {
-				synchronizeUser(uuid);
+			for (int i = 1; i <= getGreatestId(); i++) {
+				synchronizeUser(i);
 			}
 			
 		} catch(Exception e) {
@@ -218,18 +239,20 @@ public class UserManager {
 	 * Synchronizes the user connected with the given UUID
 	 * @param uuid
 	 */
-	public void synchronizeUser(UUID uuid) {
+	public void synchronizeUser(int id) {
 		try {
 			
-			List<Map<String, Object>> results = db.getResults("SELECT * FROM " + UserManager.userTable + " WHERE uuid = '" + uuid.toString() + "';");
+			List<Map<String, Object>> results = db.getResults("SELECT * FROM " + UserManager.userTable + " WHERE id = '" + id + "';");
 			
 			for (int i = 0; i < results.size(); i++) {
 				
 				User user = new User();
 				
 				for (Map.Entry<String, Object> entry : results.get(i).entrySet()) {
-					
-					if (entry.getKey().equals("uuid")) {
+				
+					if (entry.getKey().equals("id")) {
+						user.setId(Integer.parseInt(entry.getValue().toString()));						
+											} else 	if (entry.getKey().equals("uuid")) {
 						user.setUUID(UUID.fromString(entry.getValue().toString()));
 						
 					} else if(entry.getKey().equals("name")) {
@@ -240,6 +263,9 @@ public class UserManager {
 						
 					} else if(entry.getKey().equals("level")) {
 						user.setLevel(Level.getInstance(Integer.valueOf(entry.getValue().toString())));
+						
+					} else if(entry.getKey().equals("language")) {
+						user.setLanguage(entry.getValue().toString());
 						
 					} else if(entry.getKey().equals("lastlocation")) {
 						String locString = entry.getValue().toString();
@@ -257,10 +283,7 @@ public class UserManager {
 						
 					} else if(entry.getKey().equals("suffix")) {
 						user.setSuffix(entry.getValue().toString());
-						
-					} else if(entry.getKey().equals("language")) {
-						user.setLanguage(entry.getValue().toString());
-						
+												
 					} else if(entry.getKey().equals("banned")) {
 						boolean b = ((Boolean) entry.getValue()).booleanValue();
 						user.setBanStatus(b);

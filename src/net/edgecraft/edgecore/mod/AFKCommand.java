@@ -22,7 +22,7 @@ public class AFKCommand extends AbstractCommand {
 		return instance;
 	}
 	
-	private List<String> afk = new ArrayList<String>();
+	public static List<String> afk = new ArrayList<String>();
 	
 	@Override
 	public String[] getNames() {
@@ -50,10 +50,9 @@ public class AFKCommand extends AbstractCommand {
 	@Override
 	public void sendUsageImpl(CommandSender sender) {
 		sender.sendMessage(EdgeCore.usageColor + "/afk");
-		sender.sendMessage(EdgeCore.usageColor + "/back");
 	}
 
-	private void setAfk( String user ) {
+	public void setAfk( String user ) {
 		
 		boolean isAfk = false;
 		

@@ -18,7 +18,6 @@ public enum Level {
 	 */
 	GUEST(0, "[Gast]", ChatColor.GRAY),
 	USER(1, "", ChatColor.WHITE),
-	BETA(2, "[Beta]", ChatColor.ITALIC),
 	SUPPORTER(5, "[Supporter]", ChatColor.GOLD),
 	ARCHITECT(7, "[Architekt]", ChatColor.DARK_GREEN),
 	MODERATOR(10, "[Moderator]", ChatColor.BLUE),
@@ -43,6 +42,10 @@ public enum Level {
 	
 	public String getName() {
 		return this.chatName;
+	}
+	
+	public String getRawName() {
+		return this.chatName.replace("[", "").replace("]", "");
 	}
 	
 	public ChatColor getColor() {

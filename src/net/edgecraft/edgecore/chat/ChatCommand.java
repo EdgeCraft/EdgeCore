@@ -1,5 +1,6 @@
 package net.edgecraft.edgecore.chat;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -38,6 +39,7 @@ public class ChatCommand extends AbstractCommand {
 		
 		sender.sendMessage(EdgeCore.usageColor + "/chat info");
 		sender.sendMessage(EdgeCore.usageColor + "/chat toggle");
+		sender.sendMessage(EdgeCore.usageColor + "/chat clear");
 		sender.sendMessage(EdgeCore.usageColor + "/chat reset");
 		
 	}
@@ -88,6 +90,23 @@ public class ChatCommand extends AbstractCommand {
 				player.sendMessage(lang.getColoredMessage(userLang, "admin_chat_toggle_enabled"));
 				
 			}
+			
+			return true;
+		}
+		
+		if (args[1].equalsIgnoreCase("clear")) {
+			if (args.length != 2) {
+				sendUsage(player);
+				return true;
+			}
+			
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				for (int i = 0; i < 100; i++) {
+					p.sendMessage("");
+				}
+			}
+			
+			player.sendMessage(lang.getColoredMessage(userLang, "admin_chat_clear_success"));
 			
 			return true;
 		}
