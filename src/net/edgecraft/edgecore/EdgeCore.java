@@ -85,7 +85,8 @@ public class EdgeCore extends JavaPlugin {
 	    this.config.update(this);
 
 	    db.loadConnection();
-
+	    users.checkDatabase();
+	    
 	    users.synchronizeUsers();
 	    system.startTimer();
 	    chat.enableChat(true);

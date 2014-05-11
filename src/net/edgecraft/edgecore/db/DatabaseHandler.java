@@ -82,6 +82,7 @@ public class DatabaseHandler {
 	public void closeConnection() throws SQLException {
 		if ( isAvailable() ) {
 			getConnection().close();
+			loadConnection();
 		}
 	}
 	

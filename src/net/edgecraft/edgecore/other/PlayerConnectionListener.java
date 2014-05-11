@@ -141,8 +141,9 @@ public class PlayerConnectionListener implements Listener {
 				e.disallow(null, lang.getColoredMessage(user.getLanguage(), "info_permban").replace("[0]", user.getBanReason()));
 			}
 			
-			if (EdgeCore.isMaintenance() && (!Level.canUse(user, Level.SUPPORTER) || !EdgeCore.getInvitedPlayers().contains(player.getName()))) {
-				e.disallow(null, ChatColor.RED + "Der Server befindet sich im Wartungsmodus!");
+			if (EdgeCore.isMaintenance() && !EdgeCore.getInvitedPlayers().contains(player.getName())) {
+				if (!Level.canUse(user, Level.SUPPORTER))
+					e.disallow(null, ChatColor.RED + "Der Server befindet sich im Wartungsmodus!");
 			}
 			
 		}

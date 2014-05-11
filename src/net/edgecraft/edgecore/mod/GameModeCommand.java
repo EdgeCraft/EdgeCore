@@ -3,6 +3,7 @@ package net.edgecraft.edgecore.mod;
 import java.util.Arrays;
 
 import net.edgecraft.edgecore.EdgeCore;
+import net.edgecraft.edgecore.EdgeCoreAPI;
 import net.edgecraft.edgecore.command.AbstractCommand;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.user.User;
@@ -58,6 +59,13 @@ public class GameModeCommand extends AbstractCommand {
 		}
 		
 		if (args.length == 3) {
+			
+			User target_ = EdgeCoreAPI.userAPI().getUser(args[1]);
+			
+			if (target_ == null) {
+				player.sendMessage(lang.getColoredMessage(user.getLanguage(), "notfound"));
+				return true;
+			}
 			
 			Player target = Bukkit.getPlayer(users.getUser(args[1]).getUUID());
 			

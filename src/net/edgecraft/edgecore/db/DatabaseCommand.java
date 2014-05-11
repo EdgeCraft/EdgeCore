@@ -169,7 +169,7 @@ public class DatabaseCommand extends AbstractCommand {
 	@Override
 	public void sendUsageImpl( CommandSender sender ) {	
 		
-			sender.sendMessage(EdgeCore.usageColor + "/db check <name> <table>");
+			sender.sendMessage(EdgeCore.usageColor + "/db check [<name> <table>]");
 			sender.sendMessage(EdgeCore.usageColor + "/db connect <host> <user> <pw> <database>");
 			sender.sendMessage(EdgeCore.usageColor + "/db close");
 			return;

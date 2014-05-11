@@ -59,9 +59,11 @@ public class TeleportCommand extends AbstractCommand {
 			return true;
 		}
 		
-		Player tp = Bukkit.getPlayer(users.getUser(args[1]).getUUID());
+		Player tp;
 		
 		if (args.length == 2) {
+			
+			tp = Bukkit.getPlayer(users.getUser(args[1]).getUUID());
 			
 			if (tp == null) {
 				if (!users.exists(args[1])) {
@@ -83,6 +85,7 @@ public class TeleportCommand extends AbstractCommand {
 		
 		if (args.length == 3) {
 			
+			tp = Bukkit.getPlayer(users.getUser(args[1]).getUUID());
 			Player to = Bukkit.getPlayer(users.getUser(args[2]).getUUID());
 			
 			if (tp == null) {
@@ -119,6 +122,8 @@ public class TeleportCommand extends AbstractCommand {
 			}
 			
 			if (args.length == 5) {
+				
+				tp = Bukkit.getPlayer(users.getUser(args[1]).getUUID());
 				
 				if (tp == null) {
 					player.sendMessage(lang.getColoredMessage(user.getLanguage(), "notfound"));

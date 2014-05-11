@@ -10,6 +10,7 @@ import java.util.UUID;
 import net.edgecraft.edgecore.EdgeCore;
 import net.edgecraft.edgecore.command.Level;
 import net.edgecraft.edgecore.db.DatabaseHandler;
+import net.edgecraft.edgecore.lang.LanguageHandler;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -36,6 +37,30 @@ public class UserManager {
 		return instance;
 	}
 	
+	public final void checkDatabase() {
+		try {
+			
+			// Check for user table
+			db.prepareStatement("CREATE TABLE IF NOT EXISTS " + UserManager.userTable + " (id INTEGER AUTO_INCREMENT, "
+					+ "uuid VARCHAR(36) NOT NULL, "
+					+ "name VARCHAR(16) NOT NULL, "
+					+ "ip VARCHAR(40) NOT NULL, "
+					+ "level INTEGER NOT NULL, "
+					+ "language VARCHAR(5) NOT NULL, "
+					+ "lastlocation TEXT NOT NULL, "
+					+ "prefix VARCHAR(16) NOT NULL, "
+					+ "suffix VARCHAR(16) NOT NULL, "
+					+ "banned BOOLEAN NOT NULL DEFAULT 0, "
+					+ "banreason TEXT NOT NULL, "
+					+ "muted BOOLEAN NOT NULL DEFAULT 0, "
+					+ "mutereason TEXT NOT NULL, PRIMARY KEY(id));").executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			EdgeCore.getInstance().getServer().getPluginManager().disablePlugin(EdgeCore.getInstance());
+		}
+	}
+	
 	/**
 	 * Registers a new user.
 	 * (local + db)
@@ -56,7 +81,7 @@ public class UserManager {
 					Bukkit.getWorlds().get(0).getSpawnLocation().getPitch();
 			
 			PreparedStatement registerUser = db.prepareStatement("INSERT INTO " + UserManager.userTable + " (uuid, name, ip, level, language, lastlocation, prefix, suffix, banned, banreason, muted, mutereason) "
-					+ "VALUES (?, ?, ?, ?, DEFAULT, ?, ?, ?, DEFAULT, ?, DEFAULT, ?);");
+					+ "VALUES (?, ?, ?, ?, '" + LanguageHandler.getDefaultLanguage() + "', ?, ?, ?, DEFAULT, ?, DEFAULT, ?);");
 			
 			registerUser.setString(1, uuid);
 			registerUser.setString(2, p.getName());
@@ -109,14 +134,14 @@ public class UserManager {
 	 * @throws Exception
 	 */
 	public int getGreatestId() throws Exception {
-		List<Map<String, Object>> tempVar = db.getResults("SELECT COUNT(id) AS amount FROM " + UserManager.userTable + ";");
- 		int tempID = Integer.parseInt(String.valueOf(tempVar.get(0).get("amount")));
+		List<Map<String, Object>> tempVar = db.getResults("SELECT * FROM " + UserManager.userTable + ";");
 		
-		if (tempID <= 0) return 1;
-		
-		return tempID;
+		if (tempVar.isEmpty() || tempVar.size() <= 0)
+			return 1;
+		else
+			return tempVar.size();
 	}
-		
+	
 	/**
 	 * Returns the current amount of users.
 	 * @return
